@@ -1,3 +1,4 @@
+const util = require('util');
 /*
 JSON.stringify({
   a: '1',
@@ -12,51 +13,46 @@ JSON.stringify({
 });
 */
 
-//*
 const parse = require('./parse');
 const stringify = require('./stringify');
 const assert = require('reassert');
 
-const date = new Date();
-const notDefined = undefined;
+const original = {
+  date: new Date(),
+  undefined: undefined,
+  NaN: NaN,
+  Infinity: Infinity,
+  regex: /^\d+$/,
+  // make sure that old types work as well
+  sub: {obj: {
+    null: null,
+    arr: [1, 'two', undefined, null, {subi: [1]}],
+    str: 'A string',
+    n: 1337,
+  }},
+};
 
-const objSerialized = (
-  stringify({
-    notDefined,
-    date,
-  })
-);
+const serialized = stringify(original, null, 2);
+const deserialized = parse(serialized);
 
-const obj = parse(
-  objSerialized
-);
+console.log('Original:');
+logObj(original);
+console.log('Serialized:');
+console.log(serialized);
+console.log('Deserialized:');
+logObj(deserialized);
 
-console.log(objSerialized);
-console.log(obj);
+/*
 assert(obj.date.constructor===Date);
 assert(obj.date.getTime()===date.getTime());
-
 assert(obj.notDefined===undefined);
-//*/
 
+try {
+  stringify({fn: function(){}});
+  assert(false);
+} catch(err) {}
+*/
 
-
-
-
-var myObject = {
-  num: 50,
-  str: 'A string here',
-  today: new Date(),
-  ar: ['one', 'two', 'three'],
-  obj: {
-    min: 2,
-    max: 1000,
-    bool: true,
-    o: null,
-    val: undefined,
-    re: /^\d+$/,
-    fn: function(val) {
-      // code here
-    }
-  }
+function logObj(obj) {
+  console.log(util.inspect(obj, {depth: Infinity, colors: true}));
 }

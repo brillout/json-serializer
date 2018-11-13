@@ -17,6 +17,6 @@ function modifier(obj, reviver) {
   Object.entries(obj)
   .forEach(([key, val]) => {
     obj[key] = reviver(key, val);
-    modifier(obj[key]);
+    modifier(obj[key], reviver);
   });
 }
