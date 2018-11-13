@@ -1,0 +1,9 @@
+{
+  "name": "@brillout/jpp",
+  "version": "0.0.1",
+  "description": "JSON++",
+  "dependencies": {
+    "reassert": "^1.1.19"
+  },
+  "repository": "github:brillout/jpp"
+}
