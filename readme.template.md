@@ -19,20 +19,26 @@ Whereas JSON++ supports `Date`:
 !INLINE /examples/jpp-date.js --hide-source-path
 ~~~
 
+
+<br/>
 ### Usage
 
 ~~~js
 !INLINE /examples/simple.js --hide-source-path
 ~~~
 
-Because JSON++ supports `Date`, both `obj` and `obj_deserialized` are equal.
+JSON++'s `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
+So you can use all JSON's options.
 
-JSON++ has the exact same interface than `JSON`.
-So you can use all of JSON's options.
 
+<br/>
 ### Full example
 
 Example exposing all differences between JSON and JSON++.
+
+~~~js
+!INLINE /examples/jpp.js
+~~~
 
 To run the example:
 
@@ -46,10 +52,8 @@ $ node ./examples/jpp.js
 
 The `npm run link` is required to be able to self `require('@brillout/jpp')`.
 
-~~~js
-!INLINE /examples/jpp.js
-~~~
 
+<br/>
 ### How it works
 
 Let's see how JSON++ serializes an object:
@@ -61,4 +65,4 @@ Let's see how JSON++ serializes an object:
 JSON++ is based on JSON while using prefixed strings for unsupported types.
 The string `@brillout/jpp:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
-JSON++ uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization for the unsupported types.
+`@brillout/jpp` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.

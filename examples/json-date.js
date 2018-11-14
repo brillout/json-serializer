@@ -6,6 +6,6 @@ let obj = {
 
 assert(obj.time.constructor===Date);
 
-// JSON converts Date to String
+// JSON converts dates to strings
 obj = JSON.parse(JSON.stringify(obj));
 assert(obj.time.constructor===String);
