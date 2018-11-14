@@ -10,17 +10,17 @@ Same as JSON but with support for:
 JSON is great but is lacking for certain JavaScript types such as `Date`:
 
 ~~~js
-!INLINE /test-json-date.json
+!INLINE /test-json-date.js
 ~~~
 
 JSON++ supports `Date`:
 
 ~~~js
-!INLINE /test-jpp-date.json
+!INLINE /test-jpp-date.js
 ~~~
 
 Full example:
 
 ~~~js
-!INLINE /test.json
+!INLINE /test.js
 ~~~
