@@ -109,7 +109,7 @@ JSON++ supports `Date`:
 
 const assert = require('assert');
 const parse = require('./parse');
-const stringify = require('./stringify');
+const stringify = require('@brillout/jpp/stringify');
 
 let obj = {
   time: new Date(),
@@ -131,8 +131,8 @@ const util = require('util');
 const isEqual = require('lodash.isequal');
 const assert = require('assert');
 
-const parse = require('./parse');
-const stringify = require('./stringify');
+const parse = require('@brillout/jpp/parse');
+const stringify = require('@brillout/jpp/stringify');
 
 const original = {
   // types not supported by JSON

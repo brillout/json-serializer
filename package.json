@@ -6,11 +6,13 @@
     "reassert": "^1.1.19"
   },
   "scripts": {
+    "link": "self-import",
     "docs": "mdocs"
   },
   "devDependencies": {
     "@brillout/mdocs": "^0.1.20",
-    "lodash.isequal": "^4.5.0"
+    "lodash.isequal": "^4.5.0",
+    "self-import": "^1.0.1"
   },
   "repository": "github:brillout/jpp"
 }

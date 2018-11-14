@@ -1,6 +1,6 @@
 const assert = require('assert');
 const parse = require('./parse');
-const stringify = require('./stringify');
+const stringify = require('@brillout/jpp/stringify');
 
 let obj = {
   time: new Date(),
