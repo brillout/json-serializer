@@ -7,7 +7,7 @@ Same as JSON but with added support for:
  - `Inifinity`
  - `RegExp`
 
-JSON is great but is lacking for some JavaScript types such as `Date`:
+JSON is great but is lacking for some (crucial) JavaScript types such as `Date`:
 
 ~~~js
 !INLINE /examples/json-date.js --hide-source-path
@@ -55,7 +55,10 @@ The `npm run link` is required to be able to self `require('@brillout/jpp')`.
 Let's see how JSON++ serializes an object:
 
 ~~~js
-!INLINE /test.js
+!INLINE /examples/inspect.js
 ~~~
+
+JSON++ is based on JSON while using prefixed strings for unsupported types.
+The string `@brillout/jpp:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
 JSON++ uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization for the unsupported types.
