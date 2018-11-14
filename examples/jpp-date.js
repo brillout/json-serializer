@@ -1,5 +1,5 @@
 const assert = require('assert');
-const parse = require('./parse');
+const parse = require('@brillout/jpp/parse');
 const stringify = require('@brillout/jpp/stringify');
 
 let obj = {

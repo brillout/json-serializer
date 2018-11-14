@@ -11,7 +11,7 @@ const original = {
   undefined: undefined,
   NaN: NaN,
   Infinity: Infinity,
-  regex: /^\d+$/gi,
+  regexp: /^\d+.*(a|b)$/gi,
 
   // types supported by JSON
   sub: {obj: {
@@ -29,13 +29,21 @@ const deserialized = parse(serialized);
 
 assert(isEqual(original, deserialized));
 
-console.log('Serialized:');
+console.log('JSON serialized->deserialized.');
+console.log('(Note how we loose many values.)');
+console.log(JSON.parse(JSON.stringify(original)));
+console.log();
+
+console.log('JSON++ serialized.');
 console.log(serialized);
 console.log();
-console.log('Original:');
+
+console.log('Original object.');
 logObj(original);
 console.log();
-console.log('Deserialized:');
+
+console.log('JSON++ serialized->deserialized.');
+console.log('(Note that all values are preserved and that this object is a clone of the original object.)');
 logObj(deserialized);
 
 function logObj(obj) {

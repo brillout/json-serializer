@@ -3,7 +3,6 @@ const {typePrefix} = require('./common');
 module.exports = replacer;
 
 function replacer(key, value, ...ar) {
-//console.log(key, value, ar);
   if( value instanceof Date ) {
     return getTypePrefix("Date")+"|"+value.toISOString();
   }
