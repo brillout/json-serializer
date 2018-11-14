@@ -19,8 +19,8 @@ Whereas JSON++ supports `Date`:
 !INLINE /examples/jpp-date.js --hide-source-path
 ~~~
 
-
 <br/>
+
 ### Usage
 
 ~~~js
@@ -30,8 +30,8 @@ Whereas JSON++ supports `Date`:
 JSON++'s `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
 So you can use all JSON's options.
 
-
 <br/>
+
 ### Full example
 
 Example exposing all differences between JSON and JSON++.
@@ -52,8 +52,8 @@ $ node ./examples/jpp.js
 
 The `npm run link` is required to be able to self `require('@brillout/jpp')`.
 
-
 <br/>
+
 ### How it works
 
 Let's see how JSON++ serializes an object:

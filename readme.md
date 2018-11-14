@@ -118,8 +118,8 @@ obj = parse(stringify(obj));
 assert(obj.time.constructor===Date);
 ~~~
 
-
 <br/>
+
 ### Usage
 
 ~~~js
@@ -142,8 +142,8 @@ const obj_deserialized = parse(obj_serialized);
 JSON++'s `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
 So you can use all JSON's options.
 
-
 <br/>
+
 ### Full example
 
 Example exposing all differences between JSON and JSON++.
@@ -198,8 +198,8 @@ $ node ./examples/jpp.js
 
 The `npm run link` is required to be able to self `require('@brillout/jpp')`.
 
-
 <br/>
+
 ### How it works
 
 Let's see how JSON++ serializes an object:
