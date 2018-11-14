@@ -1,3 +1,3 @@
-const typePrefix = "@brillout/json";
+const typePrefix = "@brillout/jpp:tYpE";
 
 module.exports = {typePrefix};
