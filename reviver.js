@@ -8,11 +8,22 @@ function reviver(key, value) {
   if( ! type ) {
     return value;
   }
-  if( type==="date" ) {
+  if( type==="Date" ) {
     return new Date(val);
+  }
+  if( type==="RegExp" ) {
+ // const args = val.match(/\/(.*?)\/([gimy])?$/);
+    const args = val.match(/\/(.*)\/(.*)?/);
+    return new RegExp(args[1], args[2]||"");
   }
   if( type==="undefined" ) {
     return undefined;
+  }
+  if( type==="NaN" ) {
+    return NaN;
+  }
+  if( type==="Infinity" ) {
+    return Infinity;
   }
   assert.usage(false, "unknown type `"+type+"`");
 }

@@ -22,7 +22,7 @@ const original = {
   undefined: undefined,
   NaN: NaN,
   Infinity: Infinity,
-  regex: /^\d+$/,
+  regex: /^\d+$/gi,
   // make sure that old types work as well
   sub: {obj: {
     null: null,
