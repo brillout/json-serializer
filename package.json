@@ -1,6 +1,6 @@
 {
   "name": "@brillout/jpp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "JSON++ - Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
   "dependencies": {
     "reassert": "^1.1.19"
