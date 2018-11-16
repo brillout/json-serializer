@@ -1,7 +1,7 @@
 {
-  "name": "@brillout/jpp",
-  "version": "0.1.3",
-  "description": "JSON++ - Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
+  "name": "json-s",
+  "version": "0.1.4",
+  "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
   "dependencies": {
     "reassert": "^1.1.19"
   },
@@ -14,7 +14,7 @@
     "lodash.isequal": "^4.5.0",
     "self-import": "^1.0.1"
   },
-  "repository": "github:brillout/jpp",
+  "repository": "github:brillout/json-s",
   "publishConfig": {
     "access": "public"
   }

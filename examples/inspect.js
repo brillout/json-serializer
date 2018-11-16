@@ -1,4 +1,4 @@
-const stringify = require('@brillout/jpp/stringify');
+const JSON = require('json-s');
 
 const obj = {
   date: new Date(),
@@ -8,16 +8,16 @@ const obj = {
   regexp: /^\d+$/g,
 };
 
-// We use the second argument `2` to have a prettified JSON++ string.
-// (Same as in `JSON.stringify(obj, undefined, 2)`).
-console.log(stringify(obj, undefined, 2));
+// We use the second argument `2` to have a prettified JSON-S string.
+// (Same as in JSON's `JSON.stringify(obj, undefined, 2)`).
+console.log(JSON.stringify(obj, undefined, 2));
 // Prints:
 /*
 {
-  "date": "@brillout/jpp:tYpE|Date|2018-11-14T17:39:09.245Z",
-  "undefined": "@brillout/jpp:tYpE|undefined",
-  "NaN": "@brillout/jpp:tYpE|NaN",
-  "Infinity": "@brillout/jpp:tYpE|Infinity",
-  "regexp": "@brillout/jpp:tYpE|RegExp|/^\\d+$/g"
+  "date": "json-s:tYpE|Date|2018-11-14T17:39:09.245Z",
+  "undefined": "json-s:tYpE|undefined",
+  "NaN": "json-s:tYpE|NaN",
+  "Infinity": "json-s:tYpE|Infinity",
+  "regexp": "json-s:tYpE|RegExp|/^\\d+$/g"
 }
 */

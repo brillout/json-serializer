@@ -1,8 +1,3 @@
-const assert = require('reassert');
-
-assert.usage(
-  false,
-  "Instead of `require('@brillout/jpp'), do:",
-  "   `require('brillout/jpp/stringify')`, or",
-  "   `require('brillout/jpp/parse')`",
-);
+const stringify = require('./stringify');
+const parse = require('./parse');
+module.exports = {stringify, parse};
