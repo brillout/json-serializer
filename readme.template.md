@@ -1,5 +1,7 @@
 # JSON-S
 
+<i>JSON-<b>S</b>erializer</i>
+
 Same as JSON but with added support for:
  - `Date`
  - `undefined`
@@ -8,7 +10,7 @@ Same as JSON but with added support for:
  - `RegExp`
 
 JSON is a great serializer.
-But is lacking for some (crucial) JavaScript types such as `Date`:
+But it is lacking for some (crucial) JavaScript types such as `Date`:
 
 ~~~js
 !INLINE /examples/json-date.js --hide-source-path
