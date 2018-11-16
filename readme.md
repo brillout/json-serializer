@@ -75,7 +75,7 @@
 
 
 -->
-# JSON++
+# JSON-S
 
 Same as JSON but with added support for:
  - `Date`
@@ -84,7 +84,8 @@ Same as JSON but with added support for:
  - `Inifinity`
  - `RegExp`
 
-JSON is great but is lacking for some (crucial) JavaScript types such as `Date`:
+JSON is a great serializer.
+But is lacking for some (crucial) JavaScript types such as `Date`:
 
 ~~~js
 const assert = require('assert');
@@ -100,12 +101,11 @@ obj = JSON.parse(JSON.stringify(obj));
 assert(obj.time.constructor===String);
 ~~~
 
-Whereas JSON++ supports `Date`:
+Whereas JSON-S supports `Date`:
 
 ~~~js
 const assert = require('assert');
-const parse = require('@brillout/jpp/parse');
-const stringify = require('@brillout/jpp/stringify');
+const JSON = require('json-s');
 
 let obj = {
   time: new Date(),
@@ -113,8 +113,8 @@ let obj = {
 
 assert(obj.time.constructor===Date);
 
-// JSON++ preserves Date
-obj = parse(stringify(obj));
+// JSON-S preserves Date
+obj = JSON.parse(JSON.stringify(obj));
 assert(obj.time.constructor===Date);
 ~~~
 
@@ -123,38 +123,38 @@ assert(obj.time.constructor===Date);
 ### Usage
 
 ~~~js
-// npm install @brillout/jpp
-const parse = require('@brillout/jpp/parse');
-const stringify = require('@brillout/jpp/stringify');
+// npm install json-s
+const parse = require('json-s/parse');
+const stringify = require('json-s/stringify');
 
 const obj = {
   hello: 'from the future',
   time: new Date('2042-01-01'),
 };
 
-// Serialize with JSON++
+// Serialize with JSON-S
 const obj_serialized = stringify(obj);
 
-// Deserialize a JSON++ string
+// Deserialize a JSON-S string
 const obj_deserialized = parse(obj_serialized);
 ~~~
 
-JSON++'s `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
+The JSON-S functions `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
 So you can use all JSON's options.
 
 <br/>
 
 ### Full example
 
-Example exposing all differences between JSON and JSON++.
+Example exposing all differences between JSON and JSON-S.
 
 ~~~js
-// /examples/jpp.js
+// /examples/json-s.js
 
 const assert = require('assert');
 
-const parse = require('@brillout/jpp/parse');
-const stringify = require('@brillout/jpp/stringify');
+const parse = require('json-s/parse');
+const stringify = require('json-s/stringify');
 
 const obj = {
   date: new Date(),
@@ -164,50 +164,50 @@ const obj = {
   regexp: /^\d+$/g,
 };
 
-// All of `obj` can be serialized with JSON++
-const obj_jpp = parse(stringify(obj))
-assert(obj_jpp.date.getTime()===obj.date.getTime());
-assert(obj_jpp.undefined===undefined && 'undefined' in obj_jpp);
-assert(isNaN(obj_jpp.NaN));
-assert(obj_jpp.Infinity===Infinity);
-assert(obj_jpp.regexp.toString()===obj.regexp.toString());
+// All of `obj` can be serialized with JSON-S
+const obj2 = parse(stringify(obj))
+assert(obj2.date.getTime()===obj.date.getTime());
+assert(obj2.undefined===undefined && 'undefined' in obj2);
+assert(isNaN(obj2.NaN));
+assert(obj2.Infinity===Infinity);
+assert(obj2.regexp.toString()===obj.regexp.toString());
 
 // JSON cannot serialize any of `obj`
-const obj_json = JSON.parse(JSON.stringify(obj))
+const obj3 = JSON.parse(JSON.stringify(obj))
 // JSON converts dates to strings
-assert(obj_json.constructor!==Date);
+assert(obj3.constructor!==Date);
 // JSON removes properties with a value of `undefined`
-assert(!('undefined' in obj_json));
+assert(!('undefined' in obj3));
 // JSON converts `NaN` to `null`
-assert(obj_json.NaN===null);
+assert(obj3.NaN===null);
 // JSON converts `Infinity` to `null`
-assert(obj_json.Infinity===null);
+assert(obj3.Infinity===null);
 // JSON converts RegExp to an empty object
-assert(obj_json.regexp.constructor===Object && Object.keys(obj_json.regexp).length===0);
+assert(obj3.regexp.constructor===Object && Object.keys(obj3.regexp).length===0);
 ~~~
 
 To run the example:
 
 ~~~shell
-$ git clone git@github.com:brillout/jpp.git
-$ cd jpp
+$ git clone git@github.com:brillout/json-s.git
+$ cd json-s
 $ npm install
 $ npm run link
-$ node ./examples/jpp.js
+$ node ./examples/json-s.js
 ~~~
 
-The `npm run link` is required to be able to self `require('@brillout/jpp')`.
+The `npm run link` is required to be able to self `require('json-s')`.
 
 <br/>
 
 ### How it works
 
-Let's see how JSON++ serializes an object:
+Let's see how JSON-S serializes an object:
 
 ~~~js
 // /examples/inspect.js
 
-const stringify = require('@brillout/jpp/stringify');
+const JSON = require('json-s');
 
 const obj = {
   date: new Date(),
@@ -217,25 +217,25 @@ const obj = {
   regexp: /^\d+$/g,
 };
 
-// We use the second argument `2` to have a prettified JSON++ string.
-// (Same as in `JSON.stringify(obj, undefined, 2)`).
-console.log(stringify(obj, undefined, 2));
+// We use the second argument `2` to have a prettified JSON-S string.
+// (Same as in JSON's `JSON.stringify(obj, undefined, 2)`).
+console.log(JSON.stringify(obj, undefined, 2));
 // Prints:
 /*
 {
-  "date": "@brillout/jpp:tYpE|Date|2018-11-14T17:39:09.245Z",
-  "undefined": "@brillout/jpp:tYpE|undefined",
-  "NaN": "@brillout/jpp:tYpE|NaN",
-  "Infinity": "@brillout/jpp:tYpE|Infinity",
-  "regexp": "@brillout/jpp:tYpE|RegExp|/^\\d+$/g"
+  "date": "json-s:tYpE|Date|2018-11-14T17:39:09.245Z",
+  "undefined": "json-s:tYpE|undefined",
+  "NaN": "json-s:tYpE|NaN",
+  "Infinity": "json-s:tYpE|Infinity",
+  "regexp": "json-s:tYpE|RegExp|/^\\d+$/g"
 }
 */
 ~~~
 
-JSON++ is based on JSON while using prefixed strings for unsupported types.
-The string `@brillout/jpp:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
+JSON-S is based on JSON while using prefixed strings for unsupported types.
+The string `json-s:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
-`@brillout/jpp` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
+`json-s` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
 
 <!---
 
