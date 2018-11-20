@@ -10,17 +10,26 @@ Same as JSON but with added support for:
  - `RegExp`
 
 JSON is a great serializer.
-But it is lacking for some (crucial) JavaScript types such as `Date`:
+But it is lacking for some JavaScript types such as `Date`:
 
 ~~~js
 !INLINE /examples/json-date.js --hide-source-path
 ~~~
 
-Whereas JSON-S supports `Date`:
+Whereas with JSON-S:
 
 ~~~js
 !INLINE /examples/json-s-date.js --hide-source-path
 ~~~
+
+<br/>
+
+#### Contents
+
+ - [Usage](#usage)
+ - [Full Example](#full-example)
+ - [How it Works](#how-it-works)
+
 
 <br/>
 
@@ -35,7 +44,7 @@ So you can use all JSON's options.
 
 <br/>
 
-### Full example
+### Full Example
 
 Example exposing all differences between JSON and JSON-S.
 
@@ -57,7 +66,7 @@ The `npm run link` is required to be able to self `require('json-s')`.
 
 <br/>
 
-### How it works
+### How it Works
 
 Let's see how JSON-S serializes an object:
 

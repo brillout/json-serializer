@@ -14,8 +14,5 @@
     "lodash.isequal": "^4.5.0",
     "self-import": "^1.0.1"
   },
-  "repository": "github:brillout/json-s",
-  "publishConfig": {
-    "access": "public"
-  }
+  "repository": "github:brillout/json-s"
 }

@@ -87,38 +87,47 @@ Same as JSON but with added support for:
  - `RegExp`
 
 JSON is a great serializer.
-But it is lacking for some (crucial) JavaScript types such as `Date`:
+But it is lacking for some JavaScript types such as `Date`:
 
 ~~~js
 const assert = require('assert');
 
 let obj = {
-  time: new Date(),
+  time: new Date('2042-01-01'),
 };
 
-assert(obj.time.constructor===Date);
-
 // JSON converts dates to strings
+assert(obj.time.constructor===Date);
 obj = JSON.parse(JSON.stringify(obj));
 assert(obj.time.constructor===String);
+assert(obj.time==='2042-01-01T00:00:00.000Z');
 ~~~
 
-Whereas JSON-S supports `Date`:
+Whereas with JSON-S:
 
 ~~~js
 const assert = require('assert');
 const JSON = require('json-s');
 
 let obj = {
-  time: new Date(),
+  time: new Date('2042-01-01'),
 };
 
-assert(obj.time.constructor===Date);
-
 // JSON-S preserves Date
+assert(obj.time.constructor===Date);
 obj = JSON.parse(JSON.stringify(obj));
 assert(obj.time.constructor===Date);
+assert(obj.time.getTime()===new Date('2042-01-01').getTime());
 ~~~
+
+<br/>
+
+#### Contents
+
+ - [Usage](#usage)
+ - [Full Example](#full-example)
+ - [How it Works](#how-it-works)
+
 
 <br/>
 
@@ -146,7 +155,7 @@ So you can use all JSON's options.
 
 <br/>
 
-### Full example
+### Full Example
 
 Example exposing all differences between JSON and JSON-S.
 
@@ -202,7 +211,7 @@ The `npm run link` is required to be able to self `require('json-s')`.
 
 <br/>
 
-### How it works
+### How it Works
 
 Let's see how JSON-S serializes an object:
 
