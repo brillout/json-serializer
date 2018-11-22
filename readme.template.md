@@ -55,7 +55,7 @@ Example exposing all differences between JSON and JSON-S.
 To run the example:
 
 ~~~shell
-$ git clone git@github.com:brillout/json-s.git
+$ git clone git@github.com:brillout/json-s
 $ cd json-s
 $ npm install
 $ npm run link

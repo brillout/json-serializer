@@ -200,7 +200,7 @@ assert(obj3.regexp.constructor===Object && Object.keys(obj3.regexp).length===0);
 To run the example:
 
 ~~~shell
-$ git clone git@github.com:brillout/json-s.git
+$ git clone git@github.com:brillout/json-s
 $ cd json-s
 $ npm install
 $ npm run link
