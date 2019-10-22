@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
   "dependencies": {
-    "reassert": "^1.1.19"
+    "@brillout/assert": "^0.1.0"
   },
   "scripts": {
     "link": "self-import",

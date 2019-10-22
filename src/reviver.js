@@ -1,5 +1,5 @@
 const {typePrefix} = require('./common');
-const assert = require('reassert');
+const assert = require('@brillout/assert');
 
 module.exports = reviver;
 
@@ -25,7 +25,7 @@ function reviver(key, value) {
   if( type==="Infinity" ) {
     return Infinity;
   }
-  assert.usage(false, "unknown type `"+type+"`");
+  assert.usage(false, "[@brillout/json-s]: Unknown type `"+type+"`.");
 }
 
 function getTypePrefix(value) {
