@@ -1,4 +1,4 @@
-const JSON = require('json-s');
+const JSON = require('@brillout/json-s');
 
 const obj = {
   date: new Date(),

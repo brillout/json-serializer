@@ -1,5 +1,5 @@
 const assert = require('assert');
-const JSON = require('json-s');
+const JSON = require('@brillout/json-s');
 
 let obj = {
   time: new Date('2042-01-01'),

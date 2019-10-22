@@ -1,6 +1,6 @@
-// npm install json-s
-const parse = require('json-s/parse');
-const stringify = require('json-s/stringify');
+// npm install @brillout/json-s
+const parse = require('@brillout/json-s/parse');
+const stringify = require('@brillout/json-s/stringify');
 
 const obj = {
   hello: 'from the future',

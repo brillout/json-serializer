@@ -1,7 +1,7 @@
 const assert = require('assert');
 
-const parse = require('json-s/parse');
-const stringify = require('json-s/stringify');
+const parse = require('@brillout/json-s/parse');
+const stringify = require('@brillout/json-s/stringify');
 
 const obj = {
   date: new Date(),

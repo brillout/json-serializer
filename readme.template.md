@@ -62,7 +62,7 @@ $ npm run link
 $ node ./examples/json-s.js
 ~~~
 
-The `npm run link` is required to be able to self `require('json-s')`.
+The `npm run link` is required to be able to self `require('@brillout/json-s')`.
 
 <br/>
 
@@ -77,4 +77,4 @@ Let's see how JSON-S serializes an object:
 JSON-S is based on JSON while using prefixed strings for unsupported types.
 The string `json-s:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
-`json-s` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
+JSON-S uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.

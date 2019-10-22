@@ -1,5 +1,5 @@
 {
-  "name": "json-s",
+  "name": "@brillout/json-s",
   "version": "0.1.0",
   "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
   "dependencies": {
@@ -14,5 +14,6 @@
     "lodash.isequal": "^4.5.0",
     "self-import": "^1.0.1"
   },
-  "repository": "github:brillout/json-s"
+  "repository": "github:brillout/json-s",
+  "publishConfig": { "access": "public" }
 }

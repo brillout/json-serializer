@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -107,7 +107,7 @@ Whereas with JSON-S:
 
 ~~~js
 const assert = require('assert');
-const JSON = require('json-s');
+const JSON = require('@brillout/json-s');
 
 let obj = {
   time: new Date('2042-01-01'),
@@ -134,9 +134,9 @@ assert(obj.time.getTime()===new Date('2042-01-01').getTime());
 ### Usage
 
 ~~~js
-// npm install json-s
-const parse = require('json-s/parse');
-const stringify = require('json-s/stringify');
+// npm install @brillout/json-s
+const parse = require('@brillout/json-s/parse');
+const stringify = require('@brillout/json-s/stringify');
 
 const obj = {
   hello: 'from the future',
@@ -164,8 +164,8 @@ Example exposing all differences between JSON and JSON-S.
 
 const assert = require('assert');
 
-const parse = require('json-s/parse');
-const stringify = require('json-s/stringify');
+const parse = require('@brillout/json-s/parse');
+const stringify = require('@brillout/json-s/stringify');
 
 const obj = {
   date: new Date(),
@@ -207,7 +207,7 @@ $ npm run link
 $ node ./examples/json-s.js
 ~~~
 
-The `npm run link` is required to be able to self `require('json-s')`.
+The `npm run link` is required to be able to self `require('@brillout/json-s')`.
 
 <br/>
 
@@ -218,7 +218,7 @@ Let's see how JSON-S serializes an object:
 ~~~js
 // /examples/inspect.js
 
-const JSON = require('json-s');
+const JSON = require('@brillout/json-s');
 
 const obj = {
   date: new Date(),
@@ -246,7 +246,7 @@ console.log(JSON.stringify(obj, undefined, 2));
 JSON-S is based on JSON while using prefixed strings for unsupported types.
 The string `json-s:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
-`json-s` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
+JSON-S uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
 
 <!---
 
@@ -257,7 +257,7 @@ The string `json-s:tYpE` is used as a unique prefix to denote our special string
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -272,7 +272,7 @@ The string `json-s:tYpE` is used as a unique prefix to denote our special string
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -287,7 +287,7 @@ The string `json-s:tYpE` is used as a unique prefix to denote our special string
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -302,7 +302,7 @@ The string `json-s:tYpE` is used as a unique prefix to denote our special string
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 
@@ -317,7 +317,7 @@ The string `json-s:tYpE` is used as a unique prefix to denote our special string
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/readme.template.md` instead.
+    Instead, edit `/readme.template.md` and run `npm run docs` (or `yarn docs`).
 
 
 

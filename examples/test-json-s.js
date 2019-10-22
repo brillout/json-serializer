@@ -2,8 +2,8 @@ const util = require('util');
 const isEqual = require('lodash.isequal');
 const assert = require('assert');
 
-const parse = require('json-s/parse');
-const stringify = require('json-s/stringify');
+const parse = require('@brillout/json-s/parse');
+const stringify = require('@brillout/json-s/stringify');
 
 const original = {
   // types not supported by JSON
