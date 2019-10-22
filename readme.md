@@ -203,11 +203,11 @@ To run the example:
 $ git clone git@github.com:brillout/json-s
 $ cd json-s
 $ npm install
-$ npm run link
+$ npm run self-link
 $ node ./examples/json-s.js
 ~~~
 
-The `npm run link` is required to be able to self `require('@brillout/json-s')`.
+The `npm run self-link` is required to be able to self `require('@brillout/json-s')`.
 
 <br/>
 

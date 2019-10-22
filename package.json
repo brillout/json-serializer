@@ -6,7 +6,7 @@
     "@brillout/assert": "^0.1.0"
   },
   "scripts": {
-    "link": "self-import",
+    "self-link": "self-import",
     "docs": "mdocs"
   },
   "devDependencies": {
