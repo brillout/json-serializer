@@ -6,16 +6,15 @@ function parse(...args) {
   const obj = JSON.parse.apply(JSON, args);
   // We don't use the reviver option in `JSON.parse(obj, reviver)`
   // because we want the reviver to be able to change a value to undefined
-  modifier(obj, reviver);
-  return obj;
+  return modifier(obj);
 }
 
-function modifier(obj, reviver) {
+function modifier(obj) {
   if (!(obj instanceof Object)) {
-    return obj;
+    return reviver("__unkown-key__", obj);
   }
   Object.entries(obj).forEach(([key, val]) => {
-    obj[key] = reviver(key, val);
-    modifier(obj[key], reviver);
+    obj[key] = modifier(val);
   });
+  return obj;
 }
