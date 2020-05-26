@@ -15,5 +15,7 @@
     "self-import": "^1.0.1"
   },
   "repository": "github:brillout/json-s",
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  }
 }

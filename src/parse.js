@@ -1,4 +1,4 @@
-const reviver = require('./reviver');
+const reviver = require("./reviver");
 
 module.exports = parse;
 
@@ -11,11 +11,10 @@ function parse(...args) {
 }
 
 function modifier(obj, reviver) {
-  if( ! (obj instanceof Object) ) {
+  if (!(obj instanceof Object)) {
     return obj;
   }
-  Object.entries(obj)
-  .forEach(([key, val]) => {
+  Object.entries(obj).forEach(([key, val]) => {
     obj[key] = reviver(key, val);
     modifier(obj[key], reviver);
   });

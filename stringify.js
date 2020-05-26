@@ -1,1 +1,1 @@
-module.exports = require('./src/stringify');
+module.exports = require("./src/stringify");

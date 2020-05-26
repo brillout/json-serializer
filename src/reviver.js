@@ -1,28 +1,28 @@
-const {typePrefix} = require('./common');
+const { typePrefix } = require("./common");
 // const assert = require('@brillout/assert');
 
 module.exports = reviver;
 
 function reviver(key, value) {
-  const {type, val} = getTypePrefix(value);
-  if( ! type ) {
+  const { type, val } = getTypePrefix(value);
+  if (!type) {
     return value;
   }
-  if( type==="Date" ) {
+  if (type === "Date") {
     return new Date(val);
   }
-  if( type==="RegExp" ) {
- // const args = val.match(/\/(.*?)\/([gimy])?$/);
+  if (type === "RegExp") {
+    // const args = val.match(/\/(.*?)\/([gimy])?$/);
     const args = val.match(/\/(.*)\/(.*)?/);
-    return new RegExp(args[1], args[2]||"");
+    return new RegExp(args[1], args[2] || "");
   }
-  if( type==="undefined" ) {
+  if (type === "undefined") {
     return undefined;
   }
-  if( type==="NaN" ) {
+  if (type === "NaN") {
     return NaN;
   }
-  if( type==="Infinity" ) {
+  if (type === "Infinity") {
     return Infinity;
   }
   // TODO
@@ -33,11 +33,15 @@ function reviver(key, value) {
 }
 
 function getTypePrefix(value) {
-  if( !value || value.constructor!==String || ! value.startsWith(typePrefix+'|') ) {
+  if (
+    !value ||
+    value.constructor !== String ||
+    !value.startsWith(typePrefix + "|")
+  ) {
     return {};
   }
 
-  const [prefix, type, ...valArray] = value.split('|');
+  const [prefix, type, ...valArray] = value.split("|");
 
   // TODO
   //  - re-use this `assert.internal`
@@ -45,7 +49,7 @@ function getTypePrefix(value) {
   //  - check if Node.js support of ES modules is widespread nowadays, if yes -> use ES modules instead of CJS.
   // assert.internal(prefix===typePrefix);
 
-  const val = valArray.join('|');
+  const val = valArray.join("|");
 
-  return {type, val};
+  return { type, val };
 }

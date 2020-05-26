@@ -1,2 +1,1 @@
-module.exports = require('./src/parse');
-
+module.exports = require("./src/parse");

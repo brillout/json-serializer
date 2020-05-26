@@ -1,9 +1,9 @@
-const util = require('util');
-const isEqual = require('lodash.isequal');
-const assert = require('assert');
+const util = require("util");
+const isEqual = require("lodash.isequal");
+const assert = require("assert");
 
-const parse = require('@brillout/json-s/parse');
-const stringify = require('@brillout/json-s/stringify');
+const parse = require("@brillout/json-s/parse");
+const stringify = require("@brillout/json-s/stringify");
 
 const original = {
   // types not supported by JSON
@@ -14,14 +14,16 @@ const original = {
   regexp: /^\d+.*(a|b)$/gi,
 
   // types supported by JSON
-  sub: {obj: {
-    null: null,
-    false: false,
-    true: true,
-    arr: [1, 'two', undefined, null, {subi: [1]}],
-    str: 'A string',
-    n: 1337,
-  }},
+  sub: {
+    obj: {
+      null: null,
+      false: false,
+      true: true,
+      arr: [1, "two", undefined, null, { subi: [1] }],
+      str: "A string",
+      n: 1337,
+    },
+  },
 };
 
 const serialized = stringify(original, null, 2);
@@ -29,23 +31,25 @@ const deserialized = parse(serialized);
 
 assert(isEqual(original, deserialized));
 
-console.log('JSON serialized->deserialized.');
-console.log('(Note how we loose many values.)');
+console.log("JSON serialized->deserialized.");
+console.log("(Note how we loose many values.)");
 console.log(JSON.parse(JSON.stringify(original)));
 console.log();
 
-console.log('JSON-S serialized.');
+console.log("JSON-S serialized.");
 console.log(serialized);
 console.log();
 
-console.log('Original object.');
+console.log("Original object.");
 logObj(original);
 console.log();
 
-console.log('JSON-S serialized->deserialized.');
-console.log('(Note that all values are preserved and that this object is a clone of the original object.)');
+console.log("JSON-S serialized->deserialized.");
+console.log(
+  "(Note that all values are preserved and that this object is a clone of the original object.)"
+);
 logObj(deserialized);
 
 function logObj(obj) {
-  console.log(util.inspect(obj, {depth: Infinity, colors: true}));
+  console.log(util.inspect(obj, { depth: Infinity, colors: true }));
 }
