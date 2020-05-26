@@ -1,5 +1,5 @@
 const {typePrefix} = require('./common');
-const assert = require('@brillout/assert');
+// const assert = require('@brillout/assert');
 
 module.exports = reviver;
 
@@ -25,7 +25,11 @@ function reviver(key, value) {
   if( type==="Infinity" ) {
     return Infinity;
   }
-  assert.usage(false, "[@brillout/json-s]: Unknown type `"+type+"`.");
+  // TODO
+  //  - re-use this `assert.internal`
+  //  - but make sure to avoid cyclic dependency: JSON-S => @brillout/assert => JSON-S
+  //  - check if Node.js support of ES modules is widespread nowadays, if yes -> use ES modules instead of CJS.
+  // assert.usage(false, "[@brillout/json-s]: Unknown type `"+type+"`.");
 }
 
 function getTypePrefix(value) {
@@ -34,7 +38,13 @@ function getTypePrefix(value) {
   }
 
   const [prefix, type, ...valArray] = value.split('|');
-  assert.internal(prefix===typePrefix);
+
+  // TODO
+  //  - re-use this `assert.internal`
+  //  - but make sure to avoid cyclic dependency: JSON-S => @brillout/assert => JSON-S
+  //  - check if Node.js support of ES modules is widespread nowadays, if yes -> use ES modules instead of CJS.
+  // assert.internal(prefix===typePrefix);
+
   const val = valArray.join('|');
 
   return {type, val};
