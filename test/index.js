@@ -3,6 +3,7 @@ const { parse, stringify } = require("../");
 
 cannotSerializeFunctions1();
 cannotSerializeFunctions2();
+canSerializeUndefined();
 
 console.log("All tests successfully passed");
 
@@ -24,4 +25,8 @@ function cannotSerializeFunctions2() {
     err = _err;
   }
   assert(err.message.includes("Cannot serialize function"));
+}
+
+function canSerializeUndefined() {
+  assert(parse(stringify(undefined)) === undefined);
 }
