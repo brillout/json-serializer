@@ -1,13 +1,13 @@
 {
   "name": "@brillout/json-s",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
   "dependencies": {
     "@brillout/assert": "^0.1.0"
   },
   "scripts": {
     "test": "node test/",
-    "postinstall": "yarn self-link",
+    "prepare": "yarn self-link",
     "self-link": "self-import",
     "docs": "mdocs"
   },
