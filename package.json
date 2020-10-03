@@ -6,6 +6,8 @@
     "@brillout/assert": "^0.1.0"
   },
   "scripts": {
+    "test": "node test/",
+    "postinstall": "yarn self-link",
     "self-link": "self-import",
     "docs": "mdocs"
   },
