@@ -246,7 +246,6 @@ console.log(JSON.stringify(obj, undefined, 2));
 ~~~
 
 JSON-S is based on JSON while using prefixed strings for unsupported types.
-The string `json-s:tYpE` is used as a unique prefix to denote our special strings and make sure that regular strings are not converted.
 
 JSON-S uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
 
