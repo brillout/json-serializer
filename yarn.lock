@@ -2,13 +2,6 @@
 # yarn lockfile v1
 
 
-"@brillout/assert@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@brillout/assert/-/assert-0.1.0.tgz#58913f1bf4567aa79b0fcdb3963f9af136fbf7e9"
-  integrity sha512-o3cOSvgK59I4QFVDXYwwvU6/QcpWf1C7aM8402mSAPh97KpYSAk9SX06Me6jLjAsv2rEob8gzv1u0INCmTtneQ==
-  dependencies:
-    "@brillout/format-text" "^0.1.3"
-
 "@brillout/find-package-files@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@brillout/find-package-files/-/find-package-files-0.1.1.tgz#ee4e971af549b7bd4ab248c88c6b042b37aa4487"

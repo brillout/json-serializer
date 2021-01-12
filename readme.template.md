@@ -9,8 +9,8 @@ Same as JSON but with added support for:
  - `Inifinity`
  - `RegExp`
 
-JSON is a great serializer.
-But it is lacking for some JavaScript types such as `Date`:
+JSON is a good serializer for JavaScript values but
+is lacking some JavaScript types such as `Date`:
 
 ~~~js
 !INLINE /examples/json-date.js --hide-source-path

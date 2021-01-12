@@ -1,20 +1,29 @@
-const reviver = require("./reviver");
+const types = require("./types");
 
 module.exports = parse;
 
 function parse(...args) {
   const obj = JSON.parse.apply(JSON, args);
   // We don't use the reviver option in `JSON.parse(obj, reviver)`
-  // because we want the reviver to be able to change a value to undefined
+  // because it doesn't support `undefined` values.
   return modifier(obj);
 }
 
-function modifier(obj) {
-  if (!(obj instanceof Object)) {
-    return reviver("__unkown-key__", obj);
+function modifier(thing) {
+  if (!(thing instanceof Object)) {
+    return reviver(null, thing);
   }
-  Object.entries(obj).forEach(([key, val]) => {
-    obj[key] = modifier(val);
+  Object.entries(thing).forEach(([key, val]) => {
+    thing[key] = modifier(val);
   });
-  return obj;
+  return thing;
+}
+
+function reviver(_, value) {
+  for (const type of types) {
+    if (type.match(value)) {
+      return type.deserialize(value);
+    }
+  }
+  return value;
 }

@@ -1,7 +1,9 @@
 {
   "name": "@brillout/json-s",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {},
   "scripts": {
     "test": "node test/",
