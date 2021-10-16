@@ -1,8 +1,9 @@
-const types = require("./types");
+import { types } from './types'
 
-module.exports = stringify;
+export { stringify }
 
-function stringify(...args) {
+function stringify(...args: Parameters<typeof JSON.stringify>): string {
+  // @ts-ignore
   args[1] = args[1] || replacer;
 
   const toJSON_date = Date.prototype.toJSON;
@@ -12,7 +13,9 @@ function stringify(...args) {
   };
   */
 
+  // @ts-ignore
   const toJSON_function = Function.prototype.toJSON;
+  // @ts-ignore
   Function.prototype.toJSON = function () {
     let errMsg = "[@brillout/json-s] Cannot serialize function";
     if (this.name) {
@@ -21,11 +24,12 @@ function stringify(...args) {
     throw new Error(errMsg);
   };
 
-  let result;
+  let result: string;
   try {
     result = JSON.stringify.apply(JSON, args);
   } finally {
     Date.prototype.toJSON = toJSON_date;
+    // @ts-ignore
     Function.prototype.toJSON = toJSON_function;
   }
   return result;

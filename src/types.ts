@@ -1,4 +1,4 @@
-module.exports = [
+export const types = [
   {
     is: (val) => val === undefined,
     serialize: () => "!undefined",

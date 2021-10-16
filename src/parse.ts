@@ -1,8 +1,8 @@
-const types = require("./types");
+import { types } from './types'
 
-module.exports = parse;
+export { parse }
 
-function parse(...args) {
+function parse(...args: Parameters<typeof JSON.parse>) {
   const obj = JSON.parse.apply(JSON, args);
   // We don't use the reviver option in `JSON.parse(obj, reviver)`
   // because it doesn't support `undefined` values.
