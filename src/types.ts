@@ -12,6 +12,12 @@ export const types = [
     deserialize: () => Infinity,
   },
   {
+    is: (val) => val === -Infinity,
+    serialize: () => "!-Infinity",
+    match: (str) => str === "!-Infinity",
+    deserialize: () => -Infinity,
+  },
+  {
     is: (val) => typeof val === "number" && isNaN(val),
     serialize: () => "!NaN",
     match: (str) => str === "!NaN",
