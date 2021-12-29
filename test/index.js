@@ -5,6 +5,7 @@ canSerializeUndefined();
 canSerializeDate();
 canSerializeNaN();
 canSerializeInfinity();
+canSerializeNegativeInfinity();
 canSerializeRegExp();
 avoidsCollision();
 cannotSerializeFunctions();
@@ -33,6 +34,14 @@ function canSerializeInfinity() {
   assert(
     parse(stringify({ sideProp: 42, is: { inf: Infinity } })).is.inf ===
       Infinity
+  );
+}
+
+function canSerializeNegativeInfinity() {
+  assert(parse(stringify(-Infinity)) === -Infinity);
+  assert(
+    parse(stringify({ sideProp: 42, is: { inf: -Infinity } })).is.inf ===
+      -Infinity
   );
 }
 
