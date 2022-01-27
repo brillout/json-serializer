@@ -90,34 +90,34 @@ JSON is a good serializer for JavaScript values but
 is lacking some JavaScript types such as `Date`:
 
 ~~~js
-const assert = require("assert");
+const assert = require('assert')
 
 let obj = {
-  time: new Date("2042-01-01"),
-};
+  time: new Date('2042-01-01'),
+}
 
 // JSON converts dates to strings
-assert(obj.time.constructor === Date);
-obj = JSON.parse(JSON.stringify(obj));
-assert(obj.time.constructor === String);
-assert(obj.time === "2042-01-01T00:00:00.000Z");
+assert(obj.time.constructor === Date)
+obj = JSON.parse(JSON.stringify(obj))
+assert(obj.time.constructor === String)
+assert(obj.time === '2042-01-01T00:00:00.000Z')
 ~~~
 
 Whereas with JSON-S:
 
 ~~~js
-const assert = require("assert");
-const JSON = require("@brillout/json-s");
+const assert = require('assert')
+const JSON = require('@brillout/json-s')
 
 let obj = {
-  time: new Date("2042-01-01"),
-};
+  time: new Date('2042-01-01'),
+}
 
 // JSON-S preserves Date
-assert(obj.time.constructor === Date);
-obj = JSON.parse(JSON.stringify(obj));
-assert(obj.time.constructor === Date);
-assert(obj.time.getTime() === new Date("2042-01-01").getTime());
+assert(obj.time.constructor === Date)
+obj = JSON.parse(JSON.stringify(obj))
+assert(obj.time.constructor === Date)
+assert(obj.time.getTime() === new Date('2042-01-01').getTime())
 ~~~
 
 <br/>
@@ -135,23 +135,20 @@ assert(obj.time.getTime() === new Date("2042-01-01").getTime());
 
 ~~~js
 // npm install @brillout/json-s
-const parse = require("@brillout/json-s/parse");
-const stringify = require("@brillout/json-s/stringify");
+const { parse } = require('@brillout/json-s/parse')
+const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
-  hello: "from the future",
-  time: new Date("2042-01-01"),
-};
+  hello: 'from the future',
+  time: new Date('2042-01-01'),
+}
 
 // Serialize with JSON-S
-const obj_serialized = stringify(obj);
+const obj_serialized = stringify(obj)
 
 // Deserialize a JSON-S string
-const obj_deserialized = parse(obj_serialized);
+const obj_deserialized = parse(obj_serialized)
 ~~~
-
-The JSON-S functions `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
-So you can use all JSON's options.
 
 <br/>
 
@@ -162,10 +159,10 @@ Example exposing all differences between JSON and JSON-S.
 ~~~js
 // /examples/json-s.js
 
-const assert = require("assert");
+const assert = require('assert')
 
-const parse = require("@brillout/json-s/parse");
-const stringify = require("@brillout/json-s/stringify");
+const { parse } = require('@brillout/json-s/parse')
+const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
   date: new Date(),
@@ -173,30 +170,28 @@ const obj = {
   NaN: NaN,
   Infinity: Infinity,
   regexp: /^\d+$/g,
-};
+}
 
 // All of `obj` can be serialized with JSON-S
-const obj2 = parse(stringify(obj));
-assert(obj2.date.getTime() === obj.date.getTime());
-assert(obj2.undefined === undefined && "undefined" in obj2);
-assert(isNaN(obj2.NaN));
-assert(obj2.Infinity === Infinity);
-assert(obj2.regexp.toString() === obj.regexp.toString());
+const obj2 = parse(stringify(obj))
+assert(obj2.date.getTime() === obj.date.getTime())
+assert(obj2.undefined === undefined && 'undefined' in obj2)
+assert(isNaN(obj2.NaN))
+assert(obj2.Infinity === Infinity)
+assert(obj2.regexp.toString() === obj.regexp.toString())
 
 // JSON cannot serialize any of `obj`
-const obj3 = JSON.parse(JSON.stringify(obj));
+const obj3 = JSON.parse(JSON.stringify(obj))
 // JSON converts dates to strings
-assert(obj3.constructor !== Date);
+assert(obj3.constructor !== Date)
 // JSON removes properties with a value of `undefined`
-assert(!("undefined" in obj3));
+assert(!('undefined' in obj3))
 // JSON converts `NaN` to `null`
-assert(obj3.NaN === null);
+assert(obj3.NaN === null)
 // JSON converts `Infinity` to `null`
-assert(obj3.Infinity === null);
+assert(obj3.Infinity === null)
 // JSON converts RegExp to an empty object
-assert(
-  obj3.regexp.constructor === Object && Object.keys(obj3.regexp).length === 0
-);
+assert(obj3.regexp.constructor === Object && Object.keys(obj3.regexp).length === 0)
 ~~~
 
 To run the example:
@@ -220,18 +215,18 @@ Let's see how JSON-S serializes an object:
 ~~~js
 // /examples/inspect.js
 
-const JSON = require("@brillout/json-s");
+const JSON = require('@brillout/json-s')
 
 const obj = {
   date: new Date(),
   undefined: undefined,
-  collision: "!undefined",
+  collision: '!undefined',
   NaN: NaN,
   Infinity: Infinity,
   regexp: /^\d+$/g,
-};
+}
 
-console.log(JSON.stringify(obj, undefined, 2));
+console.log(JSON.stringify(obj, undefined, 2))
 // Prints:
 /*
 {

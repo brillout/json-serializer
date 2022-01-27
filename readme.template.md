@@ -39,9 +39,6 @@ Whereas with JSON-S:
 !INLINE /examples/simple.js --hide-source-path
 ~~~
 
-The JSON-S functions `stringify` and `parse` have the exact same interface than `JSON.stringify` and `JSON.parse`.
-So you can use all JSON's options.
-
 <br/>
 
 ### Full Example

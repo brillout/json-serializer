@@ -6,6 +6,7 @@
     "moduleResolution": "Node",
     "outDir": "dist/esm/",
     // User-code
+    "strict": true,
     "rootDir": "./src",
     // Source Maps
     "sourceMap": true,

@@ -1,29 +1,30 @@
-import { types } from './types'
-
 export { parse }
 
-function parse(...args: Parameters<typeof JSON.parse>) {
-  const obj = JSON.parse.apply(JSON, args);
-  // We don't use the reviver option in `JSON.parse(obj, reviver)`
-  // because it doesn't support `undefined` values.
-  return modifier(obj);
+import { types } from './types'
+
+function parse(str: string) {
+  // We don't use the reviver option in `JSON.parse(str, reviver)` because it doesn't support `undefined` values
+  const value = JSON.parse(str)
+  return modifier(value)
 }
 
-function modifier(thing) {
-  if (!(thing instanceof Object)) {
-    return reviver(null, thing);
+function modifier(value: unknown) {
+  if (typeof value === 'string') {
+    return reviver(value)
   }
-  Object.entries(thing).forEach(([key, val]) => {
-    thing[key] = modifier(val);
-  });
-  return thing;
+  if (typeof value === 'object' && value !== null) {
+    Object.entries(value).forEach(([key, val]: [string, unknown]) => {
+      ;(value as Record<string, unknown>)[key] = modifier(val)
+    })
+  }
+  return value
 }
 
-function reviver(_, value) {
-  for (const type of types) {
-    if (type.match(value)) {
-      return type.deserialize(value);
+function reviver(value: string) {
+  for (const { match, deserialize } of types) {
+    if (match(value)) {
+      return deserialize(value)
     }
   }
-  return value;
+  return value
 }

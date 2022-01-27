@@ -1,15 +1,15 @@
-const JSON = require("@brillout/json-s");
+const JSON = require('@brillout/json-s')
 
 const obj = {
   date: new Date(),
   undefined: undefined,
-  collision: "!undefined",
+  collision: '!undefined',
   NaN: NaN,
   Infinity: Infinity,
   regexp: /^\d+$/g,
-};
+}
 
-console.log(JSON.stringify(obj, undefined, 2));
+console.log(JSON.stringify(obj, undefined, 2))
 // Prints:
 /*
 {
