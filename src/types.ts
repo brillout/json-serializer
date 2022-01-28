@@ -48,9 +48,11 @@ const types = [
     serialize: (val) => '!RegExp:' + val.toString(),
     deserialize: (str) => {
       str = str.slice('!RegExp:'.length)
-      // const args = str.match(/\/(.*?)\/([gimy])?$/);
-      const args = str.match(/\/(.*)\/(.*)?/)
-      return new RegExp(args![1], args![2] || '')
+      // const args: string[] = str.match(/\/(.*?)\/([gimy])?$/)!
+      const args: string[] = str.match(/\/(.*)\/(.*)?/)!
+      const pattern: string = args[1]!
+      const flags: string = args[2]!
+      return new RegExp(pattern, flags)
     },
   }),
   ts<Map<any, any>, any[]>({
