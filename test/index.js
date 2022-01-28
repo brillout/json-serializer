@@ -10,7 +10,10 @@ canSerializeNegativeInfinity()
 canSerializeRegExp()
 canSerializeSet()
 canSerializeMap()
+canSerializeBigInt()
+
 avoidsCollision()
+
 errorSerializingFunction()
 errorSerializingReactElement()
 errorPaths()
@@ -77,6 +80,10 @@ function canSerializeMap() {
   assert(m1_entries[0][1][2] === 42)
   assert(m2_entries[0][1][2] === 42)
   assert(m1_entries.length === m2_entries.length)
+}
+
+function canSerializeBigInt() {
+  assert(parse(stringify(BigInt('42'))) === BigInt('42'))
 }
 
 function avoidsCollision() {

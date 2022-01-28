@@ -82,11 +82,12 @@
 Same as JSON but with added support for:
  - `Date`
  - `undefined`
- - `NaN`
- - `RegExp`
- - `Infinity`
  - `Set`
  - `Map`
+ - `BigInt`
+ - `RegExp`
+ - `NaN`
+ - `Infinity`
 
 JSON is a good serializer for JavaScript values but
 is lacking some JavaScript types such as `Date`:
@@ -109,7 +110,7 @@ Whereas with JSON-S:
 
 ~~~js
 const assert = require('assert')
-const { parse, stringify } = require('@brillout/json-s')
+const { stringify, parse } = require('@brillout/json-s')
 
 let obj = {
   time: new Date('2042-01-01'),

@@ -5,11 +5,12 @@
 Same as JSON but with added support for:
  - `Date`
  - `undefined`
- - `NaN`
- - `RegExp`
- - `Infinity`
  - `Set`
  - `Map`
+ - `BigInt`
+ - `RegExp`
+ - `NaN`
+ - `Infinity`
 
 JSON is a good serializer for JavaScript values but
 is lacking some JavaScript types such as `Date`:

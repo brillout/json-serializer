@@ -31,6 +31,17 @@ const types = [
     serialize: (val) => '!Date:' + val.toISOString(),
     deserialize: (str) => new Date(str.slice('!Date:'.length)),
   }),
+  ts<BigInt, any>({
+    is: (val) => typeof val === 'bigint',
+    match: (str) => str.startsWith('!BigInt:'),
+    serialize: (val) => '!BigInt:' + val.toString(),
+    deserialize: (str) => {
+      if (typeof BigInt === 'undefined') {
+        throw new Error('Your JavaScript environement does not support BigInt. Consider adding a polyfill.')
+      }
+      return BigInt(str.slice('!BigInt:'.length))
+    },
+  }),
   ts<RegExp, any>({
     is: (val) => val instanceof RegExp,
     match: (str) => str.startsWith('!RegExp:'),
