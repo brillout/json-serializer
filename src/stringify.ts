@@ -10,9 +10,9 @@ function stringify(
     valueName = 'value',
   }: { forbidReactElements?: boolean; space?: number; valueName?: string } = {},
 ): string {
-  let path: string[] = []
-
-  return JSON.stringify(value, replacer, space)
+  const path: string[] = []
+  const serializer = (val: unknown) => JSON.stringify(val, replacer, space)
+  return serializer(value)
 
   function replacer(this: Record<string, unknown>, key: string, value: unknown) {
     if (key !== '') {
@@ -29,11 +29,10 @@ function stringify(
     }
 
     const valueOriginal = this[key]
-    for (const t of types.slice().reverse()) {
-      //@ts-ignore
-      if (t.is(valueOriginal)) {
+    for (const { is, serialize } of types.slice().reverse()) {
+      if (is(valueOriginal) as any) {
         //@ts-ignore
-        return t.serialize(valueOriginal)
+        return serialize(valueOriginal, serializer)
       }
     }
 

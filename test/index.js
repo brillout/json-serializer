@@ -8,6 +8,8 @@ canSerializeNaN()
 canSerializeInfinity()
 canSerializeNegativeInfinity()
 canSerializeRegExp()
+canSerializeSet()
+canSerializeMap()
 avoidsCollision()
 errorSerializingFunction()
 errorSerializingReactElement()
@@ -49,6 +51,32 @@ function canSerializeRegExp() {
   assert(regex_copy.test('42') === true)
   assert(regex.test('a') === false)
   assert(regex_copy.test('a') === false)
+}
+
+function canSerializeSet() {
+  const s1 = new Set([42, '7', 42])
+  const s2 = parse(stringify(s1))
+  const s1_values = Array.from(s1.values())
+  const s2_values = Array.from(s2.values())
+  assert(s1_values[0] === s2_values[0])
+  assert(s1_values[1] === s2_values[1])
+  assert(s1_values.length === s2_values.length)
+  assert(s1.has(42) === true)
+  assert(s2.has(42) === true)
+  assert(s1.has('7') === true)
+  assert(s2.has('7') === true)
+}
+
+function canSerializeMap() {
+  const m1 = new Map([[{ a: undefined }, [null, undefined, 42]]])
+  const m2 = parse(stringify(m1))
+  const m1_entries = Array.from(m1.entries())
+  const m2_entries = Array.from(m2.entries())
+  assert(m1_entries[0][0].a === undefined)
+  assert(m2_entries[0][0].a === undefined)
+  assert(m1_entries[0][1][2] === 42)
+  assert(m2_entries[0][1][2] === 42)
+  assert(m1_entries.length === m2_entries.length)
 }
 
 function avoidsCollision() {

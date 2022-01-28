@@ -23,7 +23,7 @@ function modifier(value: unknown) {
 function reviver(value: string) {
   for (const { match, deserialize } of types) {
     if (match(value)) {
-      return deserialize(value)
+      return deserialize(value, parse)
     }
   }
   return value
