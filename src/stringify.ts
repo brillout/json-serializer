@@ -11,7 +11,15 @@ function stringify(
   }: { forbidReactElements?: boolean; space?: number; valueName?: string } = {},
 ): string {
   const path: string[] = []
+
+  // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
+  // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
+  // - This means we have total of 3 possible errors while serializing:
+  //    - Cyclic references
+  //    - Functions
+  //    - React elements
   const serializer = (val: unknown) => JSON.stringify(val, replacer, space)
+
   return serializer(value)
 
   function replacer(this: Record<string, unknown>, key: string, value: unknown) {
