@@ -1,7 +1,7 @@
 {
   "name": "@brillout/json-s",
-  "version": "0.4.3",
-  "description": "Same as JSON but with support for: Date, undefined, NaN, Infinity, and RegExp.",
+  "version": "0.4.4",
+  "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "exports": {
@@ -38,6 +38,11 @@
     "self-import": "^1.0.1",
     "typescript": "^4.5.5"
   },
+  "files": [
+    "dist/",
+    "*.d.ts",
+    "*.js"
+  ],
   "repository": "github:brillout/json-s",
   "publishConfig": {
     "access": "public"

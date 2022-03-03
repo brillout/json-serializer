@@ -1,4 +1,7 @@
-// Help Nuxt2's resolver which doesn't support `package.json#exports`
+// Some tools don't support `package.json#exports`, such as:
+//  - Nuxt v2
+//  - Expo/Metro
+//  - ESLint
 // prettier-ignore
 'use strict';
 // prettier-ignore
