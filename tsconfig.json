@@ -8,8 +8,6 @@
     // User-code
     "strict": true,
     // Source Maps
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true
+    "declaration": true
   }
 }
