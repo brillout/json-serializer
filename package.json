@@ -1,20 +1,20 @@
 {
   "name": "@brillout/json-s",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "exports": {
     ".": {
-      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js"
     },
     "./parse": {
-      "node": "./dist/cjs/parse.js",
+      "require": "./dist/cjs/parse.js",
       "import": "./dist/esm/parse.js"
     },
     "./stringify": {
-      "node": "./dist/cjs/stringify.js",
+      "require": "./dist/cjs/stringify.js",
       "import": "./dist/esm/stringify.js"
     }
   },
