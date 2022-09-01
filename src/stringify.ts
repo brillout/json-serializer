@@ -1,6 +1,8 @@
 export { stringify }
 
 import { types } from './types'
+import { isReactElement } from './utils/isReactElement'
+import { isCallable } from './utils/isCallable'
 
 function stringify(
   value: unknown,
@@ -31,7 +33,7 @@ function stringify(
       throw new Error(genErrMsg('React element'))
     }
 
-    if (isFunction(value)) {
+    if (isCallable(value)) {
       const functionName = value.name
       throw new Error(genErrMsg('function', path.length === 0 ? functionName : undefined))
     }
@@ -54,16 +56,4 @@ function stringify(
     const fallback = name === '' && location === '' ? ` ${valueName}` : ''
     return `Cannot serialize${name}${location}${fallback} because it is a ${valueType} (https://github.com/brillout/json-s)`
   }
-}
-
-function isReactElement(value: unknown) {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    String((value as Record<string, unknown>)['$$typeof']) === 'Symbol(react.element)'
-  )
-}
-
-function isFunction<T extends (...args: unknown[]) => unknown>(thing: T | unknown): thing is T {
-  return thing instanceof Function || typeof thing === 'function'
 }
