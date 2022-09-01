@@ -2,6 +2,7 @@
   "name": "@brillout/json-s",
   "version": "0.4.6",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
+  "dependencies": {},
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "exports": {
