@@ -6,7 +6,7 @@ specifiers:
   lodash.isequal: ^4.5.0
   react: ^17.0.2
   self-import: ^1.0.1
-  typescript: ^4.5.5
+  typescript: ^4.8.2
 
 devDependencies:
   '@brillout/mdocs': 0.1.30
