@@ -18,6 +18,8 @@ errorSerializingFunction()
 errorSerializingReactElement()
 errorPaths()
 
+sortObjectKeys()
+
 console.log('All tests successfully passed.')
 
 function canSerializeUndefined() {
@@ -202,5 +204,53 @@ function errorPaths() {
       err = _err
     }
     assert(err.message.includes("Cannot serialize `value['someProp']` because it is a function (https://github.com/brillout/json-s)"))
+  }
+}
+
+function sortObjectKeys() {
+  // Basic test
+  {
+    const obj = {
+      b: 2,
+      a: 1
+    }
+    {
+      const keys = Object.keys(obj)
+      assert(keys[0] === 'b')
+    }
+    {
+      const copy = parse(stringify(obj))
+      const keys = Object.keys(copy)
+      assert(keys[0] === 'b')
+    }
+    {
+      const copy = parse(stringify(obj, { sortObjectKeys: true }))
+      const keys = Object.keys(copy)
+      assert(keys[0] === 'a')
+    }
+  }
+
+  // Nested test
+  {
+    const obj = {
+      a: {
+        d: 2,
+        c: 3
+      }
+    }
+    {
+      const keys = Object.keys(obj.a)
+      assert(keys[0] === 'd')
+    }
+    {
+      const copy = parse(stringify(obj))
+      const keys = Object.keys(copy.a)
+      assert(keys[0] === 'd')
+    }
+    {
+      const copy = parse(stringify(obj, { sortObjectKeys: true }))
+      const keys = Object.keys(copy.a)
+      assert(keys[0] === 'c')
+    }
   }
 }

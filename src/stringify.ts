@@ -3,6 +3,7 @@ export { stringify }
 import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
 import { isCallable } from './utils/isCallable'
+import { isObject } from './utils/isObject'
 
 function stringify(
   value: unknown,
@@ -10,7 +11,8 @@ function stringify(
     forbidReactElements,
     space,
     valueName = 'value',
-  }: { forbidReactElements?: boolean; space?: number; valueName?: string } = {},
+    sortObjectKeys,
+  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {},
 ): string {
   const path: string[] = []
 
@@ -44,6 +46,16 @@ function stringify(
         //@ts-ignore
         return serialize(valueOriginal, serializer)
       }
+    }
+
+    if (sortObjectKeys && isObject(value)) {
+      const copy: Record<string, unknown> = {}
+      Object.keys(value)
+        .sort()
+        .forEach((key) => {
+          copy[key] = (value as Record<string, unknown>)[key]
+        })
+      value = copy
     }
 
     return value
