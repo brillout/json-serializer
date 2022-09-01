@@ -1,7 +1,7 @@
 const assert = require('assert')
 
 let obj = {
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // JSON converts dates to strings

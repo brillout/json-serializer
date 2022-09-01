@@ -5,31 +5,31 @@ const types = [
     is: (val) => val === undefined,
     match: (str) => str === '!undefined',
     serialize: () => '!undefined',
-    deserialize: (): undefined => undefined,
+    deserialize: (): undefined => undefined
   }),
   ts({
     is: (val) => val === Infinity,
     match: (str) => str === '!Infinity',
     serialize: () => '!Infinity',
-    deserialize: (): typeof Infinity => Infinity,
+    deserialize: (): typeof Infinity => Infinity
   }),
   ts({
     is: (val) => val === -Infinity,
     match: (str) => str === '!-Infinity',
     serialize: () => '!-Infinity',
-    deserialize: (): number => -Infinity,
+    deserialize: (): number => -Infinity
   }),
   ts({
     is: (val) => typeof val === 'number' && isNaN(val),
     match: (str) => str === '!NaN',
     serialize: () => '!NaN',
-    deserialize: () => NaN,
+    deserialize: () => NaN
   }),
   ts<Date, any>({
     is: (val) => val instanceof Date,
     match: (str) => str.startsWith('!Date:'),
     serialize: (val) => '!Date:' + val.toISOString(),
-    deserialize: (str) => new Date(str.slice('!Date:'.length)),
+    deserialize: (str) => new Date(str.slice('!Date:'.length))
   }),
   ts<BigInt, any>({
     is: (val) => typeof val === 'bigint',
@@ -40,7 +40,7 @@ const types = [
         throw new Error('Your JavaScript environement does not support BigInt. Consider adding a polyfill.')
       }
       return BigInt(str.slice('!BigInt:'.length))
-    },
+    }
   }),
   ts<RegExp, any>({
     is: (val) => val instanceof RegExp,
@@ -53,27 +53,27 @@ const types = [
       const pattern: string = args[1]!
       const flags: string = args[2]!
       return new RegExp(pattern, flags)
-    },
+    }
   }),
   ts<Map<any, any>, any[]>({
     is: (val) => val instanceof Map,
     match: (str) => str.startsWith('!Map:'),
     serialize: (val, serializer) => '!Map:' + serializer(Array.from(val.entries())),
-    deserialize: (str, deserializer) => new Map(deserializer(str.slice('!Map:'.length))),
+    deserialize: (str, deserializer) => new Map(deserializer(str.slice('!Map:'.length)))
   }),
   ts<Set<unknown>, unknown[]>({
     is: (val) => val instanceof Set,
     match: (str) => str.startsWith('!Set:'),
     serialize: (val, serializer) => '!Set:' + serializer(Array.from(val.values())),
-    deserialize: (str, deserializer) => new Set(deserializer(str.slice('!Set:'.length))),
+    deserialize: (str, deserializer) => new Set(deserializer(str.slice('!Set:'.length)))
   }),
   // Avoid collisions with the special strings defined above
   ts<string, any>({
     is: (val) => typeof val === 'string' && val.startsWith('!'),
     match: (str) => str.startsWith('!'),
     serialize: (val) => '!' + val,
-    deserialize: (str) => str.slice(1),
-  }),
+    deserialize: (str) => str.slice(1)
+  })
 ] as const
 
 type Type<T, IntermediateType> = {

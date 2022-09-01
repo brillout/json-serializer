@@ -2,7 +2,7 @@ const assert = require('assert')
 const { stringify, parse } = require('@brillout/json-s')
 
 let obj = {
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // JSON-S preserves Date

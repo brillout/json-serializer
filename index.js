@@ -6,4 +6,4 @@
 'use strict';
 // prettier-ignore
 exports.parse = require('./dist/cjs/index.js').parse;
-exports.stringify = require('./dist/cjs/index.js').stringify;
+exports.stringify = require('./dist/cjs/index.js').stringify

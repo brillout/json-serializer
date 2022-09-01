@@ -8,7 +8,7 @@ const obj = {
   undefined: undefined,
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g,
+  regexp: /^\d+$/g
 }
 
 // All of `obj` can be serialized with JSON-S

@@ -4,7 +4,7 @@ const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
   hello: 'from the future',
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // Serialize with JSON-S

@@ -96,7 +96,7 @@ is lacking some JavaScript types such as `Date`:
 const assert = require('assert')
 
 let obj = {
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // JSON converts dates to strings
@@ -113,7 +113,7 @@ const assert = require('assert')
 const { stringify, parse } = require('@brillout/json-s')
 
 let obj = {
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // JSON-S preserves Date
@@ -143,7 +143,7 @@ const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
   hello: 'from the future',
-  time: new Date('2042-01-01'),
+  time: new Date('2042-01-01')
 }
 
 // Serialize with JSON-S
@@ -172,7 +172,7 @@ const obj = {
   undefined: undefined,
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g,
+  regexp: /^\d+$/g
 }
 
 // All of `obj` can be serialized with JSON-S
@@ -226,7 +226,7 @@ const obj = {
   collision: '!undefined',
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g,
+  regexp: /^\d+$/g
 }
 
 console.log(JSON.stringify(obj, undefined, 2))

@@ -21,9 +21,9 @@ const original = {
       true: true,
       arr: [1, 'two', undefined, null, { subi: [1] }],
       str: 'A string',
-      n: 1337,
-    },
-  },
+      n: 1337
+    }
+  }
 }
 
 const serialized = stringify(original, { space: 2 })

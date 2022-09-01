@@ -11,8 +11,8 @@ function stringify(
     forbidReactElements,
     space,
     valueName = 'value',
-    sortObjectKeys,
-  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {},
+    sortObjectKeys
+  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {}
 ): string {
   const path: string[] = []
 

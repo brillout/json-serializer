@@ -6,7 +6,7 @@ const obj = {
   collision: '!undefined',
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g,
+  regexp: /^\d+$/g
 }
 
 console.log(JSON.stringify(obj, undefined, 2))
