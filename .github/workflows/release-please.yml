@@ -18,7 +18,7 @@ jobs:
       - name: Dump GitHub context
         env:
           RELEASE_OUTPUTS: ${{ toJson(steps.release.outputs) }}
-          run: echo "$RELEASE_OUTPUTS"
+        run: echo "$RELEASE_OUTPUTS"
       - run: echo ${{ steps.release.outputs.release_created }}
       - run: echo ${{ steps.release.outputs.releases_created }}
 
