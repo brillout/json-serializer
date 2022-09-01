@@ -1,14 +1,29 @@
+name: release-please
 on:
   push:
     branches:
       - main
-name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
+        id: release
         with:
           release-type: node
-          package-name: release-please-action
           bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
+
+      # === NPM Publishing ===
+      - uses: actions/checkout@v2
+        # Only run when a new release is created
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
