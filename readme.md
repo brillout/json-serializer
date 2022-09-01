@@ -110,7 +110,8 @@ Whereas with JSON-S:
 
 ~~~js
 const assert = require('assert')
-const { stringify, parse } = require('@brillout/json-s')
+const { parse } = require('@brillout/json-s/parse')
+const { stringify } = require('@brillout/json-s/stringify')
 
 let obj = {
   time: new Date('2042-01-01')
@@ -218,7 +219,7 @@ Let's see how JSON-S serializes an object:
 ~~~js
 // /examples/inspect.js
 
-const JSON = require('@brillout/json-s')
+const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
   date: new Date(),
@@ -229,7 +230,7 @@ const obj = {
   regexp: /^\d+$/g
 }
 
-console.log(JSON.stringify(obj, undefined, 2))
+console.log(stringify(obj, undefined, 2))
 // Prints:
 /*
 {

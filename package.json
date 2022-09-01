@@ -3,13 +3,9 @@
   "version": "0.4.6",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "dependencies": {},
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./index.js",
   "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
-    },
+    ".": "./index.js",
     "./parse": {
       "require": "./dist/cjs/parse.js",
       "import": "./dist/esm/parse.js"

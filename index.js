@@ -1,9 +1,1 @@
-// Some tools don't support `package.json#exports`, such as:
-//  - Nuxt v2
-//  - Expo/Metro
-//  - ESLint
-// prettier-ignore
-'use strict';
-// prettier-ignore
-exports.parse = require('./dist/cjs/index.js').parse;
-exports.stringify = require('./dist/cjs/index.js').stringify
+throw new Error("Module `@brillout/json-s` doesn't exist anymore: load `@brillout/json-s/parse` and `@brillout/json-s/stringify` instead.")

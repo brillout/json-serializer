@@ -1,5 +1,6 @@
 const assert = require('assert')
-const { parse, stringify } = require('../')
+const { parse } = require('../parse')
+const { stringify } = require('../stringify')
 const React = require('react')
 
 canSerializeUndefined()

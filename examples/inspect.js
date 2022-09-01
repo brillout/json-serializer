@@ -1,4 +1,4 @@
-const JSON = require('@brillout/json-s')
+const { stringify } = require('@brillout/json-s/stringify')
 
 const obj = {
   date: new Date(),
@@ -9,7 +9,7 @@ const obj = {
   regexp: /^\d+$/g
 }
 
-console.log(JSON.stringify(obj, undefined, 2))
+console.log(stringify(obj, undefined, 2))
 // Prints:
 /*
 {
