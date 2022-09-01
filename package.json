@@ -45,6 +45,7 @@
     "*.js"
   ],
   "repository": "github:brillout/json-s",
+  "packageManager": "pnpm@7.9.5",
   "publishConfig": {
     "access": "public"
   }
