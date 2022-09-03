@@ -8,6 +8,8 @@
     // User-code
     "strict": true,
     // Source Maps
-    "declaration": true
-  }
+    "declaration": true,
+    "rootDir": "./src/"
+  },
+  "include": ["./src/**/*"]
 }
