@@ -1,6 +1,6 @@
 {
   "name": "@brillout/json-s",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./index.js",
   "exports": {

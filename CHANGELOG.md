@@ -1,3 +1,12 @@
+## [0.5.1](https://github.com/brillout/json-s/compare/v0.5.0...v0.5.1) (2022-09-03)
+
+
+### Bug Fixes
+
+* fix TypeScript types ([f599ac6](https://github.com/brillout/json-s/commit/f599ac661a9f57703c21fc2d5b395705b7571799))
+
+
+
 # [0.5.0](https://github.com/brillout/json-s/compare/v0.4.6...v0.5.0) (2022-09-02)
 
 
