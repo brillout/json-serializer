@@ -1,5 +1,5 @@
 {
-  "name": "@brillout/json-s",
+  "name": "@brillout/json-serializer",
   "version": "0.5.1",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./index.js",
@@ -41,7 +41,7 @@
     "*.d.ts",
     "*.js"
   ],
-  "repository": "github:brillout/json-s",
+  "repository": "github:brillout/json-serializer",
   "packageManager": "pnpm@7.9.5",
   "publishConfig": {
     "access": "public"

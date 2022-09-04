@@ -2,8 +2,8 @@ const util = require('util')
 const isEqual = require('lodash.isequal')
 const assert = require('assert')
 
-const { parse } = require('@brillout/json-s/parse')
-const { stringify } = require('@brillout/json-s/stringify')
+const { parse } = require('@brillout/json-serializer/parse')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 const original = {
   // types not supported by JSON
@@ -36,7 +36,7 @@ console.log('(Note how we loose many values.)')
 console.log(JSON.parse(JSON.stringify(original)))
 console.log()
 
-console.log('JSON-S serialized.')
+console.log('@brillout/json-serializer serialized.')
 console.log(serialized)
 console.log()
 
@@ -44,7 +44,7 @@ console.log('Original object.')
 logObj(original)
 console.log()
 
-console.log('JSON-S serialized->deserialized.')
+console.log('@brillout/json-serializer serialized->deserialized.')
 console.log('(Note that all values are preserved and that this object is a clone of the original object.)')
 logObj(deserialized)
 

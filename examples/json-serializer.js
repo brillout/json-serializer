@@ -1,7 +1,7 @@
 const assert = require('assert')
 
-const { parse } = require('@brillout/json-s/parse')
-const { stringify } = require('@brillout/json-s/stringify')
+const { parse } = require('@brillout/json-serializer/parse')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 const obj = {
   date: new Date(),
@@ -11,7 +11,7 @@ const obj = {
   regexp: /^\d+$/g
 }
 
-// All of `obj` can be serialized with JSON-S
+// All of `obj` can be serialized with @brillout/json-serializer
 const obj2 = parse(stringify(obj))
 assert(obj2.date.getTime() === obj.date.getTime())
 assert(obj2.undefined === undefined && 'undefined' in obj2)

@@ -108,7 +108,7 @@ function errorSerializingFunction() {
     }
     const { message } = err
     assert(
-      message.includes('Cannot serialize `helloFn` because it is a function (https://github.com/brillout/json-s)'),
+      message.includes('Cannot serialize `helloFn` because it is a function (https://github.com/brillout/json-serializer)'),
       message
     )
   }
@@ -120,7 +120,7 @@ function errorSerializingFunction() {
     } catch (_err) {
       err = _err
     }
-    assert(err.message.includes('Cannot serialize value because it is a function (https://github.com/brillout/json-s)'))
+    assert(err.message.includes('Cannot serialize value because it is a function (https://github.com/brillout/json-serializer)'))
   }
 }
 
@@ -135,7 +135,7 @@ function errorSerializingReactElement() {
     }
     const { message } = err
     assert(
-      message.includes('Cannot serialize value because it is a React element (https://github.com/brillout/json-s)'),
+      message.includes('Cannot serialize value because it is a React element (https://github.com/brillout/json-serializer)'),
       message
     )
   }
@@ -151,7 +151,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['prop']` because it is a React element (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['prop']` because it is a React element (https://github.com/brillout/json-serializer)"
       )
     )
   }
@@ -165,7 +165,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['foo']` because it is a function (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['foo']` because it is a function (https://github.com/brillout/json-serializer)"
       )
     )
   }
@@ -179,7 +179,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['foo']` because it is a function (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['foo']` because it is a function (https://github.com/brillout/json-serializer)"
       )
     )
   }
@@ -195,7 +195,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['some']['nested']['prop']` because it is a React element (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['some']['nested']['prop']` because it is a React element (https://github.com/brillout/json-serializer)"
       )
     )
   }
@@ -210,7 +210,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['some']['nested']['prop']` because it is a function (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['some']['nested']['prop']` because it is a function (https://github.com/brillout/json-serializer)"
       )
     )
   }
@@ -224,7 +224,7 @@ function errorPaths() {
     }
     assert(
       err.message.includes(
-        "Cannot serialize `value['someProp']` because it is a function (https://github.com/brillout/json-s)"
+        "Cannot serialize `value['someProp']` because it is a function (https://github.com/brillout/json-serializer)"
       )
     )
   }

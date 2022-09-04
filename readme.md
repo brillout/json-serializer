@@ -75,9 +75,7 @@
 
 
 -->
-# JSON-S
-
-<i>JSON-<b>S</b>erializer</i>
+# `@brillout/json-serializer`
 
 Same as JSON but with added support for:
  - `Date`
@@ -106,18 +104,18 @@ assert(obj.time.constructor === String)
 assert(obj.time === '2042-01-01T00:00:00.000Z')
 ~~~
 
-Whereas with JSON-S:
+Whereas with `@brillout/json-serializer`:
 
 ~~~js
 const assert = require('assert')
-const { parse } = require('@brillout/json-s/parse')
-const { stringify } = require('@brillout/json-s/stringify')
+const { parse } = require('@brillout/json-serializer/parse')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 let obj = {
   time: new Date('2042-01-01')
 }
 
-// JSON-S preserves Date
+// `@brillout/json-serializer` preserves Date
 assert(obj.time.constructor === Date)
 obj = parse(stringify(obj))
 assert(obj.time.constructor === Date)
@@ -138,19 +136,19 @@ assert(obj.time.getTime() === new Date('2042-01-01').getTime())
 ### Usage
 
 ~~~js
-// npm install @brillout/json-s
-const { parse } = require('@brillout/json-s/parse')
-const { stringify } = require('@brillout/json-s/stringify')
+// npm install @brillout/json-serializer
+const { parse } = require('@brillout/json-serializer/parse')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 const obj = {
   hello: 'from the future',
   time: new Date('2042-01-01')
 }
 
-// Serialize with JSON-S
+// Serialize with @brillout/json-serializer
 const obj_serialized = stringify(obj)
 
-// Deserialize a JSON-S string
+// Deserialize a @brillout/json-serializer string
 const obj_deserialized = parse(obj_serialized)
 ~~~
 
@@ -158,15 +156,15 @@ const obj_deserialized = parse(obj_serialized)
 
 ### Full Example
 
-Example exposing all differences between JSON and JSON-S.
+Example exposing all differences between JSON and `@brillout/json-serializer`.
 
 ~~~js
-// /examples/json-s.js
+// /examples/json-serializer.js
 
 const assert = require('assert')
 
-const { parse } = require('@brillout/json-s/parse')
-const { stringify } = require('@brillout/json-s/stringify')
+const { parse } = require('@brillout/json-serializer/parse')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 const obj = {
   date: new Date(),
@@ -176,7 +174,7 @@ const obj = {
   regexp: /^\d+$/g
 }
 
-// All of `obj` can be serialized with JSON-S
+// All of `obj` can be serialized with @brillout/json-serializer
 const obj2 = parse(stringify(obj))
 assert(obj2.date.getTime() === obj.date.getTime())
 assert(obj2.undefined === undefined && 'undefined' in obj2)
@@ -201,25 +199,25 @@ assert(obj3.regexp.constructor === Object && Object.keys(obj3.regexp).length ===
 To run the example:
 
 ~~~shell
-$ git clone git@github.com:brillout/json-s
-$ cd json-s
+$ git clone git@github.com:brillout/json-serializer
+$ cd json-serializer
 $ npm install
 $ npm run self-link
-$ node ./examples/json-s.js
+$ node ./examples/json-serializer.js
 ~~~
 
-The `npm run self-link` is required to be able to self `require('@brillout/json-s')`.
+The `npm run self-link` is required to be able to self `require('@brillout/json-serializer')`.
 
 <br/>
 
 ### How it Works
 
-Let's see how JSON-S serializes an object:
+Let's see how `@brillout/json-serializer` serializes an object:
 
 ~~~js
 // /examples/inspect.js
 
-const { stringify } = require('@brillout/json-s/stringify')
+const { stringify } = require('@brillout/json-serializer/stringify')
 
 const obj = {
   date: new Date(),
@@ -244,9 +242,9 @@ console.log(stringify(obj, undefined, 2))
 */
 ~~~
 
-JSON-S is based on JSON while using prefixed strings for unsupported types.
+`@brillout/json-serializer` is based on JSON while using prefixed strings for unsupported types.
 
-JSON-S uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
+`@brillout/json-serializer` uses the native `JSON.parse` and `JSON.stringify` functions while modifying the serialization of unsupported types.
 
 <!---
 
