@@ -1,3 +1,12 @@
+## [0.5.3](https://github.com/brillout/json-serializer/compare/v0.5.2...v0.5.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* add index.mjs to npm package ([#9](https://github.com/brillout/json-serializer/issues/9)) ([df5b103](https://github.com/brillout/json-serializer/commit/df5b103778c86523e736d2fe3bf11c81411afd41))
+
+
+
 ## [0.5.2](https://github.com/brillout/json-serializer/compare/v0.5.1...v0.5.2) (2022-11-03)
 
 
