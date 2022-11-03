@@ -6,12 +6,14 @@
   "exports": {
     ".": "./index.mjs",
     "./parse": {
-      "require": "./dist/cjs/parse.js",
-      "import": "./dist/esm/parse.js"
+      "worker": "./dist/cjs/parse.js",
+      "node": "./dist/cjs/parse.js",
+      "browser": "./dist/esm/parse.js"
     },
     "./stringify": {
-      "require": "./dist/cjs/stringify.js",
-      "import": "./dist/esm/stringify.js"
+      "worker": "./dist/cjs/stringify.js",
+      "node": "./dist/cjs/stringify.js",
+      "browser": "./dist/esm/stringify.js"
     }
   },
   "scripts": {
