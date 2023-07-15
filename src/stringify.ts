@@ -66,6 +66,6 @@ function stringify(
     const location =
       path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${valueName}[${path.map((p) => `'${p}'`).join('][')}]\``
     const fallback = name === '' && location === '' ? ` ${valueName}` : ''
-    return `Cannot serialize${name}${location}${fallback} because it is a ${valueType} (https://github.com/brillout/json-serializer)`
+    return `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize${name}${location}${fallback} because it's a ${valueType}.`
   }
 }
