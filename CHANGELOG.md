@@ -1,3 +1,12 @@
+## [0.5.4](https://github.com/brillout/json-serializer/compare/v0.5.3...v0.5.4) (2023-07-15)
+
+
+### Bug Fixes
+
+* improve serialization error message ([19a18ca](https://github.com/brillout/json-serializer/commit/19a18ca30f3224d85cb920cd58725f48c429ad5d))
+
+
+
 ## [0.5.3](https://github.com/brillout/json-serializer/compare/v0.5.2...v0.5.3) (2022-11-03)
 
 
