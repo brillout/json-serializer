@@ -1,9 +1,9 @@
 {
   "name": "@brillout/json-serializer",
   "version": "0.5.5",
+  "dependencies": {},
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./index.mjs",
-  "license": "MIT",
   "exports": {
     ".": "./index.mjs",
     "./parse": {
@@ -39,6 +39,7 @@
     "self-import": "^1.0.1",
     "typescript": "^4.8.2"
   },
+  "packageManager": "pnpm@7.9.5",
   "files": [
     "dist/",
     "*.d.ts",
@@ -46,7 +47,7 @@
     "*.js"
   ],
   "repository": "github:brillout/json-serializer",
-  "packageManager": "pnpm@7.9.5",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   }
