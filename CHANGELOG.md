@@ -1,3 +1,12 @@
+## [0.5.5](https://github.com/brillout/json-serializer/compare/v0.5.4...v0.5.5) (2023-08-26)
+
+
+### Bug Fixes
+
+* add License to package.json ([b3ef4c4](https://github.com/brillout/json-serializer/commit/b3ef4c4a149d346fa8b00d5210ef67c8df2da7c3))
+
+
+
 ## [0.5.4](https://github.com/brillout/json-serializer/compare/v0.5.3...v0.5.4) (2023-07-15)
 
 
