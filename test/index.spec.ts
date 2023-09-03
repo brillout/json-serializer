@@ -135,12 +135,7 @@ describe('error handling', () => {
         err = _err
       }
       const { message } = err
-      assert(
-        message.includes(
-          "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `helloFn` because it's a function."
-        ),
-        message
-      )
+      expect(message).toContain("@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `helloFn` because it's a function.")
     }
 
     {
