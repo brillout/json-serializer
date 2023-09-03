@@ -21,7 +21,7 @@ function stringify(
   //    - Cyclic references
   //    - Functions
   //    - React elements
-  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer), space)
+  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer, !valueName), space)
 
   return serializer(value)
 
@@ -60,11 +60,19 @@ function stringify(
 function genErrMsg(
   valueType: 'React element' | 'function',
   path: string,
-  rootValueName: string = 'value',
+  rootValueName?: string,
   problematicValueName?: string
 ) {
-  const valName = problematicValueName ? ` ${problematicValueName}` : ''
-  const location = path === '' ? '' : ` ${valName ? 'at ' : ''}${rootValueName}${path}`
-  const fallback = valName === '' && location === '' ? ` ${rootValueName}` : ''
-  return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize${valName}${location}${fallback} because it's a ${valueType}.`
+  let subject: string
+  if (!path) {
+    subject = rootValueName || problematicValueName || 'value'
+  } else {
+    if (problematicValueName) {
+      subject = problematicValueName + ' at '
+    } else {
+      subject = ''
+    }
+    subject = subject + (rootValueName || '') + path
+  }
+  return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize ${subject} because it's a ${valueType}.`
 }
