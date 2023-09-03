@@ -11,7 +11,7 @@ function stringify(
   {
     forbidReactElements,
     space,
-    valueName = 'value',
+    valueName,
     sortObjectKeys
   }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {}
 ): string {
@@ -60,11 +60,11 @@ function stringify(
 function genErrMsg(
   valueType: 'React element' | 'function',
   path: string,
-  rootValueName: string,
+  rootValueName: string = 'value',
   problematicValueName?: string
 ) {
-  const name = problematicValueName ? ` ${problematicValueName}` : ''
-  const location = path.length === 0 ? '' : ` ${name ? 'at ' : ''}${rootValueName}${path}`
-  const fallback = name === '' && location === '' ? ` ${rootValueName}` : ''
-  return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize${name}${location}${fallback} because it's a ${valueType}.`
+  const valName = problematicValueName ? ` ${problematicValueName}` : ''
+  const location = path.length === 0 ? '' : ` ${valName ? 'at ' : ''}${rootValueName}${path}`
+  const fallback = valName === '' && location === '' ? ` ${rootValueName}` : ''
+  return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize${valName}${location}${fallback} because it's a ${valueType}.`
 }
