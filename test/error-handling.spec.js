@@ -1,7 +1,24 @@
 import { stringify } from '../src/stringify'
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeAll } from 'vitest'
 import assert from 'assert'
 import React from 'react'
+
+beforeAll(() => {
+  expect.addSnapshotSerializer({
+    serialize(val, config, indentation, depth, refs, printer) {
+      console.log(val)
+      assert(typeof val === 'string')
+      return '`' + val.replaceAll('`', '\\`') + '`'
+      let s = JSON.stringify(val)
+      //s = '`' + s.slice(1, -1) + '`'
+      s = s.slice(1, -1)
+      return s
+    },
+    test(val) {
+      return typeof val === 'string'
+    }
+  })
+})
 
 describe('error handling', () => {
   it('error serializing function', () => {
