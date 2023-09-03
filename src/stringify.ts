@@ -27,12 +27,12 @@ function stringify(
 
   function replacer(this: Record<string, unknown>, key: string, value: unknown, path: string) {
     if (forbidReactElements && isReactElement(value)) {
-      throw new Error(genErrMsg('React element', path, valueName))
+      throw genErr(genErrMsg('React element', path, valueName))
     }
 
     if (isCallable(value)) {
       const functionName = value.name
-      throw new Error(genErrMsg('function', path, valueName, path.length === 0 ? functionName : undefined))
+      throw genErr(genErrMsg('function', path, valueName, path.length === 0 ? functionName : undefined))
     }
 
     const valueOriginal = this[key]
@@ -57,6 +57,11 @@ function stringify(
   }
 }
 
+function genErr(errMsg: string) {
+  const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
+  ;(err as any as Record<string, unknown>).messageCore = errMsg
+  return err
+}
 function genErrMsg(
   valueType: 'React element' | 'function',
   path: string,
@@ -74,5 +79,5 @@ function genErrMsg(
     }
     subject = subject + (rootValueName || '') + path
   }
-  return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize ${subject} because it's a ${valueType}.`
+  return `cannot serialize ${subject} because it's a ${valueType}`
 }
