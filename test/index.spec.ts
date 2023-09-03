@@ -1,7 +1,7 @@
 import { expect, describe, it } from 'vitest'
 import assert from 'assert'
-import { parse } from '../parse'
-import { stringify } from '../stringify'
+import { parse } from '../src/parse'
+import { stringify } from '../src/stringify'
 import React from 'react'
 
 describe('serialize', () => {
