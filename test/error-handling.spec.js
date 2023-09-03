@@ -1,6 +1,5 @@
 import { stringify } from '../src/stringify'
 import { expect, describe, it } from 'vitest'
-import assert from 'assert'
 import React from 'react'
 
 describe('error handling', () => {
@@ -12,7 +11,7 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
+      expect(err.message).toMatchInlineSnapshot(
         "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `helloFn` because it's a function."
       )
     }
@@ -24,8 +23,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize value because it's a function."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize value because it\'s a function.'
       )
     }
   })
@@ -38,8 +37,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize value because it's a React element."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize value because it\'s a React element.'
       )
     }
   })
@@ -51,8 +50,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['prop']` because it's a React element."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'prop\']` because it\'s a React element.'
       )
     }
 
@@ -63,8 +62,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['foo']` because it's a function."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'foo\']` because it\'s a function.'
       )
     }
 
@@ -75,8 +74,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['foo']` because it's a function."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'foo\']` because it\'s a function.'
       )
     }
 
@@ -89,8 +88,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['some']['nested']['prop']` because it's a React element."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'some\'][\'nested\'][\'prop\']` because it\'s a React element.'
       )
     }
 
@@ -102,8 +101,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['some']['nested']['prop']` because it's a function."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'some\'][\'nested\'][\'prop\']` because it\'s a function.'
       )
     }
 
@@ -114,8 +113,8 @@ describe('error handling', () => {
       } catch (_err) {
         err = _err
       }
-      expect(err.message).toContain(
-        "@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value['someProp']` because it's a function."
+      expect(err.message).toMatchInlineSnapshot(
+        '@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize `value[\'someProp\']` because it\'s a function.'
       )
     }
   })
