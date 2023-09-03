@@ -4,7 +4,7 @@ import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
 import { isCallable } from './utils/isCallable'
 import { isObject } from './utils/isObject'
-import { replacerWithPath } from './replacerWithPath'
+import { replacerWithPath } from './utils/replacerWithPath'
 
 function stringify(
   value: unknown,
