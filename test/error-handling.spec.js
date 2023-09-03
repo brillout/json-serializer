@@ -186,12 +186,12 @@ describe('error handling', () => {
     {
       let err
       try {
-        console.log(stringify(['ii', { ['a.b']: { ['s s']: { [0]: { ['a)']: [{ f0$_() {} }] } } } }]))
+        console.log(stringify(['ii', { ['a.b']: { C: { ['s s']: { [0]: { ['a)']: [{ f0$_() {} }] } } } } }]))
       } catch (_err) {
         err = _err
       }
       expect(err.message).toMatchInlineSnapshot(
-        `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize [1]["a.b"]["s s"].0["a)"][0].f0$_ because it's a function.`
+        `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize [1]["a.b"].C["s s"].0["a)"][0].f0$_ because it's a function.`
       )
     }
   })
