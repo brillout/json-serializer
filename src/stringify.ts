@@ -32,12 +32,12 @@ function stringify(
     }
 
     if (forbidReactElements && isReactElement(value)) {
-      throw new Error(genErrMsg('React element'))
+      throw new Error(genErrMsg('React element', path, valueName))
     }
 
     if (isCallable(value)) {
       const functionName = value.name
-      throw new Error(genErrMsg('function', path.length === 0 ? functionName : undefined))
+      throw new Error(genErrMsg('function', path, valueName, path.length === 0 ? functionName : undefined))
     }
 
     const valueOriginal = this[key]
@@ -60,12 +60,12 @@ function stringify(
 
     return value
   }
+}
 
-  function genErrMsg(valueType: 'React element' | 'function', valName?: string) {
-    const name = valName ? ' `' + valName + '`' : ''
-    const location =
-      path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${valueName}[${path.map((p) => `'${p}'`).join('][')}]\``
-    const fallback = name === '' && location === '' ? ` ${valueName}` : ''
-    return `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize${name}${location}${fallback} because it's a ${valueType}.`
-  }
+function genErrMsg(valueType: 'React element' | 'function', path: string[], rootValueName: string, problematicValueName?: string) {
+  const name = problematicValueName ? ' `' + problematicValueName + '`' : ''
+  const location =
+    path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${rootValueName}[${path.map((p) => `'${p}'`).join('][')}]\``
+  const fallback = name === '' && location === '' ? ` ${rootValueName}` : ''
+  return `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize${name}${location}${fallback} because it's a ${valueType}.`
 }
