@@ -152,7 +152,7 @@ describe('error handling', () => {
         err = _err
       }
       expect(err.message).toMatchInlineSnapshot(
-        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`config["meta"]['title']['env']['onBeforeRenderIsomorph']['env']['effect']\` because it's a function.`
+        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`config["meta"]['onBeforeRenderIsomorph']['effect']\` because it's a function.`
       )
     }
 
@@ -179,7 +179,7 @@ describe('error handling', () => {
         err = _err
       }
       expect(err.message).toMatchInlineSnapshot(
-        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`value['passToClient']['0']['1']['2']['clientRouting']['hydrationCanBeAborted']['meta']['title']['env']['onBeforeRenderIsomorph']['env']['effect']\` because it's a function.`
+        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`value['meta']['onBeforeRenderIsomorph']['effect']\` because it's a function.`
       )
     }
   })

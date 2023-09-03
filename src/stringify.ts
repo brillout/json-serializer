@@ -4,6 +4,7 @@ import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
 import { isCallable } from './utils/isCallable'
 import { isObject } from './utils/isObject'
+import { replacerWithPath } from './replacerWithPath'
 
 function stringify(
   value: unknown,
@@ -14,23 +15,17 @@ function stringify(
     sortObjectKeys
   }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {}
 ): string {
-  const path: string[] = []
-
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
   // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
   // - This means we have total of 3 possible errors while serializing:
   //    - Cyclic references
   //    - Functions
   //    - React elements
-  const serializer = (val: unknown) => JSON.stringify(val, replacer, space)
+  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer), space)
 
   return serializer(value)
 
-  function replacer(this: Record<string, unknown>, key: string, value: unknown) {
-    if (key !== '') {
-      path.push(key)
-    }
-
+  function replacer(this: Record<string, unknown>, key: string, value: unknown, path: string) {
     if (forbidReactElements && isReactElement(value)) {
       throw new Error(genErrMsg('React element', path, valueName))
     }
@@ -64,13 +59,12 @@ function stringify(
 
 function genErrMsg(
   valueType: 'React element' | 'function',
-  path: string[],
+  path: string,
   rootValueName: string,
   problematicValueName?: string
 ) {
   const name = problematicValueName ? ' `' + problematicValueName + '`' : ''
-  const location =
-    path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${rootValueName}[${path.map((p) => `'${p}'`).join('][')}]\``
+  const location = path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${rootValueName}${path}\``
   const fallback = name === '' && location === '' ? ` ${rootValueName}` : ''
   return `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize${name}${location}${fallback} because it's a ${valueType}.`
 }
