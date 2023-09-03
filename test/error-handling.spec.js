@@ -130,5 +130,57 @@ describe('error handling', () => {
         `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`value['someProp']\` because it's a function.`
       )
     }
+
+    {
+      let err
+      try {
+        console.log(
+          stringify(
+            {
+              title: {
+                env: 'server-and-client'
+              },
+              onBeforeRenderIsomorph: {
+                env: 'config-only',
+                effect() {}
+              }
+            },
+            { valueName: 'config["meta"]' }
+          )
+        )
+      } catch (_err) {
+        err = _err
+      }
+      expect(err.message).toMatchInlineSnapshot(
+        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`config["meta"]['title']['env']['onBeforeRenderIsomorph']['env']['effect']\` because it's a function.`
+      )
+    }
+
+    {
+      let err
+      try {
+        console.log(
+          stringify({
+            passToClient: ['pageProps', 'title', 'someAsyncProps'],
+            clientRouting: true,
+            hydrationCanBeAborted: true,
+            meta: {
+              title: {
+                env: 'server-and-client'
+              },
+              onBeforeRenderIsomorph: {
+                env: 'config-only',
+                effect() {}
+              }
+            }
+          })
+        )
+      } catch (_err) {
+        err = _err
+      }
+      expect(err.message).toMatchInlineSnapshot(
+        `@brillout/json-serializer (https://github.com/brillout/json-serializer) cannot serialize \`value['passToClient']['0']['1']['2']['clientRouting']['hydrationCanBeAborted']['meta']['title']['env']['onBeforeRenderIsomorph']['env']['effect']\` because it's a function.`
+      )
+    }
   })
 })
