@@ -15,5 +15,7 @@ function isIterable(value: unknown): value is Iterable {
   return value === Object(value)
 }
 function getKeyName(key: string, obj: Iterable) {
-  return Array.isArray(obj) ? `[${key}]` : `['${key}']`
+  if (Array.isArray(obj)) return `[${key}]`
+  if (/^[a-z0-9\$_]+$/i.test(key)) return `.${key}`
+  return `[${JSON.stringify(key)}]`
 }
