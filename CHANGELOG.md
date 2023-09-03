@@ -1,3 +1,21 @@
+## [0.5.6](https://github.com/brillout/json-serializer/compare/v0.5.5...v0.5.6) (2023-09-03)
+
+
+### Bug Fixes
+
+* make error messages prettier ([313bb24](https://github.com/brillout/json-serializer/commit/313bb2457c5efb070ff6359bfc31688657f306eb))
+* make error messages prettier ([a448408](https://github.com/brillout/json-serializer/commit/a448408c2eec3e1cc70cc56f0d811a7babb26021))
+* make error messages prettier ([e4b5781](https://github.com/brillout/json-serializer/commit/e4b578126f40d065b03818ac65256e633da1c31d))
+* make paths prettier ([1d04319](https://github.com/brillout/json-serializer/commit/1d043190e0269242c28033a6edff72bbdf3a8bed))
+* object value path in error messages ([5d9f0dd](https://github.com/brillout/json-serializer/commit/5d9f0dd908a3125173ba3e9ab96fde41cf863a9a))
+
+
+### Features
+
+* make error message core available at err.messageCore ([3d08d57](https://github.com/brillout/json-serializer/commit/3d08d5747939b85a67b94b11ecb11e0b1bf77083))
+
+
+
 ## [0.5.5](https://github.com/brillout/json-serializer/compare/v0.5.4...v0.5.5) (2023-08-26)
 
 
