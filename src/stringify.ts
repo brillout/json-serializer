@@ -62,7 +62,12 @@ function stringify(
   }
 }
 
-function genErrMsg(valueType: 'React element' | 'function', path: string[], rootValueName: string, problematicValueName?: string) {
+function genErrMsg(
+  valueType: 'React element' | 'function',
+  path: string[],
+  rootValueName: string,
+  problematicValueName?: string
+) {
   const name = problematicValueName ? ' `' + problematicValueName + '`' : ''
   const location =
     path.length === 0 ? '' : ` ${name ? 'at ' : ''}\`${rootValueName}[${path.map((p) => `'${p}'`).join('][')}]\``
