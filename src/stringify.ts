@@ -64,7 +64,7 @@ function genErrMsg(
   problematicValueName?: string
 ) {
   const valName = problematicValueName ? ` ${problematicValueName}` : ''
-  const location = path.length === 0 ? '' : ` ${valName ? 'at ' : ''}${rootValueName}${path}`
+  const location = path === '' ? '' : ` ${valName ? 'at ' : ''}${rootValueName}${path}`
   const fallback = valName === '' && location === '' ? ` ${rootValueName}` : ''
   return `[@brillout/json-serializer](https://github.com/brillout/json-serializer) cannot serialize${valName}${location}${fallback} because it's a ${valueType}.`
 }
