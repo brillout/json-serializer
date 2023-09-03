@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "pnpm run tsc:watch:cjs",
     "build": "pnpm run clean && pnpm run tsc:esm && pnpm run tsc:cjs",
-    "test": "self-import && node test/",
+    "test": "vitest",
     "docs": "mdocs",
     "tsc:esm": "tsc",
     "tsc:cjs": "tsc --project ./tsconfig.cjs.json",
@@ -36,16 +36,11 @@
     "@types/node": "^20.5.6",
     "lodash.isequal": "^4.5.0",
     "react": "^17.0.2",
-    "self-import": "^1.0.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3"
   },
   "packageManager": "pnpm@8.6.12",
-  "files": [
-    "dist/",
-    "*.d.ts",
-    "*.mjs",
-    "*.js"
-  ],
+  "files": ["dist/", "*.d.ts", "*.mjs", "*.js"],
   "repository": "github:brillout/json-serializer",
   "license": "MIT",
   "publishConfig": {
