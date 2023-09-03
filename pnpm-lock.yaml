@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  vitest>@vitest/snapshot: npm:@brillout/vitest-snapshot@0.35.0-prerelease
+
 devDependencies:
   '@brillout/mdocs':
     specifier: ^0.1.30
@@ -95,6 +98,14 @@ packages:
       js-yaml: 4.1.0
       picocolors: 1.0.0
       semver: 7.5.4
+    dev: true
+
+  /@brillout/vitest-snapshot@0.35.0-prerelease:
+    resolution: {integrity: sha512-QTLTM1h0RV+mh203+i6vW8U5Nxp8wUhissc9bZs8pONkoXq2vx9APkxIawmT3GPKpsQJsnTZvJyp2RyZCbS0cw==}
+    dependencies:
+      magic-string: 0.30.3
+      pathe: 1.1.1
+      pretty-format: 29.6.3
     dev: true
 
   /@esbuild/android-arm64@0.18.20:
@@ -367,14 +378,6 @@ packages:
       '@vitest/utils': 0.34.3
       p-limit: 4.0.0
       pathe: 1.1.1
-    dev: true
-
-  /@vitest/snapshot@0.34.3:
-    resolution: {integrity: sha512-QyPaE15DQwbnIBp/yNJ8lbvXTZxS00kRly0kfFgAD5EYmCbYcA+1EEyRalc93M0gosL/xHeg3lKAClIXYpmUiQ==}
-    dependencies:
-      magic-string: 0.30.3
-      pathe: 1.1.1
-      pretty-format: 29.6.3
     dev: true
 
   /@vitest/spy@0.34.3:
@@ -1965,7 +1968,7 @@ packages:
       '@types/node': 20.5.6
       '@vitest/expect': 0.34.3
       '@vitest/runner': 0.34.3
-      '@vitest/snapshot': 0.34.3
+      '@vitest/snapshot': /@brillout/vitest-snapshot@0.35.0-prerelease
       '@vitest/spy': 0.34.3
       '@vitest/utils': 0.34.3
       acorn: 8.10.0
