@@ -1,3 +1,12 @@
+## [0.5.7](https://github.com/brillout/json-serializer/compare/v0.5.6...v0.5.7) (2023-11-02)
+
+
+### Features
+
+* isJsonSerializerError() (vikejs/vike[#1232](https://github.com/brillout/json-serializer/issues/1232)) ([1e3509e](https://github.com/brillout/json-serializer/commit/1e3509e7dade243d1f79bf4445433e5713c6562e))
+
+
+
 ## [0.5.6](https://github.com/brillout/json-serializer/compare/v0.5.5...v0.5.6) (2023-09-03)
 
 
