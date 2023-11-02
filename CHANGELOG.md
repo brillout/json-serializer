@@ -1,3 +1,12 @@
+## [0.5.8](https://github.com/brillout/json-serializer/compare/v0.5.7...v0.5.8) (2023-11-02)
+
+
+### Bug Fixes
+
+* type re-export ([21c56c0](https://github.com/brillout/json-serializer/commit/21c56c04058f3096529366ad140b61231dcdabda))
+
+
+
 ## [0.5.7](https://github.com/brillout/json-serializer/compare/v0.5.6...v0.5.7) (2023-11-02)
 
 
