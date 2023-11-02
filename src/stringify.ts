@@ -1,4 +1,5 @@
 export { stringify }
+export { isJsonSerializerError }
 
 import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
@@ -57,10 +58,20 @@ function stringify(
   }
 }
 
+const stamp = '_isJsonSerializerError'
+type JsonSerializerError = Error & {
+  messageCore: string
+}
 function genErr(errMsg: string) {
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
-  ;(err as any as Record<string, unknown>).messageCore = errMsg
+  Object.assign(err, {
+    messageCore: errMsg,
+    [stamp]: true
+  })
   return err
+}
+function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
+  return isObject(thing) && thing[stamp] === true
 }
 function genErrMsg(
   valueType: 'React element' | 'function',
