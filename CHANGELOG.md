@@ -1,3 +1,12 @@
+## [0.5.10](https://github.com/brillout/json-serializer/compare/v0.5.9...v0.5.10) (2024-05-02)
+
+
+### Features
+
+* expose parseTransform() ([481e63c](https://github.com/brillout/json-serializer/commit/481e63cf16462bb037e28a2baa63837a8aff150f))
+
+
+
 ## [0.5.9](https://github.com/brillout/json-serializer/compare/v0.5.8...v0.5.9) (2024-05-02)
 
 
