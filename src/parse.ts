@@ -12,7 +12,11 @@ function modifier(value: unknown) {
   if (typeof value === 'string') {
     return reviver(value)
   }
-  if (typeof value === 'object' && value !== null) {
+  if (
+    // Also matches arrays
+    typeof value === 'object' &&
+    value !== null
+  ) {
     Object.entries(value).forEach(([key, val]: [string, unknown]) => {
       ;(value as Record<string, unknown>)[key] = modifier(val)
     })
