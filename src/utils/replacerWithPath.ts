@@ -1,14 +1,13 @@
 export { replacerWithPath }
+export type { Iterable }
 
 // https://stackoverflow.com/questions/61681176/json-stringify-replacer-how-to-get-full-path/63957172#63957172
 
 import { isKeyDotNotationCompatible } from './isKeyDotNotationCompatible'
 
 type Iterable = Record<string, unknown>
-function replacerWithPath(
-  replacer: (this: Iterable, key: string, value: unknown, path: string) => unknown,
-  canBeFirstKey: boolean,
-) {
+type Replacer = (this: Iterable, key: string, value: unknown, path: string) => unknown
+function replacerWithPath(replacer: Replacer, canBeFirstKey: boolean) {
   const paths = new WeakMap<Iterable, string>()
   return function (this: Iterable, key: string, value: unknown) {
     const prefix = paths.get(this)

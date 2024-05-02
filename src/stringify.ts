@@ -5,7 +5,7 @@ import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
 import { isCallable } from './utils/isCallable'
 import { isObject } from './utils/isObject'
-import { replacerWithPath } from './utils/replacerWithPath'
+import { replacerWithPath, type Iterable } from './utils/replacerWithPath'
 
 function stringify(
   value: unknown,
@@ -14,7 +14,14 @@ function stringify(
     space,
     valueName,
     sortObjectKeys,
-  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {},
+    replacer: replacerUserProvided,
+  }: {
+    forbidReactElements?: boolean
+    space?: number
+    valueName?: string
+    sortObjectKeys?: boolean
+    replacer?: (this: Iterable, key: string, value: unknown, path: string) => void | { replacement: unknown }
+  } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
   // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
@@ -26,7 +33,12 @@ function stringify(
 
   return serializer(value)
 
-  function replacer(this: Record<string, unknown>, key: string, value: unknown, path: string) {
+  function replacer(this: Iterable, key: string, value: unknown, path: string) {
+    {
+      const ret = replacerUserProvided?.call(this, key, value, path)
+      if (ret) return ret.replacement
+    }
+
     if (forbidReactElements && isReactElement(value)) {
       throw genErr(genErrMsg('React element', path, valueName))
     }
