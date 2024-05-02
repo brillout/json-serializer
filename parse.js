@@ -8,3 +8,4 @@
 // prettier-ignore
 // biome-ignore format:
 exports.parse = require('./dist/cjs/parse.js').parse;
+exports.parseTransform = require('./dist/cjs/parse.js').parseTransform;
