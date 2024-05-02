@@ -44,7 +44,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.7.2",
     "@brillout/mdocs": "^0.1.30",
-    "@brillout/release-me": "^0.0.5",
+    "@brillout/release-me": "^0.3.7",
     "@types/node": "^20.5.6",
     "@types/react": "^18.2.21",
     "lodash.isequal": "^4.5.0",
