@@ -20,7 +20,7 @@ describe('sortObjectKeys option', () => {
     {
       const obj = {
         b: 2,
-        a: 1
+        a: 1,
       }
       {
         const keys = Object.keys(obj)
@@ -43,8 +43,8 @@ describe('sortObjectKeys option', () => {
       const obj = {
         a: {
           d: 2,
-          c: 3
-        }
+          c: 3,
+        },
       }
       {
         const keys = Object.keys(obj.a)

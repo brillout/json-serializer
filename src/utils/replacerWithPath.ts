@@ -7,7 +7,7 @@ import { isKeyDotNotationCompatible } from './isKeyDotNotationCompatible'
 type Iterable = Record<string, unknown>
 function replacerWithPath(
   replacer: (this: Iterable, key: string, value: unknown, path: string) => unknown,
-  canBeFirstKey: boolean
+  canBeFirstKey: boolean,
 ) {
   const paths = new WeakMap<Iterable, string>()
   return function (this: Iterable, key: string, value: unknown) {

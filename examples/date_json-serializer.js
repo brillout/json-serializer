@@ -3,7 +3,7 @@ const { parse } = require('@brillout/json-serializer/parse')
 const { stringify } = require('@brillout/json-serializer/stringify')
 
 let obj = {
-  time: new Date('2042-01-01')
+  time: new Date('2042-01-01'),
 }
 
 // `@brillout/json-serializer` preserves Date

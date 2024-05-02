@@ -13,8 +13,8 @@ function stringify(
     forbidReactElements,
     space,
     valueName,
-    sortObjectKeys
-  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {}
+    sortObjectKeys,
+  }: { forbidReactElements?: boolean; space?: number; valueName?: string; sortObjectKeys?: boolean } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
   // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
@@ -66,7 +66,7 @@ function genErr(errMsg: string) {
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
   Object.assign(err, {
     messageCore: errMsg,
-    [stamp]: true
+    [stamp]: true,
   })
   return err
 }
@@ -77,7 +77,7 @@ function genErrMsg(
   valueType: 'React element' | 'function',
   path: string,
   rootValueName?: string,
-  problematicValueName?: string
+  problematicValueName?: string,
 ) {
   let subject: string
   if (!path) {
