@@ -1,6 +1,6 @@
 export { types }
 
-const types = [
+const types: readonly Type<any, any>[] = [
   ts({
     is: (val) => val === undefined,
     match: (str) => str === '!undefined',
@@ -78,11 +78,11 @@ const types = [
   }),
 ] as const
 
-type Type<T, IntermediateType> = {
-  is: (val: unknown) => asserts val is T
+type Type<ValueType, IntermediateType> = {
+  is: (val: unknown) => asserts val is ValueType
   match: (str: string) => boolean
-  serialize: (val: T, serializer: (val: IntermediateType) => string) => string
-  deserialize: (str: string, deserializer: (str: string) => IntermediateType) => T
+  serialize: (val: ValueType, serializer: (val: IntermediateType) => string) => string
+  deserialize: (str: string, deserializer: (str: string) => IntermediateType) => ValueType
 }
 
 // Type check

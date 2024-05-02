@@ -2,13 +2,13 @@ export { parse }
 
 import { types } from './types'
 
-function parse(str: string) {
+function parse(str: string): unknown {
   // We don't use the reviver option in `JSON.parse(str, reviver)` because it doesn't support `undefined` values
   const value = JSON.parse(str)
   return modifier(value)
 }
 
-function modifier(value: unknown) {
+function modifier(value: unknown): unknown {
   if (typeof value === 'string') {
     return reviver(value)
   }
