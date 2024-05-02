@@ -1,4 +1,5 @@
 export { parse }
+// Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/shared/page-configs/serialize/parseConfigValuesSerialized.ts#L13
 export { parseTransform }
 
 import { types } from './types'

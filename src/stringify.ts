@@ -14,6 +14,7 @@ function stringify(
     space,
     valueName,
     sortObjectKeys,
+    // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer: replacerUserProvided,
   }: {
     forbidReactElements?: boolean
