@@ -1,3 +1,12 @@
+## [0.5.9](https://github.com/brillout/json-serializer/compare/v0.5.8...v0.5.9) (2024-05-02)
+
+
+### Features
+
+* user-defined replacer ([76ddf95](https://github.com/brillout/json-serializer/commit/76ddf95cdfe36c39b99400a41bc22d2f243ed5c4))
+
+
+
 ## [0.5.8](https://github.com/brillout/json-serializer/compare/v0.5.7...v0.5.8) (2023-11-02)
 
 
