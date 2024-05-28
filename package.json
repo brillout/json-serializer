@@ -29,17 +29,15 @@
     "test": "vitest",
     "========= Build readme.md": "",
     "docs": "mdocs",
-    "========= Clean": "",
-    "// Remove all generated files": "",
-    "clean": "git clean -Xdf",
-    "reset": "pnpm run clean && pnpm install && pnpm run build",
     "========= Formatting": "",
     "format": "pnpm run format:biome",
     "format:prettier": "git ls-files | egrep '\\.(json|js|jsx|css|ts|tsx|vue|mjs|cjs)$' | grep --invert-match package.json | xargs pnpm exec prettier --write",
     "format:biome": "biome format --write .",
     "format:check": "biome format . || echo Fix formatting by running: $ pnpm -w run format",
     "========= Release": "",
-    "release": "release-me patch"
+    "release": "release-me patch",
+    "========= Reset": "",
+    "reset": "git clean -Xdf && pnpm install && pnpm run build"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.2",
