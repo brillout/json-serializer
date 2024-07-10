@@ -84,11 +84,6 @@ function stringify(
   }
 }
 
-const stamp = '_isJsonSerializerError'
-type JsonSerializerError = Error & ErrAddendum
-type ErrAddendum = {
-  messageCore: string
-}
 function genErr({
   valueType,
   path,
@@ -112,7 +107,11 @@ function genErr({
   Object.assign(err, errAddendum)
   return err
 }
-function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
+type ErrAddendum = {
+  messageCore: string
+}
+const stamp = '_isJsonSerializerError'
+function isJsonSerializerError(thing: unknown): thing is Error & ErrAddendum {
   return isObject(thing) && thing[stamp] === true
 }
 type ValueType = 'React element' | 'function'
