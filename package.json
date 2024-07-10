@@ -1,6 +1,6 @@
 {
   "name": "@brillout/json-serializer",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./index.mjs",
   "exports": {

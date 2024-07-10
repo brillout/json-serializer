@@ -1,3 +1,12 @@
+## [0.5.13](https://github.com/brillout/json-serializer/compare/v0.5.12...v0.5.13) (2024-07-10)
+
+
+### Bug Fixes
+
+* fix pathString ([83a0bc8](https://github.com/brillout/json-serializer/commit/83a0bc8847d192ec40cef1dc322818e0af228957))
+
+
+
 ## [0.5.12](https://github.com/brillout/json-serializer/compare/v0.5.11...v0.5.12) (2024-07-10)
 
 
