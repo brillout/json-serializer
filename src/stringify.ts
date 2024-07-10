@@ -5,7 +5,7 @@ import { types } from './types'
 import { isReactElement } from './utils/isReactElement'
 import { isCallable } from './utils/isCallable'
 import { isObject } from './utils/isObject'
-import { replacerWithPath, type Iterable } from './utils/replacerWithPath'
+import { replacerWithPath, type Iterable, type Path } from './utils/replacerWithPath'
 
 function stringify(
   value: unknown,
@@ -24,17 +24,20 @@ function stringify(
     replacer?: (this: Iterable, key: string, value: unknown, path: string) => void | { replacement: unknown }
   } = {},
 ): string {
+  const canBeFirstKey = !valueName
+
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
   // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
   // - This means we have total of 3 possible errors while serializing:
   //    - Cyclic references
   //    - Functions
   //    - React elements
-  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer, !valueName), space)
+  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer), space)
 
   return serializer(value)
 
-  function replacer(this: Iterable, key: string, value: unknown, path: string) {
+  function replacer(this: Iterable, key: string, value: unknown, pathList: Path) {
+    const path = getPathString(pathList, canBeFirstKey)
     {
       const ret = replacerUserProvided?.call(this, key, value, path)
       if (ret) return ret.replacement
@@ -104,4 +107,25 @@ function genErrMsg(
     subject = subject + (rootValueName || '') + path
   }
   return `cannot serialize ${subject} because it's a ${valueType}`
+}
+
+function getPathString(path: Path, canBeFirstKey: boolean): string {
+  const pathString = path
+    .map((key, i) => {
+      if (typeof key === 'number') {
+        return `[${key}]`
+      }
+      if (i === 0 && canBeFirstKey && isKeyDotNotationCompatible(key)) {
+        return key
+      }
+      return getPropAccessNotation(key)
+    })
+    .join('')
+  return pathString
+}
+function getPropAccessNotation(key: unknown): `.${string}` | `[${string}]` {
+  return typeof key === 'string' && isKeyDotNotationCompatible(key) ? `.${key}` : `[${JSON.stringify(key)}]`
+}
+function isKeyDotNotationCompatible(key: string): boolean {
+  return /^[a-z0-9\$_]+$/i.test(key)
 }

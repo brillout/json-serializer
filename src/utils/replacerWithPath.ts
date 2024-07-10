@@ -1,27 +1,25 @@
 export { replacerWithPath }
 export type { Iterable }
+export type { Path }
 
 // https://stackoverflow.com/questions/61681176/json-stringify-replacer-how-to-get-full-path/63957172#63957172
 
+type Path = (string | number)[]
 type Iterable = Record<string, unknown>
-type Replacer = (this: Iterable, key: string, value: unknown, path: string) => unknown
-function replacerWithPath(replacer: Replacer, canBeFirstKey: boolean) {
-  const pathMap = new WeakMap<Iterable, string>()
+type Replacer = (this: Iterable, key: string, value: unknown, path: Path) => unknown
+function replacerWithPath(replacer: Replacer) {
+  const pathMap = new WeakMap<Iterable, Path>()
   return function (this: Iterable, key: string, value: unknown) {
-    const prefix = pathMap.get(this)
-    const path = (prefix ?? '') + (key ? getPropAccessNotation(key, this, !prefix && canBeFirstKey) : '')
+    const pathPrevious = pathMap.get(this) ?? []
+    const path = [...pathPrevious]
+    if (key !== '') {
+      const pathEntry = !Array.isArray(this) ? key : parseInt(key, 10)
+      path.push(pathEntry)
+    }
     if (isIterable(value)) pathMap.set(value, path)
     return replacer.call(this, key, value, path)
   }
 }
 function isIterable(value: unknown): value is Iterable {
   return value === Object(value)
-}
-function getPropAccessNotation(key: string, obj: Iterable, isFirstKey: boolean) {
-  if (Array.isArray(obj)) return `[${key}]`
-  if (isKeyDotNotationCompatible(key)) return !isFirstKey ? `.${key}` : key // Dot notation
-  return `[${JSON.stringify(key)}]` // Bracket notation
-}
-function isKeyDotNotationCompatible(key: string): boolean {
-  return /^[a-z0-9\$_]+$/i.test(key)
 }
