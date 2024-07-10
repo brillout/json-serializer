@@ -1,3 +1,18 @@
+## [0.5.12](https://github.com/brillout/json-serializer/compare/v0.5.11...v0.5.12) (2024-07-10)
+
+
+### Bug Fixes
+
+* improve messageCore type ([0bcf56e](https://github.com/brillout/json-serializer/commit/0bcf56e238064dd0146d151051fadc7e26408441))
+* pass more usefull pathString value ([eb063d6](https://github.com/brillout/json-serializer/commit/eb063d6ee9fe6729a45e4b6a3b06bd0c4a38e04c))
+
+
+### Features
+
+* add subjectName to serialization error object ([7220453](https://github.com/brillout/json-serializer/commit/72204538f347b05df362047c1b01cc3fc392b44b))
+
+
+
 ## [0.5.11](https://github.com/brillout/json-serializer/compare/v0.5.10...v0.5.11) (2024-07-10)
 
 
