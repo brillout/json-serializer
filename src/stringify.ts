@@ -85,7 +85,8 @@ function stringify(
 }
 
 const stamp = '_isJsonSerializerError'
-type JsonSerializerError = Error & {
+type JsonSerializerError = Error & ErrAddendum
+type ErrAddendum = {
   messageCore: string
 }
 function genErr({
@@ -104,10 +105,11 @@ function genErr({
   const pathString = getPathString(path, canBeFirstKey)
   const errMsg = getErrMsg({ valueType, pathString, rootValueName, problematicValueName })
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
-  Object.assign(err, {
+  const errAddendum: ErrAddendum & { [stamp]: true } = {
     messageCore: errMsg,
     [stamp]: true,
-  })
+  }
+  Object.assign(err, errAddendum)
   return err
 }
 function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
