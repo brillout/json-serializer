@@ -3,8 +3,6 @@ export type { Iterable }
 
 // https://stackoverflow.com/questions/61681176/json-stringify-replacer-how-to-get-full-path/63957172#63957172
 
-import { isKeyDotNotationCompatible } from './isKeyDotNotationCompatible'
-
 type Iterable = Record<string, unknown>
 type Replacer = (this: Iterable, key: string, value: unknown, path: string) => unknown
 function replacerWithPath(replacer: Replacer, canBeFirstKey: boolean) {
@@ -23,4 +21,7 @@ function getPropAccessNotation(key: string, obj: Iterable, isFirstKey: boolean) 
   if (Array.isArray(obj)) return `[${key}]`
   if (isKeyDotNotationCompatible(key)) return !isFirstKey ? `.${key}` : key // Dot notation
   return `[${JSON.stringify(key)}]` // Bracket notation
+}
+function isKeyDotNotationCompatible(key: string): boolean {
+  return /^[a-z0-9\$_]+$/i.test(key)
 }
