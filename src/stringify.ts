@@ -106,8 +106,8 @@ function genErr({
   const messageCore = `cannot serialize ${subjectName} because it's a ${valueType}`
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${messageCore}.`)
   const errAddendum: ErrAddendum & { [stamp]: true } = {
-    messageCore,
     [stamp]: true,
+    messageCore,
     value,
     path,
     pathString,
