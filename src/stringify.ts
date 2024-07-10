@@ -21,7 +21,7 @@ function stringify(
     space?: number
     valueName?: string
     sortObjectKeys?: boolean
-    replacer?: (this: Iterable, key: string, value: unknown, pathString: string) => void | { replacement: unknown }
+    replacer?: (this: Iterable, key: string, value: unknown) => void | { replacement: unknown }
   } = {},
 ): string {
   const canBeFirstKey = !valueName
@@ -39,7 +39,7 @@ function stringify(
   function replacer(this: Iterable, key: string, value: unknown, path: Path) {
     const pathString = getPathString(path, canBeFirstKey)
     {
-      const ret = replacerUserProvided?.call(this, key, value, pathString)
+      const ret = replacerUserProvided?.call(this, key, value)
       if (ret) return ret.replacement
     }
 
