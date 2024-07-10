@@ -6,11 +6,11 @@ export type { Iterable }
 type Iterable = Record<string, unknown>
 type Replacer = (this: Iterable, key: string, value: unknown, path: string) => unknown
 function replacerWithPath(replacer: Replacer, canBeFirstKey: boolean) {
-  const paths = new WeakMap<Iterable, string>()
+  const pathMap = new WeakMap<Iterable, string>()
   return function (this: Iterable, key: string, value: unknown) {
-    const prefix = paths.get(this)
+    const prefix = pathMap.get(this)
     const path = (prefix ?? '') + (key ? getPropAccessNotation(key, this, !prefix && canBeFirstKey) : '')
-    if (isIterable(value)) paths.set(value, path)
+    if (isIterable(value)) pathMap.set(value, path)
     return replacer.call(this, key, value, path)
   }
 }
