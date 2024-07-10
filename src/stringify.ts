@@ -88,8 +88,21 @@ const stamp = '_isJsonSerializerError'
 type JsonSerializerError = Error & {
   messageCore: string
 }
-function genErr(args: GetErrMsgArgs) {
-  const errMsg = getErrMsg(args)
+function genErr({
+  valueType,
+  path,
+  canBeFirstKey,
+  rootValueName,
+  problematicValueName,
+}: {
+  valueType: ValueType
+  path: Path
+  canBeFirstKey: boolean
+  rootValueName?: string
+  problematicValueName?: string
+}) {
+  const pathString = getPathString(path, canBeFirstKey)
+  const errMsg = getErrMsg({ valueType, pathString, rootValueName, problematicValueName })
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
   Object.assign(err, {
     messageCore: errMsg,
@@ -100,15 +113,18 @@ function genErr(args: GetErrMsgArgs) {
 function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
   return isObject(thing) && thing[stamp] === true
 }
-type GetErrMsgArgs = {
-  valueType: 'React element' | 'function'
-  path: Path
-  canBeFirstKey: boolean
+type ValueType = 'React element' | 'function'
+function getErrMsg({
+  valueType,
+  rootValueName,
+  pathString,
+  problematicValueName,
+}: {
+  valueType: ValueType
+  pathString: string
   rootValueName?: string
   problematicValueName?: string
-}
-function getErrMsg({ valueType, path, canBeFirstKey, rootValueName, problematicValueName }: GetErrMsgArgs) {
-  const pathString = getPathString(path, canBeFirstKey)
+}) {
   let subject: string
   if (!pathString) {
     subject = rootValueName || problematicValueName || 'value'
