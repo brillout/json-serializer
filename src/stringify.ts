@@ -44,6 +44,7 @@ function stringify(
 
     if (forbidReactElements && isReactElement(value)) {
       throw genErr({
+        value,
         valueType: 'React element',
         path,
         canBeFirstKey,
@@ -54,6 +55,7 @@ function stringify(
     if (isCallable(value)) {
       const functionName = value.name
       throw genErr({
+        value,
         valueType: 'function',
         path,
         canBeFirstKey,
@@ -85,12 +87,14 @@ function stringify(
 }
 
 function genErr({
+  value,
   valueType,
   path,
   canBeFirstKey,
   rootValueName,
   problematicValueName,
 }: {
+  value: unknown
   valueType: ValueType
   path: Path
   canBeFirstKey: boolean
@@ -103,12 +107,18 @@ function genErr({
   const errAddendum: ErrAddendum & { [stamp]: true } = {
     messageCore: errMsg,
     [stamp]: true,
+    value,
+    path,
+    pathString,
   }
   Object.assign(err, errAddendum)
   return err
 }
 type ErrAddendum = {
   messageCore: string
+  value: unknown
+  path: Path
+  pathString: string
 }
 const stamp = '_isJsonSerializerError'
 function isJsonSerializerError(thing: unknown): thing is Error & ErrAddendum {
