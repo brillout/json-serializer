@@ -105,6 +105,7 @@ function genErr({
     value,
     path,
     pathString,
+    subjectName,
   }
   Object.assign(err, errAddendum)
   return err
@@ -116,6 +117,7 @@ type ErrAddendum = {
   value: unknown
   path: Path
   pathString: string
+  subjectName: string
 }
 const stamp = '_isJsonSerializerError'
 function isJsonSerializerError(thing: unknown): thing is Error & ErrAddendum {
