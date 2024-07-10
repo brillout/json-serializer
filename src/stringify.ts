@@ -102,11 +102,11 @@ function genErr({
   problematicValueName?: string
 }) {
   const pathString = getPathString(path, canBeFirstKey)
-  const subject = getSubjectName({ pathString, rootValueName, problematicValueName })
-  const errMsg = `cannot serialize ${subject} because it's a ${valueType}`
-  const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
+  const subjectName = getSubjectName({ pathString, rootValueName, problematicValueName })
+  const messageCore = `cannot serialize ${subjectName} because it's a ${valueType}`
+  const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${messageCore}.`)
   const errAddendum: ErrAddendum & { [stamp]: true } = {
-    messageCore: errMsg,
+    messageCore,
     [stamp]: true,
     value,
     path,
@@ -135,18 +135,18 @@ function getSubjectName({
   rootValueName?: string
   problematicValueName?: string
 }) {
-  let subject: string
+  let subjectName: string
   if (!pathString) {
-    subject = rootValueName || problematicValueName || 'value'
+    subjectName = rootValueName || problematicValueName || 'value'
   } else {
     if (problematicValueName) {
-      subject = problematicValueName + ' at '
+      subjectName = problematicValueName + ' at '
     } else {
-      subject = ''
+      subjectName = ''
     }
-    subject = subject + (rootValueName || '') + pathString
+    subjectName = subjectName + (rootValueName || '') + pathString
   }
-  return subject
+  return subjectName
 }
 
 function getPathString(path: Path, canBeFirstKey: boolean): string {
