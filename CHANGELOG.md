@@ -1,3 +1,30 @@
+## [0.5.11](https://github.com/brillout/json-serializer/compare/v0.5.10...v0.5.11) (2024-07-10)
+
+
+### Bug Fixes
+
+* stop passing pathString to user-land replacer ([3d4fd16](https://github.com/brillout/json-serializer/commit/3d4fd161aa7a4854dd2f8c557884f132f09fa623))
+
+
+### Features
+
+* add more information to serializatoin error object ([d173e8a](https://github.com/brillout/json-serializer/commit/d173e8a0cd0d3a7af42e8cea5c2e6d7610f4c21a))
+
+
+### BREAKING CHANGES
+
+* `replacer()` doesn't recevied the `pathString` argument anymore:
+```diff
+  stringify(something, {
+-   replacer(key, val, pathString) {
++   replacer(key, val) {
+       // ...
+    }
+  }
+```
+
+
+
 ## [0.5.10](https://github.com/brillout/json-serializer/compare/v0.5.9...v0.5.10) (2024-05-02)
 
 
