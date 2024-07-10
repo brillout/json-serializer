@@ -21,7 +21,7 @@ function stringify(
     space?: number
     valueName?: string
     sortObjectKeys?: boolean
-    replacer?: (this: Iterable, key: string, value: unknown, path: string) => void | { replacement: unknown }
+    replacer?: (this: Iterable, key: string, value: unknown, pathString: string) => void | { replacement: unknown }
   } = {},
 ): string {
   const canBeFirstKey = !valueName
@@ -36,20 +36,20 @@ function stringify(
 
   return serializer(value)
 
-  function replacer(this: Iterable, key: string, value: unknown, pathList: Path) {
-    const path = getPathString(pathList, canBeFirstKey)
+  function replacer(this: Iterable, key: string, value: unknown, path: Path) {
+    const pathString = getPathString(path, canBeFirstKey)
     {
-      const ret = replacerUserProvided?.call(this, key, value, path)
+      const ret = replacerUserProvided?.call(this, key, value, pathString)
       if (ret) return ret.replacement
     }
 
     if (forbidReactElements && isReactElement(value)) {
-      throw genErr(genErrMsg('React element', path, valueName))
+      throw genErr(genErrMsg('React element', pathString, valueName))
     }
 
     if (isCallable(value)) {
       const functionName = value.name
-      throw genErr(genErrMsg('function', path, valueName, path.length === 0 ? functionName : undefined))
+      throw genErr(genErrMsg('function', pathString, valueName, pathString.length === 0 ? functionName : undefined))
     }
 
     const valueOriginal = this[key]
@@ -91,12 +91,12 @@ function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
 }
 function genErrMsg(
   valueType: 'React element' | 'function',
-  path: string,
+  pathString: string,
   rootValueName?: string,
   problematicValueName?: string,
 ) {
   let subject: string
-  if (!path) {
+  if (!pathString) {
     subject = rootValueName || problematicValueName || 'value'
   } else {
     if (problematicValueName) {
@@ -104,7 +104,7 @@ function genErrMsg(
     } else {
       subject = ''
     }
-    subject = subject + (rootValueName || '') + path
+    subject = subject + (rootValueName || '') + pathString
   }
   return `cannot serialize ${subject} because it's a ${valueType}`
 }
