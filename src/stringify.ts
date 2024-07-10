@@ -102,7 +102,8 @@ function genErr({
   problematicValueName?: string
 }) {
   const pathString = getPathString(path, canBeFirstKey)
-  const errMsg = getErrMsg({ valueType, pathString, rootValueName, problematicValueName })
+  const subject = getSubjectName({ pathString, rootValueName, problematicValueName })
+  const errMsg = `cannot serialize ${subject} because it's a ${valueType}`
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
   const errAddendum: ErrAddendum & { [stamp]: true } = {
     messageCore: errMsg,
@@ -125,13 +126,11 @@ function isJsonSerializerError(thing: unknown): thing is Error & ErrAddendum {
   return isObject(thing) && thing[stamp] === true
 }
 type ValueType = 'React element' | 'function'
-function getErrMsg({
-  valueType,
+function getSubjectName({
   rootValueName,
   pathString,
   problematicValueName,
 }: {
-  valueType: ValueType
   pathString: string
   rootValueName?: string
   problematicValueName?: string
@@ -147,7 +146,7 @@ function getErrMsg({
     }
     subject = subject + (rootValueName || '') + pathString
   }
-  return `cannot serialize ${subject} because it's a ${valueType}`
+  return subject
 }
 
 function getPathString(path: Path, canBeFirstKey: boolean): string {
