@@ -24,8 +24,6 @@ function stringify(
     replacer?: (this: Iterable, key: string, value: unknown) => void | { replacement: unknown }
   } = {},
 ): string {
-  const canBeFirstKey = !valueName
-
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
   // - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#exceptions
   // - This means we have total of 3 possible errors while serializing:
@@ -47,7 +45,6 @@ function stringify(
         value,
         valueType: 'React element',
         path,
-        canBeFirstKey,
         rootValueName: valueName,
       })
     }
@@ -58,7 +55,6 @@ function stringify(
         value,
         valueType: 'function',
         path,
-        canBeFirstKey,
         rootValueName: valueName,
         problematicValueName: path.length === 0 ? functionName : undefined,
       })
@@ -90,21 +86,19 @@ function genErr({
   value,
   valueType,
   path,
-  canBeFirstKey,
   rootValueName,
   problematicValueName,
 }: {
   value: unknown
   valueType: ValueType
   path: Path
-  canBeFirstKey: boolean
   rootValueName?: string
   problematicValueName?: string
 }) {
-  const pathString = getPathString(path, canBeFirstKey)
-  const subjectName = getSubjectName({ pathString, rootValueName, problematicValueName })
+  const subjectName = getSubjectName({ path, rootValueName, problematicValueName })
   const messageCore = `cannot serialize ${subjectName} because it's a ${valueType}` as const
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${messageCore}.`)
+  const pathString = getPathString(path, false)
   const errAddendum: ErrAddendum & { [stamp]: true } = {
     [stamp]: true,
     messageCore,
@@ -129,14 +123,15 @@ function isJsonSerializerError(thing: unknown): thing is Error & ErrAddendum {
 }
 type ValueType = 'React element' | 'function'
 function getSubjectName({
+  path,
   rootValueName,
-  pathString,
   problematicValueName,
 }: {
-  pathString: string
+  path: Path
   rootValueName?: string
   problematicValueName?: string
 }) {
+  const pathString = getPathString(path, !rootValueName)
   let subjectName: string
   if (!pathString) {
     subjectName = rootValueName || problematicValueName || 'value'
