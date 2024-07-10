@@ -43,12 +43,23 @@ function stringify(
     }
 
     if (forbidReactElements && isReactElement(value)) {
-      throw genErr(genErrMsg('React element', path, canBeFirstKey, valueName))
+      throw genErr({
+        valueType: 'React element',
+        path,
+        canBeFirstKey,
+        rootValueName: valueName,
+      })
     }
 
     if (isCallable(value)) {
       const functionName = value.name
-      throw genErr(genErrMsg('function', path, canBeFirstKey, valueName, path.length === 0 ? functionName : undefined))
+      throw genErr({
+        valueType: 'function',
+        path,
+        canBeFirstKey,
+        rootValueName: valueName,
+        problematicValueName: path.length === 0 ? functionName : undefined,
+      })
     }
 
     const valueOriginal = this[key]
@@ -77,7 +88,8 @@ const stamp = '_isJsonSerializerError'
 type JsonSerializerError = Error & {
   messageCore: string
 }
-function genErr(errMsg: string) {
+function genErr(args: GetErrMsgArgs) {
+  const errMsg = getErrMsg(args)
   const err = new Error(`[@brillout/json-serializer](https://github.com/brillout/json-serializer) ${errMsg}.`)
   Object.assign(err, {
     messageCore: errMsg,
@@ -88,13 +100,14 @@ function genErr(errMsg: string) {
 function isJsonSerializerError(thing: unknown): thing is JsonSerializerError {
   return isObject(thing) && thing[stamp] === true
 }
-function genErrMsg(
-  valueType: 'React element' | 'function',
-  path: Path,
-  canBeFirstKey: boolean,
-  rootValueName?: string,
-  problematicValueName?: string,
-) {
+type GetErrMsgArgs = {
+  valueType: 'React element' | 'function'
+  path: Path
+  canBeFirstKey: boolean
+  rootValueName?: string
+  problematicValueName?: string
+}
+function getErrMsg({ valueType, path, canBeFirstKey, rootValueName, problematicValueName }: GetErrMsgArgs) {
   const pathString = getPathString(path, canBeFirstKey)
   let subject: string
   if (!pathString) {
