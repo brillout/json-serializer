@@ -1,3 +1,12 @@
+## [0.5.15](https://github.com/brillout/json-serializer/compare/v0.5.14...v0.5.15) (2024-12-09)
+
+
+### Bug Fixes
+
+* workaround unexpected Node.js condition resolving (fix vikejs/vike[#2016](https://github.com/brillout/json-serializer/issues/2016)) ([f0caec5](https://github.com/brillout/json-serializer/commit/f0caec5fc7263655ace432d7812ba348035f10ab))
+
+
+
 ## [0.5.14](https://github.com/brillout/json-serializer/compare/v0.5.13...v0.5.14) (2024-12-09)
 
 
