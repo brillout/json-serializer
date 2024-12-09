@@ -1,3 +1,12 @@
+## [0.5.14](https://github.com/brillout/json-serializer/compare/v0.5.13...v0.5.14) (2024-12-09)
+
+
+### Bug Fixes
+
+* improve exports conditions ([#14](https://github.com/brillout/json-serializer/issues/14)) ([85ca88d](https://github.com/brillout/json-serializer/commit/85ca88d6d0bedaa17a023f76478a8afae1dfbaa8))
+
+
+
 ## [0.5.13](https://github.com/brillout/json-serializer/compare/v0.5.12...v0.5.13) (2024-07-10)
 
 
