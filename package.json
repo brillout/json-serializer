@@ -6,22 +6,18 @@
   "exports": {
     ".": "./index.mjs",
     "./parse": {
-      "worker": "./dist/cjs/parse.js",
       "node": {
-        "require": "./dist/cjs/parse.js",
-        "import": "./dist/esm/parse.js"
+        "require": "./dist/cjs/parse.js"
       },
-      "browser": "./dist/esm/parse.js",
-      "types": "./dist/esm/parse.d.ts"
+      "types": "./dist/esm/parse.d.ts",
+      "default": "./dist/esm/parse.js"
     },
     "./stringify": {
-      "worker": "./dist/cjs/stringify.js",
       "node": {
-        "require": "./dist/cjs/stringify.js",
-        "import": "./dist/esm/stringify.js"
+        "require": "./dist/cjs/stringify.js"
       },
-      "browser": "./dist/esm/stringify.js",
-      "types": "./dist/esm/stringify.d.ts"
+      "types": "./dist/esm/stringify.d.ts",
+      "default": "./dist/esm/stringify.js"
     }
   },
   "scripts": {
