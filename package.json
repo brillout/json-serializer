@@ -7,13 +7,21 @@
     ".": "./index.mjs",
     "./parse": {
       "worker": "./dist/cjs/parse.js",
-      "node": "./dist/cjs/parse.js",
-      "browser": "./dist/esm/parse.js"
+      "node": {
+        "require": "./dist/cjs/parse.js",
+        "import": "./dist/esm/parse.js"
+      },
+      "browser": "./dist/esm/parse.js",
+      "types": "./dist/esm/parse.d.ts"
     },
     "./stringify": {
       "worker": "./dist/cjs/stringify.js",
-      "node": "./dist/cjs/stringify.js",
-      "browser": "./dist/esm/stringify.js"
+      "node": {
+        "require": "./dist/cjs/stringify.js",
+        "import": "./dist/esm/stringify.js"
+      },
+      "browser": "./dist/esm/stringify.js",
+      "types": "./dist/esm/stringify.d.ts"
     }
   },
   "scripts": {
