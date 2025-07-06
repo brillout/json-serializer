@@ -3,6 +3,18 @@ import { stringify } from '../src/stringify'
 import { describe, it, expect } from 'vitest'
 import assert from 'assert'
 
+describe('basics', () => {
+  it('works', () => {
+    expect(stringify(1)).toBe('1')
+    expect(stringify('1')).toBe('"1"')
+    expect(stringify({ a: 1 })).toBe('{"a":1}')
+    expect(stringify({ a: '1' })).toBe('{"a":"1"}')
+    ;[1, '1', { a: '1' }, { a: { b: 1 } }].forEach((val) => {
+      expect(parse(stringify(val))).toEqual(val)
+    })
+  })
+})
+
 describe('escaping', () => {
   it('avoids collision with character `!`', () => {
     ;['!undefined', '!Date:2021-01-12T21:22:42.143Z', '!NaN', '!Infinity', `!RegExp:/^\d+$/g`].forEach((val) => {
