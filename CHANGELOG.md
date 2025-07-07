@@ -1,3 +1,17 @@
+## [0.5.16](https://github.com/brillout/json-serializer/compare/v0.5.15...v0.5.16) (2025-07-07)
+
+
+### Bug Fixes
+
+* improve replacer option type ([581b0aa](https://github.com/brillout/json-serializer/commit/581b0aaa2b7086fc8f886776515d065cb696eba7))
+
+
+### Features
+
+* reviver (closes [#3](https://github.com/brillout/json-serializer/issues/3)) ([515dd44](https://github.com/brillout/json-serializer/commit/515dd44dd856fb10d592a49060d555155ff5a0c8))
+
+
+
 ## [0.5.15](https://github.com/brillout/json-serializer/compare/v0.5.14...v0.5.15) (2024-12-09)
 
 
