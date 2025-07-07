@@ -21,7 +21,7 @@ function stringify(
     space?: number
     valueName?: string
     sortObjectKeys?: boolean
-    replacer?: (this: Iterable, key: string, value: unknown) => undefined | { replacement: unknown }
+    replacer?: (this: Iterable, key: string, value: unknown) => { replacement: unknown } | undefined
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
