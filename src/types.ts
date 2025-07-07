@@ -60,14 +60,14 @@ const types: readonly Type<any, any>[] = [
     match: (str) => str.startsWith('!Map:'),
     serialize: (val: Map<unknown, unknown>, serializer: (val: [unknown, unknown][]) => string) =>
       '!Map:' + serializer(Array.from(val.entries())),
-    deserialize: (str, deserializer) => new Map(deserializer(str.slice('!Map:'.length))),
+    deserialize: (str, parser) => new Map(parser(str.slice('!Map:'.length))),
   }),
   ts({
     is: (val) => val instanceof Set,
     match: (str) => str.startsWith('!Set:'),
     serialize: (val: Set<unknown>, serializer: (val: unknown[]) => string) =>
       '!Set:' + serializer(Array.from(val.values())),
-    deserialize: (str, deserializer) => new Set(deserializer(str.slice('!Set:'.length))),
+    deserialize: (str, parser) => new Set(parser(str.slice('!Set:'.length))),
   }),
   // Avoid collisions with the special strings defined above
   ts({
@@ -82,7 +82,7 @@ type Type<ValueType, IntermediateType> = {
   is: (val: unknown) => asserts val is ValueType
   match: (str: string) => boolean
   serialize: (val: ValueType, serializer: (val: IntermediateType) => string) => string
-  deserialize: (str: string, deserializer: (str: string) => IntermediateType) => ValueType
+  deserialize: (str: string, parser: (str: string) => IntermediateType) => ValueType
 }
 
 // Type check
