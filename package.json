@@ -34,10 +34,13 @@
     "format:prettier": "git ls-files | egrep '\\.(json|js|jsx|css|ts|tsx|vue|mjs|cjs)$' | grep --invert-match package.json | xargs pnpm exec prettier --write",
     "format:biome": "biome format --write .",
     "format:check": "biome format . || echo Fix formatting by running: $ pnpm -w run format",
+    "========= Reset": "",
+    "reset": "git clean -Xdf && pnpm install && pnpm run build",
     "========= Release": "",
     "release": "release-me patch",
-    "========= Reset": "",
-    "reset": "git clean -Xdf && pnpm install && pnpm run build"
+    "release:minor": "release-me minor",
+    "release:major": "release-me major",
+    "release:commit": "release-me commit"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.2",
