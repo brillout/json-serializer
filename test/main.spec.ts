@@ -41,6 +41,88 @@ describe('user-defined replacer', () => {
       ),
     ).toBe('{"icon":"import42","title":"Hello"}')
   })
+  it('can be used to prevent Google from crawling URLs in JSON', () => {
+    const obj = {
+      pageId: '/pages/index',
+      // There are no collision, because json-serializer already escapes the leading !
+      a: '!/ hello',
+      b: '! world',
+      nested: new Map(
+        Object.entries({
+          pageId: '/pages/about',
+          c: '!!/ escaped',
+          deeply: {
+            pageId: '/pages/bla',
+            d: '!/ also escaped',
+          },
+        }),
+      ),
+    }
+    const objStr = stringify(obj, {
+      // Prepend ! to paths
+      replacer(_key, value) {
+        if (typeof value === 'string' && value.startsWith('/')) {
+          return { replacement: (value = '!' + value) }
+        }
+      },
+    })
+    expect(objStr).toMatchInlineSnapshot(
+      `"{"pageId":"!/pages/index","a":"!!/ hello","b":"!! world","nested":"!Map:[[\\"pageId\\",\\"!/pages/about\\"],[\\"c\\",\\"!!!/ escaped\\"],[\\"deeply\\",{\\"pageId\\":\\"!/pages/bla\\",\\"d\\":\\"!!/ also escaped\\"}]]"}"`,
+    )
+    expect(
+      parse(objStr, {
+        /* Not needed because ! is already handled by @brillout/json-serializer
+        reviver(_key, value) {
+          if (value.startsWith('!/')) {
+            return { replacement: value.slice(1) }
+          }
+        },
+        */
+      }),
+    ).toEqual(obj)
+  })
+})
+
+describe('user-defined reviver', () => {
+  it('can be used to support custom classes', () => {
+    class Rectangle {
+      height: number
+      width: number
+      updated: Date
+      constructor(height: number, width: number) {
+        this.height = height
+        this.width = width
+        this.updated = new Date()
+      }
+    }
+    const obj = new Rectangle(11, 22)
+    const objStr = stringify(obj, {
+      replacer(_key, value, serializer) {
+        if (value instanceof Rectangle) {
+          const data = { height: value.height, width: value.width, updated: value.updated }
+          return {
+            replacement: '!Rectangle:' + serializer(data),
+            resolved: true,
+          }
+        }
+      },
+    })
+    expect(
+      parse(objStr, {
+        // Restore original string
+        reviver(_key, value, parser) {
+          const prefix = '!Rectangle:'
+          if (value.startsWith(prefix)) {
+            const data = parser(value.slice(prefix.length)) as { height: number; width: number; updated: Date }
+            expect(data.updated.constructor).toBe(Date)
+            const replacement = new Rectangle(data.height, data.width)
+            replacement.updated = data.updated
+            return { replacement }
+          }
+        },
+      }),
+    ).toEqual(obj)
+  })
 })
 
 describe('sortObjectKeys option', () => {
