@@ -1,3 +1,17 @@
+## [0.5.17](https://github.com/brillout/json-serializer/compare/v0.5.16...v0.5.17) (2025-08-04)
+
+
+### Bug Fixes
+
+* base replacer on original value ([fbdc662](https://github.com/brillout/json-serializer/commit/fbdc6622b05f15b6d97dd606dd0d4ce384deca4b))
+
+
+### Features
+
+* add replacement.resolved to replacer ([9da5b85](https://github.com/brillout/json-serializer/commit/9da5b85fdfa130ae3a0b17e104e0291bdc5dc53c))
+
+
+
 ## [0.5.16](https://github.com/brillout/json-serializer/compare/v0.5.15...v0.5.16) (2025-07-07)
 
 
