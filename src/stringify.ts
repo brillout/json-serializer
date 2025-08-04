@@ -40,9 +40,12 @@ function stringify(
 
   return serializer(value)
 
-  function replacer(this: Iterable, key: string, value: unknown, path: Path) {
+  function replacer(this: Iterable, key: string, valueAfterJSON: unknown, path: Path) {
+    const valueOriginal = this[key]
+    let value = valueOriginal
+
     {
-      const ret = replacerUserProvided?.call(this, key, value, serializer)
+      const ret = replacerUserProvided?.call(this, key, valueAfterJSON, serializer)
       if (ret) return ret.replacement
     }
 
@@ -66,11 +69,10 @@ function stringify(
       })
     }
 
-    const valueOriginal = this[key]
     for (const { is, serialize } of types.slice().reverse()) {
-      if (is(valueOriginal) as any) {
+      if (is(value) as any) {
         //@ts-ignore
-        return serialize(valueOriginal, serializer)
+        return serialize(value, serializer)
       }
     }
 
