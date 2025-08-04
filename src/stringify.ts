@@ -27,7 +27,7 @@ function stringify(
       key: string,
       value: unknown,
       serializer: (value: unknown) => string,
-    ) => { replacement: unknown } | undefined
+    ) => { replacement: unknown; resolved?: boolean } | undefined
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
@@ -46,7 +46,10 @@ function stringify(
 
     {
       const ret = replacerUserProvided?.call(this, key, valueAfterJSON, serializer)
-      if (ret) return ret.replacement
+      if (ret) {
+        value = ret.replacement
+        if (ret.resolved !== false) return value
+      }
     }
 
     if (forbidReactElements && isReactElement(value)) {
