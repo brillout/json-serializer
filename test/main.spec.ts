@@ -42,6 +42,12 @@ describe('user-defined replacer', () => {
     ).toBe('{"icon":"import42","title":"Hello"}')
   })
   it('can be used to prevent Google from crawling URLs in JSON', () => {
+    //*
+    const slashReplacer = '\\/'
+    /*/
+    const slashReplacer = 'H'
+    //*/
+
     const obj = {
       pageId: '/pages/index',
       // There are no collision, because json-serializer already escapes the leading !
@@ -54,30 +60,36 @@ describe('user-defined replacer', () => {
           deeply: {
             pageId: '/pages/bla',
             d: '!/ also escaped',
+            deeper: {
+              e: '/ bla/',
+            },
           },
         }),
       ),
+      deepOutsideMap: {
+        f: '/foo/',
+      },
     }
+
     const objStr = stringify(obj, {
-      // Prepend ! to paths
       replacer(_key, value) {
-        if (typeof value === 'string' && value.startsWith('/')) {
-          return { replacement: (value = '!' + value) }
+        if (typeof value === 'string') {
+          return { replacement: value.replaceAll('/', slashReplacer), resolved: false }
         }
       },
     })
+
     expect(objStr).toMatchInlineSnapshot(
-      `"{"pageId":"!/pages/index","a":"!!/ hello","b":"!! world","nested":"!Map:[[\\"pageId\\",\\"!/pages/about\\"],[\\"c\\",\\"!!!/ escaped\\"],[\\"deeply\\",{\\"pageId\\":\\"!/pages/bla\\",\\"d\\":\\"!!/ also escaped\\"}]]"}"`,
+      `"{"pageId":"\\\\/pages\\\\/index","a":"!!\\\\/ hello","b":"!! world","nested":"!Map:[[\\"pageId\\",\\"\\\\\\\\/pages\\\\\\\\/about\\"],[\\"c\\",\\"!!!\\\\\\\\/ escaped\\"],[\\"deeply\\",{\\"pageId\\":\\"\\\\\\\\/pages\\\\\\\\/bla\\",\\"d\\":\\"!!\\\\\\\\/ also escaped\\",\\"deeper\\":{\\"e\\":\\"\\\\\\\\/ bla\\\\\\\\/\\"}}]]","deepOutsideMap":{"f":"\\\\/foo\\\\/"}}"`,
     )
+
     expect(
       parse(objStr, {
-        /* Not needed because ! is already handled by @brillout/json-serializer
         reviver(_key, value) {
-          if (value.startsWith('!/')) {
-            return { replacement: value.slice(1) }
+          if (typeof value === 'string') {
+            return { replacement: value.replaceAll(slashReplacer, '/'), resolved: false }
           }
         },
-        */
       }),
     ).toEqual(obj)
   })
