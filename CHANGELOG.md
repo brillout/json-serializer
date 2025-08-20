@@ -1,3 +1,17 @@
+## [0.5.19](https://github.com/brillout/json-serializer/compare/v0.5.18...v0.5.19) (2025-08-20)
+
+
+### Bug Fixes
+
+* ESM modules must be imported with file extension ([#16](https://github.com/brillout/json-serializer/issues/16)) ([f6d0930](https://github.com/brillout/json-serializer/commit/f6d0930f500814427180bb824a697f327efb5dc2))
+
+
+### BREAKING CHANGES
+
+* Update to Node.js 20 or above.
+
+
+
 ## [0.5.18](https://github.com/brillout/json-serializer/compare/v0.5.17...v0.5.18) (2025-08-20)
 
 
