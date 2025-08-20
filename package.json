@@ -6,12 +6,14 @@
   "exports": {
     ".": "./index.mjs",
     "./parse": {
-      "node": "./dist/cjs/parse.js",
+      "import": "./dist/esm/parse.js",
+      "require": "./dist/cjs/parse.js",
       "types": "./dist/esm/parse.d.ts",
       "default": "./dist/esm/parse.js"
     },
     "./stringify": {
-      "node": "./dist/cjs/stringify.js",
+      "import": "./dist/esm/stringify.js",
+      "require": "./dist/cjs/stringify.js",
       "types": "./dist/esm/stringify.d.ts",
       "default": "./dist/esm/stringify.js"
     }
