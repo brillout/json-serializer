@@ -3,6 +3,7 @@
   "version": "0.5.18",
   "description": "Same as JSON but with added support for `Date`, `undefined`, `Map`, `Set`, and more.",
   "main": "./index.mjs",
+  "type": "module",
   "exports": {
     ".": "./index.mjs",
     "./parse": {

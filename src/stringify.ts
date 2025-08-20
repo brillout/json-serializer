@@ -1,11 +1,11 @@
 export { stringify }
 export { isJsonSerializerError }
 
-import { types } from './types'
-import { isReactElement } from './utils/isReactElement'
-import { isCallable } from './utils/isCallable'
-import { isObject } from './utils/isObject'
-import { replacerWithPath, type Iterable, type Path } from './utils/replacerWithPath'
+import { types } from './types.js'
+import { isReactElement } from './utils/isReactElement.js'
+import { isCallable } from './utils/isCallable.js'
+import { isObject } from './utils/isObject.js'
+import { replacerWithPath, type Iterable, type Path } from './utils/replacerWithPath.js'
 
 function stringify(
   value: unknown,
