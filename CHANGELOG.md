@@ -6,7 +6,10 @@
 * ESM modules must be imported with file extension ([#16](https://github.com/brillout/json-serializer/issues/16)) ([f6d0930](https://github.com/brillout/json-serializer/commit/f6d0930f500814427180bb824a697f327efb5dc2))
 
 
-### BREAKING CHANGES
+### MINOR BREAKING CHANGES
+
+> [!NOTE]
+> We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
 * Update to Node.js 20 or above.
 
