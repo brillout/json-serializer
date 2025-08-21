@@ -19,7 +19,7 @@
   },
   "scripts": {
     "========= Dev": "",
-    "dev": "npm tsc --watch",
+    "dev": "tsc --watch",
     "========= Build": "",
     "build": "rm -rf dist/ && tsc",
     "========= Test": "",
