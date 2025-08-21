@@ -11,7 +11,7 @@
 > [!NOTE]
 > We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
-* Update to Node.js 20 or above.
+* Update to Node.js 20 or above (or use Bun/Deno).
 
 
 
