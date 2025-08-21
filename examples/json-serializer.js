@@ -1,7 +1,6 @@
-import assert from 'assert'
-
 import { parse } from '@brillout/json-serializer/parse'
 import { stringify } from '@brillout/json-serializer/stringify'
+import assert from 'assert'
 
 const obj = {
   date: new Date(),

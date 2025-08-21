@@ -1,9 +1,8 @@
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
 import util from 'util'
 import isEqual from 'lodash.isequal'
 import assert from 'assert'
-
-import { parse } from '@brillout/json-serializer/parse'
-import { stringify } from '@brillout/json-serializer/stringify'
 
 const original = {
   // types not supported by JSON

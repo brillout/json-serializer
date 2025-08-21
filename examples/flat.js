@@ -1,6 +1,6 @@
-import assert from 'assert'
 import { parse } from '@brillout/json-serializer/parse'
 import { stringify } from '@brillout/json-serializer/stringify'
+import assert from 'assert'
 
 let time = new Date('2042-01-01')
 
