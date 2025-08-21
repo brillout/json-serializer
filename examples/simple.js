@@ -1,6 +1,6 @@
 // npm install @brillout/json-serializer
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
 
 const obj = {
   hello: 'from the future',

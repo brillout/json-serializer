@@ -1,6 +1,6 @@
-const assert = require('assert')
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import assert from 'assert'
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
 
 let obj = {
   time: new Date('2042-01-01'),

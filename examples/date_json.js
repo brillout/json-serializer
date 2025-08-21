@@ -1,4 +1,4 @@
-const assert = require('assert')
+import assert from 'assert'
 
 let obj = {
   time: new Date('2042-01-01'),

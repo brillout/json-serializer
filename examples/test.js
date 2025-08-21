@@ -1,9 +1,9 @@
-const util = require('util')
-const isEqual = require('lodash.isequal')
-const assert = require('assert')
+import util from 'util'
+import isEqual from 'lodash.isequal'
+import assert from 'assert'
 
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
 
 const original = {
   // types not supported by JSON

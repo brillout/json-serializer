@@ -1,4 +1,4 @@
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { stringify } from '@brillout/json-serializer/stringify'
 
 const obj = {
   date: new Date(),
