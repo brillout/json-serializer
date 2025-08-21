@@ -1,3 +1,12 @@
+## [0.5.20](https://github.com/brillout/json-serializer/compare/v0.5.19...v0.5.20) (2025-08-21)
+
+
+### Bug Fixes
+
+* remove CJS build ([8a9605c](https://github.com/brillout/json-serializer/commit/8a9605cadb1c2742ccbe0f651e665591f2c79ec4))
+
+
+
 ## [0.5.19](https://github.com/brillout/json-serializer/compare/v0.5.18...v0.5.19) (2025-08-20)
 
 
