@@ -91,10 +91,10 @@ JSON is a good serializer for JavaScript values but
 is lacking some JavaScript types such as `Date`:
 
 ~~~js
-const assert = require('assert')
+import assert from 'assert'
 
 let obj = {
-  time: new Date('2042-01-01')
+  time: new Date('2042-01-01'),
 }
 
 // JSON converts dates to strings
@@ -107,12 +107,12 @@ assert(obj.time === '2042-01-01T00:00:00.000Z')
 Whereas with `@brillout/json-serializer`:
 
 ~~~js
-const assert = require('assert')
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
+import assert from 'assert'
 
 let obj = {
-  time: new Date('2042-01-01')
+  time: new Date('2042-01-01'),
 }
 
 // `@brillout/json-serializer` preserves Date
@@ -137,12 +137,12 @@ assert(obj.time.getTime() === new Date('2042-01-01').getTime())
 
 ~~~js
 // npm install @brillout/json-serializer
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
 
 const obj = {
   hello: 'from the future',
-  time: new Date('2042-01-01')
+  time: new Date('2042-01-01'),
 }
 
 // Serialize with @brillout/json-serializer
@@ -161,17 +161,16 @@ Example exposing all differences between JSON and `@brillout/json-serializer`.
 ~~~js
 // /examples/json-serializer.js
 
-const assert = require('assert')
-
-const { parse } = require('@brillout/json-serializer/parse')
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { parse } from '@brillout/json-serializer/parse'
+import { stringify } from '@brillout/json-serializer/stringify'
+import assert from 'assert'
 
 const obj = {
   date: new Date(),
   undefined: undefined,
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g
+  regexp: /^\d+$/g,
 }
 
 // All of `obj` can be serialized with @brillout/json-serializer
@@ -217,7 +216,7 @@ Let's see how `@brillout/json-serializer` serializes an object:
 ~~~js
 // /examples/inspect.js
 
-const { stringify } = require('@brillout/json-serializer/stringify')
+import { stringify } from '@brillout/json-serializer/stringify'
 
 const obj = {
   date: new Date(),
@@ -225,7 +224,7 @@ const obj = {
   collision: '!undefined',
   NaN: NaN,
   Infinity: Infinity,
-  regexp: /^\d+$/g
+  regexp: /^\d+$/g,
 }
 
 console.log(stringify(obj, undefined, 2))
