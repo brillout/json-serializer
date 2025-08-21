@@ -1,11 +1,3 @@
-// Some tools don't support `package.json#exports`, such as:
-//  - Nuxt v2
-//  - Expo/Metro
-//  - ESLint
-// prettier-ignore
-// biome-ignore format:
-'use strict';
-// prettier-ignore
-// biome-ignore format:
-exports.parse = require('./dist/cjs/parse.js').parse;
-exports.parseTransform = require('./dist/cjs/parse.js').parseTransform
+// Some tools still need this as of January 2025
+export * from './dist/parse.js'
+export { default } from './dist/parse.js'

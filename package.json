@@ -7,27 +7,21 @@
   "exports": {
     ".": "./index.mjs",
     "./parse": {
-      "import": "./dist/esm/parse.js",
-      "require": "./dist/cjs/parse.js",
-      "types": "./dist/esm/parse.d.ts",
-      "default": "./dist/esm/parse.js"
+      "import": "./dist/parse.js",
+      "types": "./dist/parse.d.ts",
+      "default": "./dist/parse.js"
     },
     "./stringify": {
-      "import": "./dist/esm/stringify.js",
-      "require": "./dist/cjs/stringify.js",
-      "types": "./dist/esm/stringify.d.ts",
-      "default": "./dist/esm/stringify.js"
+      "import": "./dist/stringify.js",
+      "types": "./dist/stringify.d.ts",
+      "default": "./dist/stringify.js"
     }
   },
   "scripts": {
     "========= Dev": "",
-    "dev": "pnpm run tsc:watch:cjs",
+    "dev": "npm tsc --watch",
     "========= Build": "",
-    "build": "rm -rf dist/ && pnpm run tsc:esm && pnpm run tsc:cjs",
-    "tsc:esm": "tsc",
-    "tsc:cjs": "tsc --project ./tsconfig.cjs.json",
-    "tsc:watch:esm": "tsc --incremental --watch",
-    "tsc:watch:cjs": "tsc --incremental --watch --project ./tsconfig.cjs.json",
+    "build": "rm -rf dist/ && tsc",
     "========= Test": "",
     "test": "vitest",
     "========= Build readme.md": "",

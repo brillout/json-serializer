@@ -1,10 +1,3 @@
-// Some tools don't support `package.json#exports`, such as:
-//  - Nuxt v2
-//  - Expo/Metro
-//  - ESLint
-// prettier-ignore
-// biome-ignore format:
-'use strict';
-// prettier-ignore
-// biome-ignore format:
-exports.stringify = require('./dist/cjs/stringify.js').stringify;
+// Some tools still need this as of January 2025
+export * from './dist/stringify.js'
+export { default } from './dist/stringify.js'
