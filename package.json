@@ -23,7 +23,7 @@
     "========= Build": "",
     "build": "rm -rf dist/ && tsc",
     "========= Test": "",
-    "test": "vitest",
+    "test": "node ./examples && vitest",
     "========= Build readme.md": "",
     "docs": "mdocs",
     "========= Formatting": "",
