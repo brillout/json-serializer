@@ -37,14 +37,6 @@ function parseTransform(value: unknown, options: Options = {}): unknown {
 
 function reviver(value: string, options: Options): unknown {
   const parser = (str: string) => parse(str, options)
-
-  // Check built-in types first, before user reviver
-  for (const { match, deserialize } of types) {
-    if (match(value)) {
-      return deserialize(value, parser)
-    }
-  }
-
   {
     const res = options.reviver?.(
       // TO-DO/eventually: provide key if some user needs it
@@ -59,6 +51,11 @@ function reviver(value: string, options: Options): unknown {
         value = res.replacement
         if (res.resolved) return value
       }
+    }
+  }
+  for (const { match, deserialize } of types) {
+    if (match(value)) {
+      return deserialize(value, parser)
     }
   }
   return value
