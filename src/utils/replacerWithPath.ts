@@ -6,20 +6,19 @@ export type { Path }
 
 type Path = (string | number)[]
 type Iterable = Record<string, unknown>
-// TODO/now rename here as well
-type Replacer = (this: Iterable, key: string, value: unknown, path: Path) => unknown
+type Replacer = (this: Iterable, key: string, valueAfterNativeJsonStringify: unknown, path: Path) => unknown
 function replacerWithPath(replacer: Replacer) {
   const pathMap = new WeakMap<Iterable, Path>()
-  // TODO/now rename to replacerForJsonStringify
-  return function (this: Iterable, key: string, value: unknown) {
+  return replacerForJsonStringify
+  function replacerForJsonStringify(this: Iterable, key: string, valueAfterNativeJsonStringify: unknown) {
     const pathPrevious = pathMap.get(this) ?? []
     const path = [...pathPrevious]
     if (key !== '') {
       const pathEntry = !Array.isArray(this) ? key : parseInt(key, 10)
       path.push(pathEntry)
     }
-    if (isIterable(value)) pathMap.set(value, path)
-    return replacer.call(this, key, value, path)
+    if (isIterable(valueAfterNativeJsonStringify)) pathMap.set(valueAfterNativeJsonStringify, path)
+    return replacer.call(this, key, valueAfterNativeJsonStringify, path)
   }
 }
 function isIterable(value: unknown): value is Iterable {
