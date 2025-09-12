@@ -3,7 +3,7 @@ import { stringify } from '../src/stringify'
 import { describe, it } from 'vitest'
 import assert from 'assert'
 
-describe('serialize', () => {
+describe('types', () => {
   it('undefined', () => {
     assert(parse(stringify(undefined)) === undefined)
     assert(parse(stringify({ prop: undefined })).prop === undefined)
