@@ -5,7 +5,7 @@ import { types } from './types.js'
 import { isReactElement } from './utils/isReactElement.js'
 import { isCallable } from './utils/isCallable.js'
 import { isObject } from './utils/isObject.js'
-import { replacerWithPath, type Iterable, type Path } from './utils/replacerWithPath.js'
+import { addPathToReplacer, type Iterable, type Path } from './utils/addPathToReplacer.js'
 
 function stringify(
   value: unknown,
@@ -36,7 +36,7 @@ function stringify(
   //    - Cyclic references
   //    - Functions
   //    - React elements
-  const serializer = (val: unknown) => JSON.stringify(val, replacerWithPath(replacer), space)
+  const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
   return serializer(value)
 
