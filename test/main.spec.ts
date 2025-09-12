@@ -69,7 +69,7 @@ describe('user-defined replacer', () => {
       deepOutsideMap: {
         f: '/foo/',
       },
-      someDate: new Date(2025)
+      someDate: new Date(2025),
     }
 
     const objStr = stringify(obj, {
