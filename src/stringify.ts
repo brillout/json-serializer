@@ -40,12 +40,13 @@ function stringify(
 
   return serializer(value)
 
+  // TODO/now: rename valueAfterJSON
   function replacer(this: Iterable, key: string, valueAfterJSON: unknown, path: Path) {
     const valueOriginal = this[key]
     let value = valueOriginal
 
     {
-      const ret = replacerUserProvided?.call(this, key, valueAfterJSON, serializer)
+      const ret = replacerUserProvided?.call(this, key, valueOriginal, serializer)
       if (ret) {
         value = ret.replacement
         if (ret.resolved !== false) return value
