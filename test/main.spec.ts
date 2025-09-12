@@ -81,7 +81,7 @@ describe('user-defined replacer', () => {
     })
 
     expect(objStr).toMatchInlineSnapshot(
-      `"{"pageId":"\\\\/pages\\\\/index","a":"!!\\\\/ hello","b":"!! world","nested":"!Map:[[\\"pageId\\",\\"\\\\\\\\/pages\\\\\\\\/about\\"],[\\"c\\",\\"!!!\\\\\\\\/ escaped\\"],[\\"deeply\\",{\\"pageId\\":\\"\\\\\\\\/pages\\\\\\\\/bla\\",\\"d\\":\\"!!\\\\\\\\/ also escaped\\",\\"deeper\\":{\\"e\\":\\"\\\\\\\\/ bla\\\\\\\\/\\"}}]]","deepOutsideMap":{"f":"\\\\/foo\\\\/"},"someDate":"1970-01-01T00:00:02.025Z"}"`,
+      `"{"pageId":"\\\\/pages\\\\/index","a":"!!/ hello","b":"!! world","nested":"!Map:[[\\"pageId\\",\\"\\\\\\\\/pages\\\\\\\\/about\\"],[\\"c\\",\\"!!!/ escaped\\"],[\\"deeply\\",{\\"pageId\\":\\"\\\\\\\\/pages\\\\\\\\/bla\\",\\"d\\":\\"!!/ also escaped\\",\\"deeper\\":{\\"e\\":\\"\\\\\\\\/ bla\\\\\\\\/\\"}}]]","deepOutsideMap":{"f":"\\\\/foo\\\\/"},"someDate":"!Date:1970-01-01T00:00:02.025Z"}"`,
     )
 
     expect(
