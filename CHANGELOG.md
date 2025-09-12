@@ -1,3 +1,12 @@
+## [0.5.21](https://github.com/brillout/json-serializer/compare/v0.5.20...v0.5.21) (2025-09-12)
+
+
+### Bug Fixes
+
+* fix user replacer (closes vikejs/vike[#2715](https://github.com/brillout/json-serializer/issues/2715)) ([#17](https://github.com/brillout/json-serializer/issues/17)) ([4f39743](https://github.com/brillout/json-serializer/commit/4f3974318c701c01d634928d934cef7f319f91ec))
+
+
+
 ## [0.5.20](https://github.com/brillout/json-serializer/compare/v0.5.19...v0.5.20) (2025-08-21)
 
 
