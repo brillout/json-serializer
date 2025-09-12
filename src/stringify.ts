@@ -44,6 +44,14 @@ function stringify(
     const valueOriginal = this[key]
     let value = valueOriginal
 
+    // Check built-in types first, before user replacer
+    for (const { is, serialize } of types.slice().reverse()) {
+      if (is(valueOriginal) as any) {
+        //@ts-ignore
+        return serialize(valueOriginal, serializer)
+      }
+    }
+
     {
       const ret = replacerUserProvided?.call(this, key, valueAfterJSON, serializer)
       if (ret) {
@@ -70,13 +78,6 @@ function stringify(
         rootValueName: valueName,
         problematicValueName: path.length === 0 ? functionName : undefined,
       })
-    }
-
-    for (const { is, serialize } of types.slice().reverse()) {
-      if (is(value) as any) {
-        //@ts-ignore
-        return serialize(value, serializer)
-      }
     }
 
     if (sortObjectKeys && isObject(value)) {
