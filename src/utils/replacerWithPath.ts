@@ -6,9 +6,11 @@ export type { Path }
 
 type Path = (string | number)[]
 type Iterable = Record<string, unknown>
+// TODO/now rename here as well
 type Replacer = (this: Iterable, key: string, value: unknown, path: Path) => unknown
 function replacerWithPath(replacer: Replacer) {
   const pathMap = new WeakMap<Iterable, Path>()
+  // TODO/now rename to replacerForJsonStringify
   return function (this: Iterable, key: string, value: unknown) {
     const pathPrevious = pathMap.get(this) ?? []
     const path = [...pathPrevious]
