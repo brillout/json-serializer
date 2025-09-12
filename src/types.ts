@@ -72,12 +72,7 @@ const types: readonly Type<any, any>[] = [
   // Avoid collisions with the special strings defined above
   ts({
     is: (val) => typeof val === 'string' && val.startsWith('!'),
-    match: (str) => {
-      if (!str.startsWith('!')) return false
-      // Don't match if it's one of the other built-in types
-      const otherBuiltinTypes = ['!undefined', '!Infinity', '!-Infinity', '!NaN', '!Date:', '!BigInt:', '!RegExp:', '!Map:', '!Set:']
-      return !otherBuiltinTypes.some(prefix => str.startsWith(prefix))
-    },
+    match: (str) => str.startsWith('!'),
     serialize: (val: string) => '!' + val,
     deserialize: (str) => str.slice(1),
   }),
