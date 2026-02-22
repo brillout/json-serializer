@@ -1,3 +1,12 @@
+## [0.5.22](https://github.com/brillout/json-serializer/compare/v0.5.21...v0.5.22) (2026-02-22)
+
+
+### Bug Fixes
+
+* `export type { Reviver, Replacer }` ([b6eb46e](https://github.com/brillout/json-serializer/commit/b6eb46eea53d37bc4e2ecdd67f7e9b6675789839))
+
+
+
 ## [0.5.21](https://github.com/brillout/json-serializer/compare/v0.5.20...v0.5.21) (2025-09-12)
 
 
