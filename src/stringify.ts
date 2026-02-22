@@ -1,11 +1,19 @@
 export { stringify }
 export { isJsonSerializerError }
+export type { Replacer }
 
 import { types } from './types.js'
 import { isReactElement } from './utils/isReactElement.js'
 import { isCallable } from './utils/isCallable.js'
 import { isObject } from './utils/isObject.js'
 import { addPathToReplacer, type Iterable, type Path } from './utils/addPathToReplacer.js'
+
+type Replacer = (
+  this: Iterable,
+  key: string,
+  value: unknown,
+  serializer: (value: unknown) => string,
+) => { replacement: unknown; resolved?: boolean } | undefined
 
 function stringify(
   value: unknown,
@@ -22,12 +30,7 @@ function stringify(
     sortObjectKeys?: boolean
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
-    replacer?: (
-      this: Iterable,
-      key: string,
-      value: unknown,
-      serializer: (value: unknown) => string,
-    ) => { replacement: unknown; resolved?: boolean } | undefined
+    replacer?: Replacer
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.

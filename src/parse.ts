@@ -1,17 +1,19 @@
 export { parse }
 // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/shared/page-configs/serialize/parseConfigValuesSerialized.ts#L13
 export { parseTransform }
+export type { Reviver }
 
 import { types } from './types.js'
 
+type Reviver = (
+  key: undefined | string,
+  value: string,
+  parser: (str: string) => unknown,
+) => { replacement: unknown; resolved?: boolean } | undefined
 type Options = {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#reviver
   // AFAIK it isn't used by anyone yet
-  reviver?: (
-    key: undefined | string,
-    value: string,
-    parser: (str: string) => unknown,
-  ) => { replacement: unknown; resolved?: boolean } | undefined
+  reviver?: Reviver
 }
 function parse(str: string, options: Options = {}): unknown {
   // We don't use the reviver option in `JSON.parse(str, reviver)` because it doesn't support `undefined` values
