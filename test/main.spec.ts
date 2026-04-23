@@ -138,6 +138,44 @@ describe('user-defined reviver', () => {
   })
 })
 
+describe('reviver path', () => {
+  it('receives the path to every revived string', () => {
+    const paths: string[][] = []
+    parse('{"a":{"b":["X","Y"]},"c":"Z"}', {
+      reviver(path) {
+        paths.push([...path])
+        return undefined
+      },
+    })
+    expect(paths).toEqual([
+      ['a', 'b', '0'],
+      ['a', 'b', '1'],
+      ['c'],
+    ])
+  })
+
+  it('root path is []', () => {
+    let captured: readonly string[] | undefined
+    parse('"hello"', {
+      reviver(path) {
+        captured = path
+        return undefined
+      },
+    })
+    expect(captured).toEqual([])
+  })
+
+  it('enables per-position replacement', () => {
+    const result = parse('{"a":"x","b":"x"}', {
+      reviver(path, value) {
+        if (path.join('.') === 'a') return { replacement: `at-a:${value}` }
+        return undefined
+      },
+    })
+    expect(result).toEqual({ a: 'at-a:x', b: 'x' })
+  })
+})
+
 describe('sortObjectKeys option', () => {
   it('works', () => {
     // Basic test
