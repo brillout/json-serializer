@@ -6,7 +6,7 @@ export type { Reviver }
 import { types } from './types.js'
 
 type Reviver = (
-  path: undefined | readonly string[],
+  path: readonly string[],
   value: string,
   parser: (str: string) => unknown,
 ) => { replacement: unknown; resolved?: boolean } | undefined
@@ -21,7 +21,7 @@ function parse(str: string, options: Options = {}): unknown {
   return parseTransform(value, options)
 }
 
-function parseTransform(value: unknown, options: Options = {}, path?: readonly string[]): unknown {
+function parseTransform(value: unknown, options: Options = {}, path: readonly string[] = []): unknown {
   if (typeof value === 'string') {
     return reviver(value, options, path)
   }
@@ -31,13 +31,13 @@ function parseTransform(value: unknown, options: Options = {}, path?: readonly s
     value !== null
   ) {
     Object.entries(value).forEach(([key, val]: [string, unknown]) => {
-      ;(value as Record<string, unknown>)[key] = parseTransform(val, options, path === undefined ? [key] : [...path, key])
+      ;(value as Record<string, unknown>)[key] = parseTransform(val, options, [...path, key])
     })
   }
   return value
 }
 
-function reviver(value: string, options: Options, path: readonly string[] | undefined): unknown {
+function reviver(value: string, options: Options, path: readonly string[]): unknown {
   const parser = (str: string) => parse(str, options)
   {
     const res = options.reviver?.(path, value, parser)
