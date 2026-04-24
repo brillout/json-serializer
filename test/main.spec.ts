@@ -147,11 +147,7 @@ describe('reviver path', () => {
         return undefined
       },
     })
-    expect(paths).toEqual([
-      ['a', 'b', '0'],
-      ['a', 'b', '1'],
-      ['c'],
-    ])
+    expect(paths).toEqual([['a', 'b', '0'], ['a', 'b', '1'], ['c']])
   })
 
   it('root path is []', () => {
