@@ -6,7 +6,7 @@ export type { Reviver }
 import { types } from './types.js'
 
 type Reviver = (
-  key: undefined | string,
+  path: readonly string[],
   value: string,
   parser: (str: string) => unknown,
 ) => { replacement: unknown; resolved?: boolean } | undefined
@@ -21,9 +21,9 @@ function parse(str: string, options: Options = {}): unknown {
   return parseTransform(value, options)
 }
 
-function parseTransform(value: unknown, options: Options = {}): unknown {
+function parseTransform(value: unknown, options: Options = {}, path: readonly string[] = []): unknown {
   if (typeof value === 'string') {
-    return reviver(value, options)
+    return reviver(value, options, path)
   }
   if (
     // Also matches arrays
@@ -31,21 +31,16 @@ function parseTransform(value: unknown, options: Options = {}): unknown {
     value !== null
   ) {
     Object.entries(value).forEach(([key, val]: [string, unknown]) => {
-      ;(value as Record<string, unknown>)[key] = parseTransform(val, options)
+      ;(value as Record<string, unknown>)[key] = parseTransform(val, options, [...path, key])
     })
   }
   return value
 }
 
-function reviver(value: string, options: Options): unknown {
+function reviver(value: string, options: Options, path: readonly string[]): unknown {
   const parser = (str: string) => parse(str, options)
   {
-    const res = options.reviver?.(
-      // TO-DO/eventually: provide key if some user needs it
-      undefined,
-      value,
-      parser,
-    )
+    const res = options.reviver?.(path, value, parser)
     if (res) {
       if (typeof res.replacement !== 'string') {
         return res.replacement
