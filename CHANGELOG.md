@@ -1,3 +1,12 @@
+## [0.5.23](https://github.com/brillout/json-serializer/compare/v0.5.22...v0.5.23) (2026-04-24)
+
+
+### Features
+
+* pass path to reviver ([#18](https://github.com/brillout/json-serializer/issues/18)) ([2a0efc0](https://github.com/brillout/json-serializer/commit/2a0efc08a18bbc891ab11f46cd393df6a1f0758f))
+
+
+
 ## [0.5.22](https://github.com/brillout/json-serializer/compare/v0.5.21...v0.5.22) (2026-02-22)
 
 
