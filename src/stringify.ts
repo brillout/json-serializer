@@ -33,12 +33,11 @@ function stringify(
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
     /**
-     * Make the serialized output safe to embed inside an HTML `<script>` — including `<script type="application/json">`.
+     * Make the JSON safe to embed inside an HTML `<script>` — must also be used for `<script type="application/json">`.
      *
      * It works by escaping `<` so that a value containing `</script>` can't break out of the tag.
      *
-     * Transparent: `parse()` decodes it back, so only the serialized string
-     * changes, never the parsed value.
+     * Transparent: `parse()` decodes it back, so only the serialized string changes, never the parsed value.
      *
      * https://github.com/brillout/json-serializer/pull/19
      *
@@ -71,7 +70,9 @@ function stringify(
     // Escape `<` (XSS safety): https://github.com/vikejs/vike/pull/2603
     serialized = serialized.replaceAll('<', '\\u003c')
     // Escape `/` (anti-crawl): https://github.com/brillout/json-serializer/pull/19
-    if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) serialized = serialized.replaceAll('/', '\\/')
+    if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) {
+      serialized = serialized.replaceAll('/', '\\/')
+    }
   }
 
   return serialized
