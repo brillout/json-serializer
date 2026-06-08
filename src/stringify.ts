@@ -33,10 +33,15 @@ function stringify(
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
     /**
-     * Make the serialized output safe to embed inside an HTML `<script>` — including
-     * `<script type="application/json">` — by escaping `<` (so a value containing `</script>` can't
-     * break out of the tag). Transparent: `parse()` decodes it back, so only the serialized string
-     * changes, never the parsed value. See https://github.com/brillout/json-serializer/pull/19
+     * Make the serialized output safe to embed inside an HTML `<script>` — including `<script type="application/json">`.
+     *
+     * It works by escaping `<` so that a value containing `</script>` can't break out of the tag.
+     *
+     * Transparent: `parse()` decodes it back, so only the serialized string
+     * changes, never the parsed value.
+     *
+     * https://github.com/brillout/json-serializer/pull/19
+     *
      * @default true
      */
     htmlScriptSafe?:
@@ -44,7 +49,9 @@ function stringify(
       | {
           /**
            * Also escape `/` so that search engines don't crawl URLs contained in the data.
-           * See https://github.com/vikejs/vike/pull/2603
+           *
+           * https://github.com/vikejs/vike/pull/2603
+           *
            * @default true
            */
           escapeURLs?: boolean
@@ -61,10 +68,12 @@ function stringify(
 
   let serialized = serializer(value)
   if (htmlScriptSafe) {
-    // Escape `<` (breakout safety) and `/` (anti-crawl): https://github.com/brillout/json-serializer/pull/19
+    // Escape `<` (XSS safety): https://github.com/vikejs/vike/pull/2603
     serialized = serialized.replaceAll('<', '\\u003c')
+    // Escape `/` (anti-crawl): https://github.com/brillout/json-serializer/pull/19
     if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) serialized = serialized.replaceAll('/', '\\/')
   }
+
   return serialized
 
   function replacer(this: Iterable, key: string, _valueAfterNativeJsonStringify: unknown, path: Path) {

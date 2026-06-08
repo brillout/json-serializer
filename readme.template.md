@@ -29,7 +29,6 @@ Whereas with `@brillout/json-serializer`:
 
  - [Usage](#usage)
  - [Full Example](#full-example)
- - [`htmlScriptSafe`](#htmlscriptsafe)
  - [How it Works](#how-it-works)
 
 
@@ -62,27 +61,6 @@ $ node ./examples/json-serializer.js
 ~~~
 
 The `npm run self-link` is required to be able to self `require('@brillout/json-serializer')`.
-
-<br/>
-
-### `htmlScriptSafe`
-
-The serialized output is made safe to embed inside an HTML `<script>` — including `<script type="application/json">` — **by default**.
-
-It escapes:
- - `<`, so a value containing `</script>` can't break out of the `<script>` tag (which would otherwise be an XSS vector — the HTML parser ends *any* `<script>` at `</script>`, regardless of the `type` attribute).
- - `/`, so search engines don't crawl URLs contained in the data.
-
-It's transparent: `parse()` decodes both back, so only the serialized string changes, never the parsed value.
-
-To opt out:
-
-~~~js
-stringify(value, { htmlScriptSafe: false })                 // don't escape anything
-stringify(value, { htmlScriptSafe: { escapeURLs: false } }) // keep escaping `<`, but not `/`
-~~~
-
-See [#19](https://github.com/brillout/json-serializer/pull/19) for details.
 
 <br/>
 

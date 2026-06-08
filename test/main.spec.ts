@@ -18,7 +18,6 @@ describe('basics', () => {
 describe('escaping', () => {
   it('avoids collision with character `!`', () => {
     ;['!undefined', '!Date:2021-01-12T21:22:42.143Z', '!NaN', '!Infinity', `!RegExp:/^\d+$/g`].forEach((val) => {
-      // htmlScriptSafe: false to assert the raw serialization (it's on by default and would escape the `/`)
       assert(stringify(val, { htmlScriptSafe: false }) === `"!${val}"`)
       assert(parse(stringify(val)) === val)
       assert((parse(stringify({ val })) as any).val === val)
@@ -74,7 +73,6 @@ describe('user-defined replacer', () => {
     }
 
     const objStr = stringify(obj, {
-      // htmlScriptSafe is on by default and would also escape `/`; disable it to demo the manual replacer approach
       htmlScriptSafe: false,
       replacer(_key, value) {
         if (typeof value === 'string') {
