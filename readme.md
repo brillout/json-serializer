@@ -128,6 +128,7 @@ assert(obj.time.getTime() === new Date('2042-01-01').getTime())
 
  - [Usage](#usage)
  - [Full Example](#full-example)
+ - [`htmlScriptSafe`](#htmlscriptsafe)
  - [How it Works](#how-it-works)
 
 
@@ -206,6 +207,26 @@ $ node ./examples/json-serializer.js
 ~~~
 
 The `npm run self-link` is required to be able to self `require('@brillout/json-serializer')`.
+
+<br/>
+
+### `htmlScriptSafe`
+
+Make the serialized output safe to embed inside an HTML `<script>` — including `<script type="application/json">`:
+
+~~~js
+stringify(value, { htmlScriptSafe: true })
+~~~
+
+It escapes `<` so that a value containing `</script>` can't break out of the `<script>` tag (which would otherwise lead to XSS — the HTML parser ends *any* `<script>` at `</script>`, regardless of the `type` attribute). The escape is a regular JSON escape, so `parse()` decodes it back: the option only changes the serialized string, never the parsed value.
+
+To also prevent search engines from crawling URLs contained in the data, escape `/` as well:
+
+~~~js
+stringify(value, { htmlScriptSafe: { escapeURLs: true } })
+~~~
+
+See [#19](https://github.com/brillout/json-serializer/pull/19) for details.
 
 <br/>
 

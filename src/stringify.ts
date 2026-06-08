@@ -32,8 +32,9 @@ function stringify(
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
-    // Make the output safe to embed inside an HTML `<script>` (including `<script type="application/json">`).
-    htmlScriptSafe?: boolean
+    // Make the output safe to embed inside an HTML `<script>` (incl. `<script type="application/json">`).
+    // With `{ escapeURLs: true }`, also escape `/` so search engines don't crawl URLs in the data.
+    htmlScriptSafe?: boolean | { escapeURLs?: boolean }
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
@@ -45,9 +46,12 @@ function stringify(
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
   let serialized = serializer(value)
-  // Escape `<` so the output can't break out of an HTML <script> (e.g. `</script>`):
-  // https://github.com/brillout/json-serializer/pull/19
-  if (htmlScriptSafe) serialized = serialized.replaceAll('<', '\\u003c')
+  // Escape `<` so the output can't break out of an HTML <script>; `escapeURLs` also escapes `/`
+  // (so search engines don't crawl URLs in the data). See https://github.com/brillout/json-serializer/pull/19
+  if (htmlScriptSafe) {
+    serialized = serialized.replaceAll('<', '\\u003c')
+    if (typeof htmlScriptSafe === 'object' && htmlScriptSafe.escapeURLs) serialized = serialized.replaceAll('/', '\\/')
+  }
   return serialized
 
   function replacer(this: Iterable, key: string, _valueAfterNativeJsonStringify: unknown, path: Path) {

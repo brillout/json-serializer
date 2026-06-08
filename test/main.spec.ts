@@ -244,4 +244,16 @@ describe('htmlScriptSafe', () => {
   it('is off by default', () => {
     expect(stringify({ a: '<b>' })).toBe('{"a":"<b>"}')
   })
+  it('`{ escapeURLs: true }` also escapes `/` (and still escapes `<`)', () => {
+    const value = { url: 'https://example.com/a/b', html: '</script>' }
+    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: true } })
+    expect(serialized).toContain('https:\\/\\/example.com\\/a\\/b') // URLs escaped (anti-crawl)
+    expect(serialized).not.toContain('://') // no raw protocol slashes left for crawlers
+    expect(serialized.includes('</script>')).toBe(false) // `<` still escaped
+    expect(parse(serialized)).toEqual(value) // transparent round-trip
+  })
+  it('does not escape `/` without escapeURLs', () => {
+    expect(stringify({ url: 'a/b' }, { htmlScriptSafe: true })).toBe('{"url":"a/b"}')
+    expect(stringify({ url: 'a/b' }, { htmlScriptSafe: { escapeURLs: false } })).toBe('{"url":"a/b"}')
+  })
 })
