@@ -64,7 +64,7 @@ function stringify(
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
   let serialized = serializer(value)
-  // No `parse()` counterpart is needed: `<` and `\/` are standard JSON escapes that `JSON.parse()` decodes back to `<` and `/`, so the round-trip stays transparent (only the serialized string changes).
+  // No `parse()` counterpart is needed: `\u003c` and `\/` are standard JSON escapes that `JSON.parse()` decodes back to `<` and `/`, so the round-trip stays transparent (only the serialized string changes).
   if (htmlScriptSafe) {
     // Escape `<` (XSS safety): https://github.com/brillout/json-serializer/pull/19
     serialized = serialized.replaceAll('<', '\\u003c')
