@@ -243,6 +243,11 @@ describe('htmlScriptSafe', () => {
     const value = { html: '</script><!--<script><img src=x onerror=alert(1)>', url: 'https://example.com/a/b' }
     expect(parse(stringify(value))).toEqual(value)
   })
+  it('parse() decodes the JSON escapes htmlScriptSafe relies on (`\\u003c` -> `<`, `\\/` -> `/`)', () => {
+    // No reviver / parse() change is needed: these are standard JSON escapes that JSON.parse decodes natively.
+    expect(parse('"\\u003c"')).toBe('<')
+    expect(parse('"\\/"')).toBe('/')
+  })
   it('escapes every `<`, also in keys and nested values', () => {
     const value = { '<k>': ['<a>', { '<b>': '<c>' }] }
     const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: false } })
