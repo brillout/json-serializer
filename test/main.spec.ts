@@ -18,7 +18,8 @@ describe('basics', () => {
 describe('escaping', () => {
   it('avoids collision with character `!`', () => {
     ;['!undefined', '!Date:2021-01-12T21:22:42.143Z', '!NaN', '!Infinity', `!RegExp:/^\d+$/g`].forEach((val) => {
-      assert(stringify(val) === `"!${val}"`)
+      // htmlScriptSafe: false to assert the raw serialization (it's on by default and would escape the `/`)
+      assert(stringify(val, { htmlScriptSafe: false }) === `"!${val}"`)
       assert(parse(stringify(val)) === val)
       assert((parse(stringify({ val })) as any).val === val)
       assert((parse(stringify({ val: { val } })) as any).val.val === val)
@@ -73,6 +74,8 @@ describe('user-defined replacer', () => {
     }
 
     const objStr = stringify(obj, {
+      // htmlScriptSafe is on by default and would also escape `/`; disable it to demo the manual replacer approach
+      htmlScriptSafe: false,
       replacer(_key, value) {
         if (typeof value === 'string') {
           return { replacement: value.replaceAll('/', slashReplacer), resolved: false }
@@ -223,37 +226,37 @@ describe('sortObjectKeys option', () => {
 })
 
 describe('htmlScriptSafe', () => {
-  it('escapes `<` so the output is safe to embed in a <script>', () => {
-    // Without the option, `</script>` ends up verbatim in the output (would break out of a <script>).
-    expect(stringify({ a: '</script>' })).toBe('{"a":"</script>"}')
-    // With the option, `<` is escaped to the JSON escape `<`.
-    const serialized = stringify({ a: '</script>' }, { htmlScriptSafe: true })
+  it('is on by default — escapes `<` and `/`', () => {
+    expect(stringify({ a: '<b>', u: 'x/y' })).toBe('{"a":"\\u003cb>","u":"x\\/y"}')
+  })
+  it('escapes `<` so a value containing `</script>` cannot break out of a <script>', () => {
+    const serialized = stringify({ a: '</script>' }, { htmlScriptSafe: { escapeURLs: false } })
     expect(serialized).toBe('{"a":"\\u003c/script>"}')
     expect(serialized.includes('</script>')).toBe(false)
   })
+  it('escapeURLs escapes `/` (anti-crawl)', () => {
+    const value = { url: 'https://example.com/a/b' }
+    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: true } })
+    expect(serialized).toContain('https:\\/\\/example.com\\/a\\/b')
+    expect(serialized).not.toContain('://')
+    expect(parse(serialized)).toEqual(value)
+  })
   it('is transparent: parse() recovers the original value', () => {
     const value = { html: '</script><!--<script><img src=x onerror=alert(1)>', url: 'https://example.com/a/b' }
-    expect(parse(stringify(value, { htmlScriptSafe: true }))).toEqual(value)
+    expect(parse(stringify(value))).toEqual(value)
   })
   it('escapes every `<`, also in keys and nested values', () => {
     const value = { '<k>': ['<a>', { '<b>': '<c>' }] }
-    const serialized = stringify(value, { htmlScriptSafe: true })
+    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: false } })
     expect(serialized.includes('<')).toBe(false)
     expect(parse(serialized)).toEqual(value)
   })
-  it('is off by default', () => {
-    expect(stringify({ a: '<b>' })).toBe('{"a":"<b>"}')
+  it('`{ escapeURLs: false }` keeps `/` but still escapes `<`', () => {
+    expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: { escapeURLs: false } })).toBe(
+      '{"url":"a/b","x":"\\u003cy>"}',
+    )
   })
-  it('`{ escapeURLs: true }` also escapes `/` (and still escapes `<`)', () => {
-    const value = { url: 'https://example.com/a/b', html: '</script>' }
-    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: true } })
-    expect(serialized).toContain('https:\\/\\/example.com\\/a\\/b') // URLs escaped (anti-crawl)
-    expect(serialized).not.toContain('://') // no raw protocol slashes left for crawlers
-    expect(serialized.includes('</script>')).toBe(false) // `<` still escaped
-    expect(parse(serialized)).toEqual(value) // transparent round-trip
-  })
-  it('does not escape `/` without escapeURLs', () => {
-    expect(stringify({ url: 'a/b' }, { htmlScriptSafe: true })).toBe('{"url":"a/b"}')
-    expect(stringify({ url: 'a/b' }, { htmlScriptSafe: { escapeURLs: false } })).toBe('{"url":"a/b"}')
+  it('`htmlScriptSafe: false` disables all escaping', () => {
+    expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: false })).toBe('{"url":"a/b","x":"<y>"}')
   })
 })

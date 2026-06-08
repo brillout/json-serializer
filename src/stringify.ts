@@ -23,7 +23,7 @@ function stringify(
     valueName,
     sortObjectKeys,
     replacer: replacerUserProvided,
-    htmlScriptSafe,
+    htmlScriptSafe = true,
   }: {
     forbidReactElements?: boolean
     space?: number
@@ -32,9 +32,22 @@ function stringify(
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
-    // Make the output safe to embed inside an HTML `<script>` (incl. `<script type="application/json">`).
-    // With `{ escapeURLs: true }`, also escape `/` so search engines don't crawl URLs in the data.
-    htmlScriptSafe?: boolean | { escapeURLs?: boolean }
+    /**
+     * Make the serialized output safe to embed inside an HTML `<script>` — including
+     * `<script type="application/json">` — by escaping `<` (so a value containing `</script>` can't
+     * break out of the tag). Transparent: `parse()` decodes it back, so only the serialized string
+     * changes, never the parsed value. See https://github.com/brillout/json-serializer/pull/19
+     * @default true
+     */
+    htmlScriptSafe?:
+      | boolean
+      | {
+          /**
+           * Also escape `/` so that search engines don't crawl URLs contained in the data.
+           * @default true
+           */
+          escapeURLs?: boolean
+        }
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
@@ -46,11 +59,10 @@ function stringify(
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
   let serialized = serializer(value)
-  // Escape `<` so the output can't break out of an HTML <script>; `escapeURLs` also escapes `/`
-  // (so search engines don't crawl URLs in the data). See https://github.com/brillout/json-serializer/pull/19
   if (htmlScriptSafe) {
+    // Escape `<` (breakout safety) and `/` (anti-crawl): https://github.com/brillout/json-serializer/pull/19
     serialized = serialized.replaceAll('<', '\\u003c')
-    if (typeof htmlScriptSafe === 'object' && htmlScriptSafe.escapeURLs) serialized = serialized.replaceAll('/', '\\/')
+    if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) serialized = serialized.replaceAll('/', '\\/')
   }
   return serialized
 
