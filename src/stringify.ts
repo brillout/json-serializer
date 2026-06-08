@@ -23,6 +23,7 @@ function stringify(
     valueName,
     sortObjectKeys,
     replacer: replacerUserProvided,
+    htmlScriptSafe,
   }: {
     forbidReactElements?: boolean
     space?: number
@@ -31,6 +32,8 @@ function stringify(
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
+    // Make the output safe to embed inside an HTML `<script>` (including `<script type="application/json">`).
+    htmlScriptSafe?: boolean
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
@@ -41,7 +44,17 @@ function stringify(
   //    - React elements
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
-  return serializer(value)
+  let serialized = serializer(value)
+  if (htmlScriptSafe) {
+    // Escaping `<` prevents the output from breaking out of an HTML `<script>` (e.g. `</script>`,
+    // `<!--`, `<script`). Crucially, this applies to `<script type="application/json">` too: the HTML
+    // tokenizer ends *any* `<script>` at `</script>` regardless of `type`, so a value containing
+    // `</script>` would otherwise break out and lead to XSS. Reproduction: https://jsfiddle.net/wy6zgn37/
+    // `<` is a valid JSON escape, so `parse()`/`JSON.parse()` decode it back to `<` — i.e. this is
+    // transparent: it only changes the serialized string, never the parsed value.
+    serialized = serialized.replaceAll('<', '\\u003c')
+  }
+  return serialized
 
   function replacer(this: Iterable, key: string, _valueAfterNativeJsonStringify: unknown, path: Path) {
     const valueOriginal = this[key]

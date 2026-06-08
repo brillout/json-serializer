@@ -221,3 +221,27 @@ describe('sortObjectKeys option', () => {
     }
   })
 })
+
+describe('htmlScriptSafe', () => {
+  it('escapes `<` so the output is safe to embed in a <script>', () => {
+    // Without the option, `</script>` ends up verbatim in the output (would break out of a <script>).
+    expect(stringify({ a: '</script>' })).toBe('{"a":"</script>"}')
+    // With the option, `<` is escaped to the JSON escape `<`.
+    const serialized = stringify({ a: '</script>' }, { htmlScriptSafe: true })
+    expect(serialized).toBe('{"a":"\\u003c/script>"}')
+    expect(serialized.includes('</script>')).toBe(false)
+  })
+  it('is transparent: parse() recovers the original value', () => {
+    const value = { html: '</script><!--<script><img src=x onerror=alert(1)>', url: 'https://example.com/a/b' }
+    expect(parse(stringify(value, { htmlScriptSafe: true }))).toEqual(value)
+  })
+  it('escapes every `<`, also in keys and nested values', () => {
+    const value = { '<k>': ['<a>', { '<b>': '<c>' }] }
+    const serialized = stringify(value, { htmlScriptSafe: true })
+    expect(serialized.includes('<')).toBe(false)
+    expect(parse(serialized)).toEqual(value)
+  })
+  it('is off by default', () => {
+    expect(stringify({ a: '<b>' })).toBe('{"a":"<b>"}')
+  })
+})
