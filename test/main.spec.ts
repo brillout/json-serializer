@@ -259,6 +259,11 @@ describe('htmlScriptSafe', () => {
       '{"url":"a/b","x":"\\u003cy>"}',
     )
   })
+  it('`{ escapeScripts: false }` keeps `<` but still escapes `/`', () => {
+    expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: { escapeScripts: false } })).toBe(
+      '{"url":"a\\/b","x":"<y>"}',
+    )
+  })
   it('`htmlScriptSafe: false` disables all escaping', () => {
     expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: false })).toBe('{"url":"a/b","x":"<y>"}')
   })

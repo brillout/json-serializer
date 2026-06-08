@@ -33,11 +33,15 @@ function stringify(
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
     /**
-     * Make the JSON safe to embed inside an HTML `<script>` — must also be used for `<script type="application/json">`.
+     * Make the JSON safe to embed inside an HTML `<script>` — MUST ALSO BE USED for `<script type="application/json">`.
      *
-     * It works by escaping `<` so that a value containing `</script>` can't break out of the tag.
+     * Escape:
+     * - `<` so that a value containing `</script>` can't break out of the `<script>` tag (XSS safety)
+     * - `/` to prevent Google from crawling URLs inside JSON inlined in HTML
      *
-     * https://github.com/brillout/json-serializer/pull/19
+     * See also:
+     * - https://github.com/brillout/json-serializer/pull/19
+     * - https://github.com/vikejs/vike/pull/2603
      *
      * @default true
      */
@@ -45,7 +49,15 @@ function stringify(
       | boolean
       | {
           /**
-           * Also escape `/` so that Google doesn't crawl URLs inside JSON inlined in HTML.
+           * Escape `<` so that a value containing `</script>` can't break out of the `<script>` tag (XSS safety).
+           *
+           * https://github.com/brillout/json-serializer/pull/19
+           *
+           * @default true
+           */
+          escapeScripts?: boolean
+          /**
+           * Escape `/` so that Google doesn't crawl URLs inside JSON inlined in HTML.
            *
            * https://github.com/vikejs/vike/pull/2603
            *
@@ -67,7 +79,9 @@ function stringify(
   // No `parse()` counterpart is needed: `\u003c` and `\/` are standard JSON escapes that `JSON.parse()` decodes back to `<` and `/`, so the round-trip stays transparent (only the serialized string changes).
   if (htmlScriptSafe) {
     // Escape `<` (XSS safety): https://github.com/brillout/json-serializer/pull/19
-    serialized = serialized.replaceAll('<', '\\u003c')
+    if (htmlScriptSafe === true || htmlScriptSafe.escapeScripts !== false) {
+      serialized = serialized.replaceAll('<', '\\u003c')
+    }
     // Escape `/` (anti-crawl): https://github.com/vikejs/vike/pull/2603
     if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) {
       serialized = serialized.replaceAll('/', '\\/')
