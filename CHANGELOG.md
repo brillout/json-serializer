@@ -1,3 +1,12 @@
+## [0.5.24](https://github.com/brillout/json-serializer/compare/v0.5.23...v0.5.24) (2026-06-08)
+
+
+### Bug Fixes
+
+* add `htmlScriptSafe` option to `stringify()` ([#19](https://github.com/brillout/json-serializer/issues/19)) ([ca93a6d](https://github.com/brillout/json-serializer/commit/ca93a6df27f3b016e019c7a29d2d4ef21977f003))
+
+
+
 ## [0.5.23](https://github.com/brillout/json-serializer/compare/v0.5.22...v0.5.23) (2026-04-24)
 
 
