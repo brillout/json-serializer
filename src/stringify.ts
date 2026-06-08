@@ -23,6 +23,7 @@ function stringify(
     valueName,
     sortObjectKeys,
     replacer: replacerUserProvided,
+    htmlScriptSafe = true,
   }: {
     forbidReactElements?: boolean
     space?: number
@@ -31,6 +32,27 @@ function stringify(
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#replacer
     // Used by Vike: https://github.com/vikejs/vike/blob/b4ba6b70e6bdc2e1f460c0d2e4c3faae5d0a733c/vike/node/plugin/plugins/importUserCode/v1-design/getConfigValuesSerialized.ts#L78
     replacer?: Replacer
+    /**
+     * Make the JSON safe to embed inside an HTML `<script>` — must also be used for `<script type="application/json">`.
+     *
+     * It works by escaping `<` so that a value containing `</script>` can't break out of the tag.
+     *
+     * https://github.com/brillout/json-serializer/pull/19
+     *
+     * @default true
+     */
+    htmlScriptSafe?:
+      | boolean
+      | {
+          /**
+           * Also escape `/` so that Google doesn't crawl URLs inside JSON inlined in HTML.
+           *
+           * https://github.com/vikejs/vike/pull/2603
+           *
+           * @default true
+           */
+          escapeURLs?: boolean
+        }
   } = {},
 ): string {
   // The only error `JSON.stringify()` can throw is `TypeError "cyclic object value"`.
@@ -41,7 +63,18 @@ function stringify(
   //    - React elements
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
-  return serializer(value)
+  let serialized = serializer(value)
+  // No `parse()` counterpart is needed: `\u003c` and `\/` are standard JSON escapes that `JSON.parse()` decodes back to `<` and `/`, so the round-trip stays transparent (only the serialized string changes).
+  if (htmlScriptSafe) {
+    // Escape `<` (XSS safety): https://github.com/brillout/json-serializer/pull/19
+    serialized = serialized.replaceAll('<', '\\u003c')
+    // Escape `/` (anti-crawl): https://github.com/vikejs/vike/pull/2603
+    if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) {
+      serialized = serialized.replaceAll('/', '\\/')
+    }
+  }
+
+  return serialized
 
   function replacer(this: Iterable, key: string, _valueAfterNativeJsonStringify: unknown, path: Path) {
     const valueOriginal = this[key]

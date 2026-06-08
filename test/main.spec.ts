@@ -18,7 +18,7 @@ describe('basics', () => {
 describe('escaping', () => {
   it('avoids collision with character `!`', () => {
     ;['!undefined', '!Date:2021-01-12T21:22:42.143Z', '!NaN', '!Infinity', `!RegExp:/^\d+$/g`].forEach((val) => {
-      assert(stringify(val) === `"!${val}"`)
+      assert(stringify(val, { htmlScriptSafe: false }) === `"!${val}"`)
       assert(parse(stringify(val)) === val)
       assert((parse(stringify({ val })) as any).val === val)
       assert((parse(stringify({ val: { val } })) as any).val.val === val)
@@ -73,6 +73,7 @@ describe('user-defined replacer', () => {
     }
 
     const objStr = stringify(obj, {
+      htmlScriptSafe: false,
       replacer(_key, value) {
         if (typeof value === 'string') {
           return { replacement: value.replaceAll('/', slashReplacer), resolved: false }
@@ -219,5 +220,46 @@ describe('sortObjectKeys option', () => {
         assert(keys[0] === 'c')
       }
     }
+  })
+})
+
+describe('htmlScriptSafe', () => {
+  it('is on by default — escapes `<` and `/`', () => {
+    expect(stringify({ a: '<b>', u: 'x/y' })).toBe('{"a":"\\u003cb>","u":"x\\/y"}')
+  })
+  it('escapes `<` so a value containing `</script>` cannot break out of a <script>', () => {
+    const serialized = stringify({ a: '</script>' }, { htmlScriptSafe: { escapeURLs: false } })
+    expect(serialized).toBe('{"a":"\\u003c/script>"}')
+    expect(serialized.includes('</script>')).toBe(false)
+  })
+  it('escapeURLs escapes `/` (anti-crawl)', () => {
+    const value = { url: 'https://example.com/a/b' }
+    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: true } })
+    expect(serialized).toContain('https:\\/\\/example.com\\/a\\/b')
+    expect(serialized).not.toContain('://')
+    expect(parse(serialized)).toEqual(value)
+  })
+  it('is transparent: parse() recovers the original value', () => {
+    const value = { html: '</script><!--<script><img src=x onerror=alert(1)>', url: 'https://example.com/a/b' }
+    expect(parse(stringify(value))).toEqual(value)
+  })
+  it('parse() decodes the JSON escapes htmlScriptSafe relies on (`\\u003c` -> `<`, `\\/` -> `/`)', () => {
+    // No reviver / parse() change is needed: these are standard JSON escapes that JSON.parse decodes natively.
+    expect(parse('"\\u003c"')).toBe('<')
+    expect(parse('"\\/"')).toBe('/')
+  })
+  it('escapes every `<`, also in keys and nested values', () => {
+    const value = { '<k>': ['<a>', { '<b>': '<c>' }] }
+    const serialized = stringify(value, { htmlScriptSafe: { escapeURLs: false } })
+    expect(serialized.includes('<')).toBe(false)
+    expect(parse(serialized)).toEqual(value)
+  })
+  it('`{ escapeURLs: false }` keeps `/` but still escapes `<`', () => {
+    expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: { escapeURLs: false } })).toBe(
+      '{"url":"a/b","x":"\\u003cy>"}',
+    )
+  })
+  it('`htmlScriptSafe: false` disables all escaping', () => {
+    expect(stringify({ url: 'a/b', x: '<y>' }, { htmlScriptSafe: false })).toBe('{"url":"a/b","x":"<y>"}')
   })
 })
