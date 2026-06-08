@@ -45,15 +45,9 @@ function stringify(
   const serializer = (val: unknown) => JSON.stringify(val, addPathToReplacer(replacer), space)
 
   let serialized = serializer(value)
-  if (htmlScriptSafe) {
-    // Escaping `<` prevents the output from breaking out of an HTML `<script>` (e.g. `</script>`,
-    // `<!--`, `<script`). Crucially, this applies to `<script type="application/json">` too: the HTML
-    // tokenizer ends *any* `<script>` at `</script>` regardless of `type`, so a value containing
-    // `</script>` would otherwise break out and lead to XSS. Reproduction: https://jsfiddle.net/wy6zgn37/
-    // `<` is a valid JSON escape, so `parse()`/`JSON.parse()` decode it back to `<` — i.e. this is
-    // transparent: it only changes the serialized string, never the parsed value.
-    serialized = serialized.replaceAll('<', '\\u003c')
-  }
+  // Escape `<` so the output can't break out of an HTML <script> (e.g. `</script>`):
+  // https://github.com/brillout/json-serializer/pull/19
+  if (htmlScriptSafe) serialized = serialized.replaceAll('<', '\\u003c')
   return serialized
 
   function replacer(this: Iterable, key: string, _valueAfterNativeJsonStringify: unknown, path: Path) {
