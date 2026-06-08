@@ -67,9 +67,9 @@ function stringify(
 
   let serialized = serializer(value)
   if (htmlScriptSafe) {
-    // Escape `<` (XSS safety): https://github.com/vikejs/vike/pull/2603
+    // Escape `<` (XSS safety): https://github.com/brillout/json-serializer/pull/19
     serialized = serialized.replaceAll('<', '\\u003c')
-    // Escape `/` (anti-crawl): https://github.com/brillout/json-serializer/pull/19
+    // Escape `/` (anti-crawl): https://github.com/vikejs/vike/pull/2603
     if (htmlScriptSafe === true || htmlScriptSafe.escapeURLs !== false) {
       serialized = serialized.replaceAll('/', '\\/')
     }
