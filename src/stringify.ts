@@ -44,6 +44,7 @@ function stringify(
       | {
           /**
            * Also escape `/` so that search engines don't crawl URLs contained in the data.
+           * See https://github.com/vikejs/vike/pull/2603
            * @default true
            */
           escapeURLs?: boolean
