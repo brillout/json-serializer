@@ -48,7 +48,7 @@ function stringify(
       | boolean
       | {
           /**
-           * Also escape `/` so that search engines don't crawl URLs contained in the data.
+           * Also escape `/` so that Google doesn't crawl URLs inside JSON that is inlined in HTML.
            *
            * https://github.com/vikejs/vike/pull/2603
            *
