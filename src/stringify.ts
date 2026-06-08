@@ -37,8 +37,6 @@ function stringify(
      *
      * It works by escaping `<` so that a value containing `</script>` can't break out of the tag.
      *
-     * Transparent: `parse()` decodes it back, so only the serialized string changes, never the parsed value.
-     *
      * https://github.com/brillout/json-serializer/pull/19
      *
      * @default true
