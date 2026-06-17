@@ -60,6 +60,8 @@
     "*.js"
   ],
   "license": "MIT",
+	"homepage": "https://github.com/brillout/json-serializer",
+	"bugs": "https://github.com/brillout/json-serializer/issues",
   "publishConfig": {
     "access": "public"
   }
