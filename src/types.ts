@@ -69,6 +69,12 @@ const types: readonly Type<any, any>[] = [
       '!Set:' + serializer(Array.from(val.values())),
     deserialize: (str, parser) => new Set(parser(str.slice('!Set:'.length))),
   }),
+  ts({
+    is: (val) => val instanceof Uint8Array,
+    match: (str) => str.startsWith('!Uint8Array:'),
+    serialize: (val: Uint8Array) => '!Uint8Array:' + toBase64(val),
+    deserialize: (str) => fromBase64(str.slice('!Uint8Array:'.length)),
+  }),
   // Avoid collisions with the special strings defined above
   ts({
     is: (val) => typeof val === 'string' && val.startsWith('!'),
@@ -88,4 +94,19 @@ type Type<ValueType, IntermediateType> = {
 // Type check
 function ts<T, IntermediateType>(t: Type<T, IntermediateType>) {
   return t
+}
+
+function toBase64(bytes: Uint8Array): string {
+  let binary = ''
+  // In slices: spreading a large array into a single call overflows the stack
+  for (let i = 0; i < bytes.length; i += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
+  }
+  return btoa(binary)
+}
+function fromBase64(base64: string): Uint8Array {
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+  return bytes
 }

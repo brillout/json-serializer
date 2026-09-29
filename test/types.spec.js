@@ -47,6 +47,15 @@ describe('types', () => {
     assert(s1.has('7') === true)
     assert(s2.has('7') === true)
   })
+  it('Uint8Array', () => {
+    for (const bytes of [new Uint8Array([0, 128, 255]), new Uint8Array(), new Uint8Array(200000).fill(0xc3)]) {
+      const copy = parse(stringify(bytes))
+      assert(copy instanceof Uint8Array)
+      assert.deepStrictEqual(copy, bytes)
+    }
+    const copy = parse(stringify({ bytes: new Uint8Array([60, 47, 115]) }))
+    assert.deepStrictEqual(copy.bytes, new Uint8Array([60, 47, 115]))
+  })
   it('Map', () => {
     const m1 = new Map([[{ a: undefined }, [null, undefined, 42]]])
     const m2 = parse(stringify(m1))
