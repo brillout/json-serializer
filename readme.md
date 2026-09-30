@@ -84,6 +84,7 @@ Same as JSON but with added support for:
  - `Map`
  - `BigInt`
  - `RegExp`
+ - `Uint8Array`
  - `NaN`
  - `Infinity`
 
