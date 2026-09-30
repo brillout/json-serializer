@@ -1,3 +1,12 @@
+## [0.5.26](https://github.com/brillout/json-serializer/compare/v0.5.25...v0.5.26) (2026-09-30)
+
+
+### Bug Fixes
+
+* support Uint8Array ([#21](https://github.com/brillout/json-serializer/issues/21)) ([61f3783](https://github.com/brillout/json-serializer/commit/61f378323abc595bf36f7fe1597006c8e6f4e653))
+
+
+
 ## [0.5.25](https://github.com/brillout/json-serializer/compare/v0.5.24...v0.5.25) (2026-06-08)
 
 
@@ -288,6 +297,3 @@
 ### BREAKING CHANGES
 
 * Module `@brillout/json-serializer` doesn't exist anymore: load `@brillout/json-serializer/parse` and `@brillout/json-serializer/stringify` instead. (To reduce loaded KBs on the browser-side.)
-
-
-
