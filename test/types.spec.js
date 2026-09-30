@@ -53,6 +53,27 @@ describe('types', () => {
       assert(copy instanceof Uint8Array)
       assert.deepStrictEqual(copy, bytes)
     }
+    // Every base64url character and padding length, through both the native and the fallback conversion
+    const all = new Uint8Array(256).map((_, i) => i)
+    for (let n = 0; n <= 6; n++) {
+      for (const native of [true, false]) {
+        const { toBase64 } = Uint8Array.prototype
+        const { fromBase64 } = Uint8Array
+        if (!native) {
+          delete Uint8Array.prototype.toBase64
+          delete Uint8Array.fromBase64
+        }
+        try {
+          const bytes = all.subarray(0, 250 + n)
+          const serialized = stringify(bytes)
+          assert(!serialized.includes('/') && !serialized.includes('='))
+          assert.deepStrictEqual(parse(serialized), bytes.slice())
+        } finally {
+          if (toBase64) Uint8Array.prototype.toBase64 = toBase64
+          if (fromBase64) Uint8Array.fromBase64 = fromBase64
+        }
+      }
+    }
     const copy = parse(stringify({ bytes: new Uint8Array([60, 47, 115]) }))
     assert.deepStrictEqual(copy.bytes, new Uint8Array([60, 47, 115]))
   })

@@ -96,16 +96,26 @@ function ts<T, IntermediateType>(t: Type<T, IntermediateType>) {
   return t
 }
 
+// base64url without padding: no `/` for `htmlScriptSafe` to escape
+// `Uint8Array.prototype.toBase64()` / `Uint8Array.fromBase64()` are much faster than the `btoa()` / `atob()` fallback
+type Uint8ArrayBase64 = {
+  toBase64?: (this: Uint8Array, options: { alphabet: 'base64url'; omitPadding: boolean }) => string
+  fromBase64?: (str: string, options: { alphabet: 'base64url' }) => Uint8Array
+}
 function toBase64(bytes: Uint8Array): string {
+  const { toBase64 } = Uint8Array.prototype as Uint8ArrayBase64
+  if (toBase64) return toBase64.call(bytes, { alphabet: 'base64url', omitPadding: true })
   let binary = ''
   // In slices: spreading a large array into a single call overflows the stack
   for (let i = 0; i < bytes.length; i += 0x8000) {
     binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
   }
-  return btoa(binary)
+  return btoa(binary).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '')
 }
-function fromBase64(base64: string): Uint8Array {
-  const binary = atob(base64)
+function fromBase64(str: string): Uint8Array {
+  const { fromBase64 } = Uint8Array as Uint8ArrayBase64
+  if (fromBase64) return fromBase64(str, { alphabet: 'base64url' })
+  const binary = atob(str.replaceAll('-', '+').replaceAll('_', '/') + '==='.slice(0, (4 - (str.length % 4)) % 4))
   const bytes = new Uint8Array(binary.length)
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
   return bytes
