@@ -1,3 +1,12 @@
+## [0.5.27](https://github.com/brillout/json-serializer/compare/v0.5.26...v0.5.27) (2026-09-30)
+
+
+### Bug Fixes
+
+* use Node16 module resolution (node10 removed in TypeScript 7) ([#22](https://github.com/brillout/json-serializer/issues/22)) ([0e65b06](https://github.com/brillout/json-serializer/commit/0e65b06270bc81dcc2e28506772a76bcc5d8109a))
+
+
+
 ## [0.5.26](https://github.com/brillout/json-serializer/compare/v0.5.25...v0.5.26) (2026-09-30)
 
 
